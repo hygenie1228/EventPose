@@ -1,0 +1,11 @@
+# Symbolic links to external datasets and storage
+/orig_dataset
+/exp
+/etri_processed
+/dataset
+/data
+
+# Local experiment storage and Python caches
+/.experiment_storage/
+__pycache__/
+*.py[cod]
