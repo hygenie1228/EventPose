@@ -51,3 +51,7 @@ AI Agent iframe typography now inherits the parent Chat's message/editor/compose
 Workspace links in Chat/AI Agent messages now open the main file viewer. The embedded AI Agent forwards file-open requests to its same-origin parent instead of updating its hidden local viewer. Workspace-root paths, workspace absolute paths with optional line numbers, file URIs, and same-origin file/media links are normalized; external links retain their separate-tab behavior. Markdown-relative links still resolve against the source file, while root-prefixed project paths avoid accidental duplicate directories.
 
 On phones, a clicked report opens a full-screen viewer overlay with a return-to-chat button. Embedded Agent initialization no longer reopens the parent's last file, preventing it from unexpectedly covering the chat during pane switches. Browser fixtures verified Chat links, Agent forwarding, file URIs, external links, and mobile return navigation at 1280px and 390px without model calls or JavaScript errors.
+
+### Remove the bottom connection/status strip
+
+Removed the bottom Workspace connected/host/UTF-8 footer and its JavaScript bindings. The workspace now extends to the viewport bottom at desktop, compact laptop, and phone sizes. Browser verification passed at 1600×1000, 1280×800, 1024×650, and 390×844 with no footer or JavaScript errors; existing chat reconnection remains automatic.

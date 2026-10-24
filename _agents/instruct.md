@@ -100,3 +100,5 @@
 - In one-panel view, place Chat and AI Agent mode tabs together in the panel heading, including on phones. Keep their tabs/conversations independent and preserve unsent drafts across mode/layout changes. Remove the Research partner/Ready/current CLI login info banner.
 - Active Goal sessions accept additional chat messages through native turn/steer without a duplicate turn or goal reset; keep both Send and Stop available. AI Agent message/composer font sizes must match Chat, independent of iframe width.
 - Workspace report/file links in Chat or AI Agent messages must open the shared Viewer, including links from the embedded Agent pane. On phones use a full-screen viewer with a return-to-chat control. Preserve external web links as external links.
+
+- Remove the bottom Workspace connected/host/UTF-8 status bar entirely and give its space to the workspace.
