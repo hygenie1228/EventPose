@@ -12,3 +12,7 @@ Keep only this README and directories at the top level of `src/`. The layout fol
 Model-specific training and evaluation executables live in `scripts/train_multihmr.py`, `scripts/train_nlf.py`, `scripts/evaluate_multihmr.py`, and `scripts/evaluate_nlf.py`. Shared entry points are `scripts/train.py`, `scripts/demo.py`, `scripts/evaluate.py`, and `scripts/visualize.py`. Temporary experiments, inspections, benchmarks, monitors, and migration helpers belong in `tools/`.
 
 Store experiment configurations, logs, metrics, and fine-tuned checkpoints in `exp/YYMMDD/{experiment}/`, with checkpoints under `checkpoints/`. Reuse pretrained weights and licensed SMPL-X assets from `data/`. Source datasets are read-only. Store geometric coordinates in metres and report pose errors in millimetres.
+
+## Browser research workspace
+
+`apps/research-workbench/` contains the browser file/media editor, independent Chat and AI Agent panes, native Codex goal integration, and lightweight server/account telemetry, as explicitly requested by the user. Its backend is independent of motion training and evaluation.

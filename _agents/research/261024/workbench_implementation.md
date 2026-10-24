@@ -12,8 +12,16 @@ An external-connectivity report revealed that server-local HTTP 200 did not prov
 
 The user then requested password login, larger text and close buttons, light/dark themes, two simultaneous chats, independent scrolling, visible message composers, and loading indicators. The clarified default layout is a full-height Codex panel on the right and a second Codex panel below the viewer, rather than two stacked in the right column. The bottom panel can be resized up to 50% of the workspace height. One/two-panel selection and theme selection use top-bar buttons. The configured password is stored only as a salted scrypt hash in private runtime state; the old session/access token was rotated.
 
-The user requires all Agent records under `_agents/research/`, and reports under `_agents/report/`. Browser user, assistant, and tool events are now written to `_agents/research/YYMMDD/agent_sessions/` as full JSONL and readable Markdown, including backfill of retained browser conversations. This file records implementation decisions for the primary agent. Training/evaluation progress checks remain limited to once every 30 minutes.
+The user requires all Agent records under `_agents/research/`, and reports under `_agents/report/`. Browser user, assistant, and tool events are now written to `_agents/research/YYMMDD/` as full JSONL and readable Markdown, including backfill of retained browser conversations. This file records implementation decisions for the primary agent. Training/evaluation progress checks remain limited to once every 30 minutes.
 
 ### Wider Codex panel and animated loading
 
 The user requested more width for the right Codex pane and explicit loading animations. Increased the default right pane to 60% of the viewport and removed the former hard-coded 750px resize ceiling; the available workspace now determines the maximum. File/chat loading uses an animated spinner. Active Codex work adds a spinner, animated dots, and a pulsing status badge. No additional model request is needed to verify these presentation changes.
+
+### Native goals, permissions, telemetry, and handoff
+
+Moved the web application to `src/apps/research-workbench/`. Chat and AI Agent now have pane-owned tabs and both use real workspace-write CLI permissions. A real Chat file-write smoke test succeeded. Right-click file/directory rename and recoverable delete, chat renaming, hidden dotfiles, date-prefixed Korean reports, flat date-scoped Agent records, and newest-first recent reports were verified. The old nested agent_sessions folder was removed with records preserved.
+
+Native goals use Codex app-server thread/goal APIs. A verification goal created/read a fixture and reached native `complete` with persisted usage accounting. Goal checkbox, state, pause/resume/clear, and service-restart continuation are connected. Account quota is fetched from the signed-in CLI without model inference; GPU telemetry is likewise direct system data. GPUSTAT follows compact gpustat-style rows without GPU names/temperatures. Refresh defaults the right Chat to 30%, while dragging can exceed half the viewport.
+
+The user explicitly requested migration of the ongoing NLF comparison goal to the web AI Agent after goal verification. Full operating state and completion criteria are recorded in `nlf_goal_handoff.md`; training is adopted rather than restarted.

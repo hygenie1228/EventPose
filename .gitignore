@@ -14,11 +14,12 @@ __pycache__/
 /ChallengeHOR/
 
 # Browser research workbench
-/apps/research-workbench/node_modules/
-/apps/research-workbench/public/app.js
-/apps/research-workbench/test-results/
-/apps/research-workbench/playwright-report/
-/apps/research-workbench/test/fixtures/
+/src/apps/research-workbench/node_modules/
+/src/apps/research-workbench/public/app.js
+/src/apps/research-workbench/test-results/
+/src/apps/research-workbench/playwright-report/
+/src/apps/research-workbench/test/fixtures/
 
 # Private browser Agent conversation records remain on this server
-/_agents/research/*/agent_sessions/
+/_agents/research/*/*.jsonl
+/_agents/research/*/????????-????-????-????-????????????*.md

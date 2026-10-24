@@ -115,7 +115,7 @@ def main():
     save(OUT/'search_status.json',dict(status='final_test',updated_unix=time.time(),selected=winner['name']))
     subprocess.run([sys.executable,str(ROOT/'tools/evaluate_multihmr_finetuned.py'),'supervise'],cwd=ROOT,check=True)
     save(OUT/'search_status.json',dict(status='complete',updated_unix=time.time(),selected=winner['name'],
-                                    report='_agents/report/multihmr_finetuning_14h.md'))
+                                    report='_agents/report/261024_다중인체복원_14시간_미세조정.md'))
 
 
 if __name__=='__main__':main()

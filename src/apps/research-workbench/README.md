@@ -7,7 +7,7 @@ A browser workspace with a file explorer, editable file/media viewer, and multip
 Requires Node.js 22+, npm, and a working `codex login status` for the server user.
 
 ```bash
-cd apps/research-workbench
+cd src/apps/research-workbench
 npm ci
 npm run build
 HOST=0.0.0.0 PORT=18080 npm start
@@ -31,7 +31,7 @@ Its configuration is installed in `~/.config/systemd/user/eventpose-workbench.se
 - Middle: multiple file tabs, CodeMirror editing and save (`Ctrl/Cmd+S`), Markdown source/preview toggle, images, video/audio with seeking, PDF, downloads. Saving uses a content hash to detect edits made elsewhere.
 - Right and below the viewer: two simultaneous Codex panels by default. Select one or two panels using the top-bar layout buttons, and drag the bottom panel boundary up to 50% of the workspace height. Top-bar sun/moon buttons switch light/dark themes across both panels.
 - Chat tabs have large close buttons. File and chat panels scroll independently, keep their composers visible, and show loading indicators.
-- Chats: create independent chats with **+ 새 채팅**, switch tabs, rename with a tab's context menu, stream replies/tool results, stop a running request, and attach the selected file as context. Up to four chats may run concurrently. Each chat resumes its own Codex thread, and history persists across browser/server restarts. Full user/assistant/tool logs are also recorded as JSONL and Markdown under `_agents/research/YYMMDD/agent_sessions/`; reports belong under `_agents/report/`.
+- Chats: create independent chats with **+ 새 채팅**, switch tabs, rename with a tab's context menu, stream replies/tool results, stop a running request, and attach the selected file as context. Up to four chats may run concurrently. Each chat resumes its own Codex thread, and history persists across browser/server restarts. Full user/assistant/tool logs are also recorded as JSONL and Markdown under `_agents/research/YYMMDD/`; reports belong under `_agents/report/`.
 - Drag column boundaries to resize. `Ctrl/Cmd+K` focuses the explorer filter.
 - `dataset/`, `orig_dataset/`, `etri_processed/`, and `data/` are read-only through the editor. External experiment symlinks can be viewed/downloaded but are not edited through the file API. Git internals, Codex credentials and private workbench state are not exposed through the explorer.
 - Browser-supported media is streamed as-is with byte ranges. Playback depends on the source codec and browser (e.g. H.264 MP4 and WebM); scientific arrays/checkpoints are offered as downloads.

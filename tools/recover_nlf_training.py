@@ -18,7 +18,7 @@ def save(path,value):
 
 def main():
     plan=json.loads((OUT/'training_plan.json').read_text());configs=plan['configs']
-    status=json.loads((OUT/'training_status.json').read_text())
+    status=json.loads((OUT/('training_adoption.json' if (OUT/'training_adoption.json').exists() else 'training_status.json')).read_text())
     pids={r['name']:r['pid'] for r in status['jobs']};attempts={c['name']:0 for c in configs}
     children={}
     while True:

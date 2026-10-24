@@ -161,7 +161,7 @@ def main():
         '|---|---:|---:|---:|---:|']+[
         f'| {e["name"]} | {e["last_blocks"]} | {e["flip_probability"]:.2f} | {e["hours"]:.2f} | {e["steps"]:,} |'
         for e in experiments]+['', '모델 선택은 학습 내부 Validation으로 수행했다. 성능 비교는 아래 Test 결과를 사용한다.','']
-    (ROOT/'_agents/report/multihmr_finetuning_14h.md').write_text('\n'.join(lines))
+    (ROOT/'_agents/report/261024_다중인체복원_14시간_미세조정.md').write_text('\n'.join(lines))
     from utils.chunk_alignment import main as report_chunk_alignment
     report_chunk_alignment()
     print(json.dumps(summary,indent=2))

@@ -70,13 +70,19 @@
 
 ## Browser workspace
 
-- Keep the browser research workspace under `apps/research-workbench/`, separate from motion-estimation `src/` and `scripts/`.
+- Keep the browser research workspace under `src/apps/research-workbench/`, as explicitly requested by the user; keep it separate from model code and motion scripts.
 - Provide left-to-right file explorer, file/code/media viewer, and multiple independent AI chats, using the currently signed-in Codex CLI.
 - Bind the remote workspace to the server network interface and a browser-compatible port >= 10000; the current deployment uses `0.0.0.0:18080`.
 - Implement routine choices without asking clarification questions. Long training/evaluation progress checks remain limited to once every 30 minutes unless intervention or a user-requested update is needed.
 
 - Remote workbench reachability: UFW is enabled on this server. A server-local HTTP 200 does not prove access from the user's computer. Do not claim external access was verified without an external client check. Opening TCP 18080 requires an administrator if passwordless sudo is unavailable.
 
-- Persist all browser Agent user/assistant/tool events under `_agents/research/YYMMDD/agent_sessions/` as complete JSONL and readable Markdown. Record this agent's implementation/research notes under the same date-scoped research directory. Put deliverable reports under `_agents/report/`.
+- Persist all browser Agent user/assistant/tool events under `_agents/research/YYMMDD/` as complete JSONL and readable Markdown. Record this agent's implementation/research notes under the same date-scoped research directory. Put deliverable reports under `_agents/report/`.
 - Workbench defaults: white/light theme, readable 15–16px text, prominent 30px close buttons, one Codex panel on the right and a second below the viewer, and top-bar one/two-panel buttons and light/dark theme buttons. The bottom panel must resize up to 50% of the workspace height. Each viewer/chat must scroll independently and keep the chat composer visible; show file/chat loading states.
-- Default the right Codex pane to 60% of the viewport; do not impose the old 750px drag-resize limit. Show animated spinners for loading and animated progress while Codex is working.
+- Default the right Chat pane to 30% of the viewport on every refresh; do not impose the old 750px drag-resize limit. Show animated spinners for loading and animated progress while Codex is working.
+
+- Both Chat and AI Agent must have workspace write permissions. Their chat tabs/lists are independent (`chat` and `agents` pane ownership). The Chat empty state lists the five newest reports; omit generic welcome/suggestion text.
+- Hide dot-prefixed files/directories in the browser explorer. Provide right-click Rename/Delete for files and nonempty directories; preserve dataset/read-only protection and move deletions to recoverable server trash.
+- `_agents/report/`의 모든 보고서는 본문과 파일명 모두 한글로 작성한다. 파일명은 `YYMMDD_한글_보고서명.md` 형식을 사용한다(예: `261024_인체자세추정_모델_성능_비교.md`). 날짜 접두사와 파일 확장자는 유지한다.
+
+- Telemetry: display GPU VRAM used percentage in a larger 4×2 grid, red when in use and green when idle. Label the compact account quota row `token limit`; omit the separate Codex quota heading. Refresh GPU telemetry without model tokens.

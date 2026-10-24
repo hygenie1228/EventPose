@@ -151,7 +151,7 @@ def main():
         'Train 내부 187세션·58명은 가중치 학습, 32세션·10명은 모델 선택에 사용했다.','',
         '학습: `scripts/train_multihmr.py`. Test 추론: `scripts/evaluate_multihmr.py`. '
         '정렬 평가: `src/utils/chunk_alignment.py`.']
-    report=ROOT/'_agents/report/multihmr_finetuning_14h.md';report.parent.mkdir(parents=True,exist_ok=True)
+    report=ROOT/'_agents/report/261024_다중인체복원_14시간_미세조정.md';report.parent.mkdir(parents=True,exist_ok=True)
     report.write_text('\n'.join(lines)+'\n');print(json.dumps(result,indent=2))
 
 if __name__=='__main__':main()
