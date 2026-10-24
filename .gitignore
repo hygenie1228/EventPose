@@ -19,3 +19,6 @@ __pycache__/
 /apps/research-workbench/test-results/
 /apps/research-workbench/playwright-report/
 /apps/research-workbench/test/fixtures/
+
+# Private browser Agent conversation records remain on this server
+/_agents/research/*/agent_sessions/

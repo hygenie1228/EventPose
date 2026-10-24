@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 const root=path.resolve(import.meta.dirname||path.dirname(new URL(import.meta.url).pathname),'../../..');
 await import('./prepare-fixtures.mjs');
 const base=process.env.WORKBENCH_URL||'http://147.46.89.70:18080';
-const key=(await fs.readFile(path.join(root,'.experiment_storage/research_workbench/access-key'),'utf8')).trim();
+const key=process.env.WORKBENCH_PASSWORD||(await fs.readFile(path.join(root,'.experiment_storage/research_workbench/access-key'),'utf8')).trim();
 const output=path.join(root,'exp/261024/research_workbench');await fs.mkdir(output,{recursive:true});
 const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
 const page=await browser.newPage({viewport:{width:1600,height:1000}});const errors=[];page.on('pageerror',e=>errors.push(e.message));

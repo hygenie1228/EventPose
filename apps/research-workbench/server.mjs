@@ -13,6 +13,8 @@ fs.mkdirSync(STATE,{recursive:true,mode:0o700});
 const keyfile=path.join(STATE,'access-key');
 if(!fs.existsSync(keyfile)) fs.writeFileSync(keyfile,crypto.randomBytes(24).toString('base64url'),{mode:0o600});
 const KEY=fs.readFileSync(keyfile,'utf8').trim();
+const passwordFile=path.join(STATE,'password-hash.json');
+const passwordHash=fs.existsSync(passwordFile)?JSON.parse(fs.readFileSync(passwordFile,'utf8')):null;
 const sessions=new Map(), streams=new Map(), jobs=new Map();
 const dbfile=path.join(STATE,'sessions.json');
 try {for(const s of JSON.parse(fs.readFileSync(dbfile,'utf8'))) {s.running=false;sessions.set(s.id,s);}} catch(e){if(e.code!=='ENOENT') throw e;}
@@ -35,8 +37,18 @@ const mime=(p)=>({'.html':'text/html; charset=utf-8','.js':'application/javascri
 function json(res,status,value){res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(value));}
 async function body(req){let data='';for await(const chunk of req){data+=chunk;if(Buffer.byteLength(data)>2*1024*1024)error(413,'Request too large');}try{return JSON.parse(data||'{}');}catch{error(400,'Invalid JSON');}}
 const sameKey=(value)=>{const a=Buffer.from(value||''),b=Buffer.from(KEY);return a.length===b.length&&crypto.timingSafeEqual(a,b);};
+const validPassword=value=>{if(!passwordHash)return sameKey(value);if(typeof value!=='string'||value.length>1000)return false;const computed=crypto.scryptSync(value,passwordHash.salt,32);return crypto.timingSafeEqual(computed,Buffer.from(passwordHash.hash,'hex'));};
 const authenticated=req=>{const cookies=req.headers.cookie||'';return cookies.split(';').some(c=>{const [name,...v]=c.trim().split('=');return name==='workbench'&&sameKey(v.join('='));});};
-function emit(s,event){event={...event,time:new Date().toISOString(),seq:s.events.length};s.events.push(event);persist();for(const res of streams.get(s.id)||[])res.write(`id: ${event.seq}\ndata: ${JSON.stringify(event)}\n\n`);}
+function record(s,event){
+ const day=event.time.slice(2,10).replaceAll('-','');const dir=path.join(ROOT,'_agents/research',day,'agent_sessions');
+ fs.mkdirSync(dir,{recursive:true});fs.appendFileSync(path.join(dir,s.id+'.jsonl'),JSON.stringify(event)+'\n');
+ let text='';if(event.type==='user')text=`## User · ${event.time}\n\n${event.text}\n\n`;
+ else if(event.type==='codex'&&event.event.type==='item.completed'){const i=event.event.item;if(i.type==='agent_message')text=`## Codex · ${event.time}\n\n${i.text}\n\n`;else text=`### Tool · ${event.time}\n\n\`\`\`json\n${JSON.stringify(i,null,2)}\n\`\`\`\n\n`;}
+ else if(event.type==='done')text=`> ${event.time}: ${event.text}\n\n`;
+ if(text)fs.appendFileSync(path.join(dir,s.id+'.md'),text);
+}
+function emit(s,event){event={...event,time:new Date().toISOString(),seq:s.events.length};s.events.push(event);record(s,event);persist();for(const res of streams.get(s.id)||[])res.write(`id: ${event.seq}\ndata: ${JSON.stringify(event)}\n\n`);}
+for(const s of sessions.values()){const day=s.created.slice(2,10).replaceAll('-','');if(!fs.existsSync(path.join(ROOT,'_agents/research',day,'agent_sessions',s.id+'.jsonl')))for(const event of s.events)record(s,event);}
 function publicSession(s){return {id:s.id,title:s.title,running:s.running,created:s.created,codexThread:s.codexThread||null};}
 function getSession(id){const s=sessions.get(id);if(!s)error(404,'Chat not found');return s;}
 function stop(s){const p=jobs.get(s.id);if(p){try{process.kill(-p.pid,'SIGTERM');}catch{p.kill('SIGTERM');}}}
@@ -84,7 +96,7 @@ export const server=http.createServer(async(req,res)=>{
  const u=new URL(req.url,'http://workbench');
  res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','no-referrer');
  if(!['GET','HEAD'].includes(req.method)&&req.headers.origin&&req.headers.origin!==`http://${req.headers.host}`&&req.headers.origin!==`https://${req.headers.host}`)error(403,'Cross-origin request rejected');
- if(u.pathname==='/api/login'&&req.method==='POST'){const b=await body(req);if(!sameKey(b.key))error(401,'Invalid access key');res.setHeader('Set-Cookie',`workbench=${KEY}; HttpOnly; SameSite=Strict; Path=/; Max-Age=2592000`);return json(res,200,{ok:true});}
+ if(u.pathname==='/api/login'&&req.method==='POST'){const b=await body(req);if(!validPassword(b.password??b.key))error(401,'비밀번호가 올바르지 않습니다');res.setHeader('Set-Cookie',`workbench=${KEY}; HttpOnly; SameSite=Strict; Path=/; Max-Age=2592000`);return json(res,200,{ok:true});}
  if(u.pathname==='/api/logout'&&req.method==='POST'){res.setHeader('Set-Cookie','workbench=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0');return json(res,200,{ok:true});}
  if(u.pathname.startsWith('/api/')){
  if(!authenticated(req))error(401,'Sign in to your workspace');

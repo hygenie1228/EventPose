@@ -74,3 +74,8 @@
 - Provide left-to-right file explorer, file/code/media viewer, and multiple independent AI chats, using the currently signed-in Codex CLI.
 - Bind the remote workspace to the server network interface and a browser-compatible port >= 10000; the current deployment uses `0.0.0.0:18080`.
 - Implement routine choices without asking clarification questions. Long training/evaluation progress checks remain limited to once every 30 minutes unless intervention or a user-requested update is needed.
+
+- Remote workbench reachability: UFW is enabled on this server. A server-local HTTP 200 does not prove access from the user's computer. Do not claim external access was verified without an external client check. Opening TCP 18080 requires an administrator if passwordless sudo is unavailable.
+
+- Persist all browser Agent user/assistant/tool events under `_agents/research/YYMMDD/agent_sessions/` as complete JSONL and readable Markdown. Record this agent's implementation/research notes under the same date-scoped research directory. Put deliverable reports under `_agents/report/`.
+- Workbench defaults: white/light theme, readable 15–16px text, prominent 30px close buttons, one Codex panel on the right and a second below the viewer, and top-bar one/two-panel buttons and light/dark theme buttons. The bottom panel must resize up to 50% of the workspace height. Each viewer/chat must scroll independently and keep the chat composer visible; show file/chat loading states.
