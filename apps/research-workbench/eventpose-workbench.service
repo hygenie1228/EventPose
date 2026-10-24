@@ -1,0 +1,19 @@
+[Unit]
+Description=EventPose Research Workbench
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/namhj/EventPose
+ExecStart=/usr/local/bin/node /home/namhj/EventPose/apps/research-workbench/server.mjs
+Environment=HOST=0.0.0.0
+Environment=PORT=18080
+Environment=PATH=/home/namhj/.local/bin:/usr/local/bin:/usr/bin:/bin
+Restart=on-failure
+RestartSec=3
+KillMode=control-group
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target

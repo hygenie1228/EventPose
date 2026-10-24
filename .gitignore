@@ -12,3 +12,10 @@ __pycache__/
 /.venv-humanpose/
 /tools/third_party/
 /ChallengeHOR/
+
+# Browser research workbench
+/apps/research-workbench/node_modules/
+/apps/research-workbench/public/app.js
+/apps/research-workbench/test-results/
+/apps/research-workbench/playwright-report/
+/apps/research-workbench/test/fixtures/

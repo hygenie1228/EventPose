@@ -63,3 +63,14 @@
 - Repository remote: `https://github.com/hygenie1228/EventPose`.
 - Ignore external storage symlinks (`data`, `dataset`, `orig_dataset`, `etri_processed`, `exp`), `.experiment_storage/`, and Python caches in Git. Do not delete symlinks when asked to ignore them.
 - `.experiment_storage/` is local SSD backing for selected experiment directories linked from `exp/261023/`, used to avoid slow NFS intermediate I/O. Active background jobs depend on it; do not remove it while in use.
+
+## Fine-tuning monitoring frequency
+
+- During fine-tuning, inspect progress at most once every 30 minutes unless the user asks for an update or a concrete failure requires intervention. Avoid frequent model/tool polling and repetitive status messages to conserve tokens. Lightweight background recovery supervisors may continue running.
+
+## Browser workspace
+
+- Keep the browser research workspace under `apps/research-workbench/`, separate from motion-estimation `src/` and `scripts/`.
+- Provide left-to-right file explorer, file/code/media viewer, and multiple independent AI chats, using the currently signed-in Codex CLI.
+- Bind the remote workspace to the server network interface and a browser-compatible port >= 10000; the current deployment uses `0.0.0.0:18080`.
+- Implement routine choices without asking clarification questions. Long training/evaluation progress checks remain limited to once every 30 minutes unless intervention or a user-requested update is needed.

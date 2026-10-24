@@ -60,3 +60,7 @@ python scripts/visualize.py --help
 ```
 
 Current experiment runners use the documented experiment manifests and prepared caches; inspect their arguments before launching. Do not start duplicate supervisors for the same experiment. Source datasets are read-only. Coordinates are stored in metres; reported pose errors are millimetres. Reports compare Test performance and include pretrained baselines.
+
+## Browser research workspace
+
+The optional [Research Workbench](apps/research-workbench/README.md) provides a server file explorer, code/Markdown/media viewer, and multiple chats using the signed-in local Codex CLI. It runs independently of training and evaluation. See its README for startup, access-key setup, and tests.
