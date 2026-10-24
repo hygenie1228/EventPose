@@ -86,3 +86,5 @@
 - `_agents/report/`의 모든 보고서는 본문과 파일명 모두 한글로 작성한다. 파일명은 `YYMMDD_한글_보고서명.md` 형식을 사용한다(예: `261024_인체자세추정_모델_성능_비교.md`). 날짜 접두사와 파일 확장자는 유지한다.
 
 - Telemetry: display GPU VRAM used percentage in a larger 4×2 grid, red when in use and green when idle. Label the compact account quota row `token limit`; omit the separate Codex quota heading. Refresh GPU telemetry without model tokens.
+
+- Remove the explorer filename-filter input; the user wants only the file tree.
