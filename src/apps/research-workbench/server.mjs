@@ -71,13 +71,18 @@ async function goalClient(s){
  }catch(e){client.close();goalClients.delete(s.id);throw e;}
 }
 async function startGoalTurn(s,prompt,context,newGoal){
- if(s.running)error(409,'현재 목표 작업을 중지하거나 새 탭을 열어 주세요');
  if(typeof prompt!=='string'||!prompt.trim())error(400,'목표를 입력해 주세요');
  if(newGoal&&prompt.length>4000)error(400,'목표는 4,000자 이하로 입력해 주세요');
- const client=await goalClient(s);s.running=true;if(s.title==='New chat')s.title=prompt.slice(0,44);
+ const client=await goalClient(s);
+ const text=(context?'Selected workspace file: '+context+'\n\n':'')+prompt;
+ if(client.turn){
+  if(newGoal)error(409,'실행 중에는 Goal 체크를 끄고 추가 메시지를 보내 주세요');
+  await client.steer(text);emit(s,{type:'user',text:prompt,context:context||null,steered:true});emit(s,{type:'log',text:'추가 지시를 현재 Goal 작업에 전달했습니다'});return;
+ }
+ s.running=true;if(s.title==='New chat')s.title=prompt.slice(0,44);
  emit(s,{type:'user',text:prompt,context:context||null});
  try{if(newGoal){s.goal=await client.goal(prompt);emit(s,{type:'goal',goal:s.goal});}else if(s.goal?.status==='paused'){s.goal=await client.goal(null,'active');emit(s,{type:'goal',goal:s.goal});}
-  await client.start((context?'Selected workspace file: '+context+'\n\n':'')+prompt);
+  await client.start(text);
  }catch(e){s.running=false;emit(s,{type:'done',code:-1,text:e.message});throw e;}
 }
 function startTurn(s,prompt,context){

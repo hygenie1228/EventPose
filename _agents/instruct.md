@@ -98,3 +98,4 @@
 - On viewports <=767px wide, show one conversation panel with Chat / AI Agent tabs: hide the top bar, explorer, viewer and footer. Background goals keep running. Use compact laptop chrome/fonts at smaller desktop widths/heights.
 
 - In one-panel view, place Chat and AI Agent mode tabs together in the panel heading, including on phones. Keep their tabs/conversations independent and preserve unsent drafts across mode/layout changes. Remove the Research partner/Ready/current CLI login info banner.
+- Active Goal sessions accept additional chat messages through native turn/steer without a duplicate turn or goal reset; keep both Send and Stop available. AI Agent message/composer font sizes must match Chat, independent of iframe width.

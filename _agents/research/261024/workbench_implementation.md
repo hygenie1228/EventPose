@@ -37,3 +37,11 @@ Added the requested `?key=...` initial login alongside fragment login. The login
 Reduced the top chrome to 32–40px and scaled typography, tabs, toolbars, margins and composers for smaller desktop widths/heights. On <=767px screens only one conversation area is visible, with Chat / AI Agent tabs; explorer, viewer, top bar and footer are hidden. The user's later request to switch Chat/AI Agent on phones supersedes the earlier Chat-only phone layout. In desktop one-panel mode the same tabs switch between independent panes. Two-panel mode restores Chat on the right and AI Agent below the viewer. Drafts are kept per pane and chat, including across iframe reparenting. Removed the agent-info banner rather than merely hiding its text.
 
 Browser verification passed at 1600×1000, 1440×900, 1280×800, 1024×650, 390×844 and 375×667. Both phone modes and composers remained usable. A separate test verified one-panel switching, draft preservation and two-panel restoration without JavaScript errors. No model calls or training interruptions were needed for these UI tests.
+
+### Messaging during active goals and synchronized Chat typography
+
+Added native `turn/steer` support with the current turn ID. Messages sent during an active Goal are acknowledged and recorded as steering input, without creating a parallel turn or replacing the objective. The send button stays visible beside Stop for goal sessions; normal exec sessions retain their single-turn behavior. Duplicate clicks are prevented while a message request is in flight. Goal replacement during a running turn remains an explicit separate operation.
+
+Deployment preserved the current NLF goal by saving its paused state, updating the web service, and resuming that same native goal/thread. A real mid-goal message was accepted with HTTP 202 and recorded as `steered: true`; it asked only for connection acknowledgement and did not change the NLF objective or trigger GPU queries.
+
+AI Agent iframe typography now inherits the parent Chat's message/editor/composer font sizes instead of shrinking based on iframe width. Browser verification confirmed matching 14px message and input fonts at a 1280px laptop viewport and a visible Send button in the active NLF goal. Backend tests passed.

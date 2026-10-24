@@ -23,6 +23,7 @@ export class CodexGoalClient {
  async goal(objective,status='active'){return (await this.request('thread/goal/set',{threadId:this.thread,...(objective?{objective}:{}),status})).goal;}
  async getGoal(){return (await this.request('thread/goal/get',{threadId:this.thread})).goal;}
  async start(text){return this.request('turn/start',{threadId:this.thread,input:[{type:'text',text}],approvalPolicy:'never',cwd:this.root});}
+ async steer(text){if(!this.turn)throw new Error('No active turn');return this.request('turn/steer',{threadId:this.thread,expectedTurnId:this.turn,input:[{type:'text',text}]});}
  async pause(){await this.goal(null,'paused');if(this.turn)await this.request('turn/interrupt',{threadId:this.thread,turnId:this.turn});}
  async clear(){if(this.turn)await this.pause();await this.request('thread/goal/clear',{threadId:this.thread});}
  close(){this.closed=true;this.proc?.kill('SIGTERM');}
