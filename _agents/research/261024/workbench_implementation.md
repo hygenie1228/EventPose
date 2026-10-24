@@ -55,3 +55,7 @@ On phones, a clicked report opens a full-screen viewer overlay with a return-to-
 ### Remove the bottom connection/status strip
 
 Removed the bottom Workspace connected/host/UTF-8 footer and its JavaScript bindings. The workspace now extends to the viewport bottom at desktop, compact laptop, and phone sizes. Browser verification passed at 1600×1000, 1280×800, 1024×650, and 390×844 with no footer or JavaScript errors; existing chat reconnection remains automatic.
+
+### Remove viewer metadata strip
+
+Removed the viewer file-size/UTF-8 status strip and its render binding. Opening Markdown in the browser still works without JavaScript errors, and the space is available to the file/Agent panels.

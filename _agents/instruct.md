@@ -102,3 +102,5 @@
 - Workspace report/file links in Chat or AI Agent messages must open the shared Viewer, including links from the embedded Agent pane. On phones use a full-screen viewer with a return-to-chat control. Preserve external web links as external links.
 
 - Remove the bottom Workspace connected/host/UTF-8 status bar entirely and give its space to the workspace.
+
+- Remove the viewer file-size/UTF-8 status strip as well; do not display redundant metadata bars.
