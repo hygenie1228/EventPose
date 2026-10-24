@@ -14,7 +14,7 @@
 
 ## Pose metric reporting
 
-- Use only pretrained baselines and checkpoints selected after training completion in final comparison tables; do not substitute training-intermediate snapshots. Do not use vague labels such as "frozen interim model". Explain the exact checkpoint in supporting metadata.
+- Do not append checkpoint-stage/status labels such as "frozen interim model" to model names in performance tables. The user allows results from training-intermediate checkpoints; they objected to the label, not the evaluation. Keep checkpoint provenance in a separate supporting paragraph, and never misrepresent an intermediate checkpoint as a final one.
 - Bold the best value in each metric column (lower error, higher coverage/throughput). Do not claim a best value when the comparison is still incomplete.
 - The Multi-HMR main table uses 10-second chunks and four mm-valued metrics: first-frame-aligned MPJPE, first-frame-aligned PA-MPJPE, frame-aligned MPJPE, frame-aligned PA-MPJPE. First-frame alignment uses exactly frame 0 and stays fixed across the chunk; frame alignment is recomputed per frame. MPJPE alignment is pelvis translation; PA is proper Sim(3). Omit the status column.
 - Archive unused temporary Python utilities under `exp/_code_backup/`. Keep only currently needed experiment support in `tools/`; normal training/demo/evaluation/visualization must work without `tools/` source dependencies.

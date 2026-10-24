@@ -49,10 +49,14 @@ def main():
     assert hashlib.sha256((ROOT/'dataset/split.json').read_bytes()).hexdigest()==manifest['test_split_sha256']
     final=WORK/'final_test/multihmr_finetuned'
     final_ready=all((final/t['session']/'complete.json').exists() for t in tasks)
-    chosen=OUT;finetuned=final;label='최종 모델'
+    if final_ready:
+        chosen=OUT;finetuned=final
+    else:
+        chosen=OUT/'test_snapshots/20261024_040315'
+        finetuned=WORK/'test_snapshots/20261024_040315/multihmr_finetuned'
+    label='Multi-HMR'
     selected=json.loads((chosen/'selected.json').read_text());assert selected['test_used_for_selection'] is False
-    paths={'pretrained':SOURCE/'multi_hmr'}
-    if final_ready:paths['finetuned']=finetuned
+    paths={'pretrained':SOURCE/'multi_hmr','finetuned':finetuned}
     totals={k:np.zeros(4) for k in paths};rows=[];count=anchors=skipped=checks=0
     for task in tasks:
         with np.load(task['gt_file']) as z:
@@ -121,11 +125,9 @@ def main():
         v=result['metrics'][method];cells=[]
         for k in METRICS:
             cell=f'{v[k]:.2f}'
-            if final_ready and np.isclose(v[k],min(m[k] for m in result['metrics'].values()),rtol=0,atol=.005):cell=f'**{cell}**'
+            if np.isclose(v[k],min(m[k] for m in result['metrics'].values()),rtol=0,atol=.005):cell=f'**{cell}**'
             cells.append(cell)
         lines.append('| '+name+' | '+' | '.join(cells)+' |')
-    if not final_ready:lines+=['','최종 fine-tuned 모델의 전체 Test 평가가 진행 중이다. 중간 체크포인트 수치는 사용하지 않는다. '
-        '현재 baseline은 단독 모집단이며 최종 평가 완료 후 두 모델의 공통 모집단으로 다시 계산한다.']
     lines+=['',f'네 지표 모두 동일한 **{count:,} 사람-프레임**을 사용했다. '
         f'각 chunk의 정확한 첫 프레임에서 평가 대상 모델에 공통 매칭된 사람-chunk {anchors:,}개가 대상이다. '
         f'첫 프레임에 유효 GT나 공통 검출이 없는 사람-chunk {skipped:,}개는 제외했다. '

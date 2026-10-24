@@ -7,6 +7,7 @@ import numpy as np
 from .humanpose_metrics import joint_errors
 from .temporal_metrics import temporal_errors
 from .report_format import highlight_table_bests
+from .chunk_alignment import aligned_errors,METRICS
 
 ROOT=Path(__file__).resolve().parents[2]
 NLF=ROOT/'exp/261024/nlf_finetune_12h'
@@ -22,17 +23,17 @@ def main():
                 'NLF pretrained':ROOT/'.experiment_storage/nlf_finetune_12h/nlf_pretrained',
                 'NLF fine-tuned':ROOT/'.experiment_storage/nlf_finetune_12h/nlf_finetuned'}
     final=ROOT/'.experiment_storage/multihmr_finetune_14h/final_test/multihmr_finetuned'
-    interim=ROOT/'.experiment_storage/multihmr_finetune_14h/test_snapshots/20261024_040315/multihmr_finetuned'
     if all((final/t['session']/'complete.json').exists() for t in tasks):
         candidates['Multi-HMR fine-tuned (final)']=final
     methods={name:path for name,path in candidates.items()
              if all((path/t['session']/'complete.json').exists() for t in tasks)}
     assert 'NLF pretrained' in methods,'Wait until every NLF baseline segment finishes'
     sums={name:np.zeros(4,np.float64) for name in methods}
+    alignment_sums={name:np.zeros(4,np.float64) for name in methods}
     full_body_sums={name:np.zeros(3,np.float64) for name in methods}
     coverage={name:0 for name in methods};elapsed={name:0. for name in methods}
     temporal={name:np.zeros(4,np.float64) for name in methods}
-    valid_total=paired_total=0
+    valid_total=paired_total=anchor_people=0
     for task in tasks:
         with np.load(task['gt_file']) as z:
             gt=z['joints_cam_m'];valid=z['valid'];positions=z['source_rgb_positions']
@@ -50,9 +51,16 @@ def main():
                 mask=valid&np.isfinite(prediction).all((2,3))
                 assert np.array_equal(mask,valid&(z['matched_pred_indices']>=0))
                 predictions[name]=prediction;masks[name]=mask;coverage[name]+=int(mask.sum())
-        common=np.logical_and.reduce(list(masks.values()));paired_total+=int(common.sum())
+        common=np.logical_and.reduce(list(masks.values()))
+        first=np.flatnonzero(positions==0)
+        eligible=common[first[0]].copy() if len(first) else np.zeros(gt.shape[1],bool)
+        common&=eligible[None,:];paired_total+=int(common.sum());anchor_people+=int(eligible.sum())
         valid_total+=int(valid.sum())
         for name,prediction in predictions.items():
+            for person in np.flatnonzero(eligible):
+                keep=common[:,person]
+                alignment_sums[name]+=aligned_errors(prediction[keep,person,:22],gt[keep,person,:22],
+                    prediction[first[0],person,:22],gt[first[0],person,:22]).sum(0)
             temporal[name]+=temporal_errors(prediction,gt,common,positions,task['fps'])
             full_p=prediction[common].astype(np.float64);full_t=gt[common].astype(np.float64)
             full_errors=np.array([joint_errors(a,b) for a,b in zip(full_p,full_t)]).reshape(-1,3)
@@ -66,12 +74,14 @@ def main():
     assert paired_total>0
     frames=sum(t['video_frames'] for t in tasks)
     result=dict(updated_unix=time.time(),test_sessions=64,segments=320,rgb_frames=frames,
-                valid_instances=valid_total,common_matched_instances=paired_total,unit='mm',methods={})
+                valid_instances=valid_total,common_matched_instances=paired_total,eligible_person_chunks=anchor_people,unit='mm',methods={})
     benchmark=NLF/'runtime_benchmark/summary.json'
     if benchmark.exists():result['controlled_runtime']=json.loads(benchmark.read_text())
     for name in methods:
         result['methods'][name]=dict(zip(['mpjpe_mm','root_mpjpe_mm','pa_mpjpe_mm','pelvis_error_mm'],
             (1000*sums[name]/paired_total).tolist()))
+        assert np.allclose(alignment_sums[name][2:],sums[name][1:3],rtol=1e-8,atol=1e-8)
+        result['methods'][name].update(dict(zip(METRICS,(1000*alignment_sums[name]/paired_total).tolist())))
         result['methods'][name].update(matched_instances=coverage[name],coverage=coverage[name]/valid_total,
             sum_segment_seconds=elapsed[name],observed_segment_fps=frames/elapsed[name])
         vs,vc,acs,ac=temporal[name]
@@ -85,18 +95,25 @@ def main():
         f'All 64 device0 sessions, 320 fixed segments, and {frames:,} RGB frames. '
         f'Body22 errors use the same {paired_total:,} person-frames matched by every listed method. '
         'All pose errors are mm; lower is better. Missing detections are reported through coverage, not zero errors.','',
-        '| Model | MPJPE | Root MPJPE | PA-MPJPE | Pelvis position | Matched GT | Observed fps |',
-        '|---|---:|---:|---:|---:|---:|---:|']
+        'Only person-chunks matched at exact frame 0 by every listed model enter this common population. '
+        'First-frame transforms remain fixed for all 10 seconds; frame alignment is recomputed independently.','',
+        '| Model | First frame aligned MPJPE | First frame aligned PA-MPJPE | Frame aligned MPJPE | Frame aligned PA-MPJPE |',
+        '|---|---:|---:|---:|---:|']
     for name,m in result['methods'].items():
-        lines.append(f'| {name} | {m["mpjpe_mm"]:.2f} | {m["root_mpjpe_mm"]:.2f} | '
-            f'{m["pa_mpjpe_mm"]:.2f} | {m["pelvis_error_mm"]:.2f} | {100*m["coverage"]:.3f}% | {m["observed_segment_fps"]:.2f} |')
+        lines.append('| '+name+' | '+' | '.join(f'{m[k]:.2f}' for k in METRICS)+' |')
+    lines+=['','MPJPE alignment uses pelvis translation. PA alignment uses proper Sim(3), without reflection.','',
+        '## Absolute placement, coverage, and observed throughput','',
+        '| Model | Absolute MPJPE (mm) | Pelvis position (mm) | Matched GT | Observed fps |','|---|---:|---:|---:|---:|']
+    for name,m in result['methods'].items():
+        lines.append(f'| {name} | {m["mpjpe_mm"]:.2f} | {m["pelvis_error_mm"]:.2f} | '
+                     f'{100*m["coverage"]:.3f}% | {m["observed_segment_fps"]:.2f} |')
     lines+=['','Observed fps includes clip decoding, model execution, joint recovery, and matching, '
         'but excludes initial checkpoint loading and session video staging. Runs can overlap with other GPU jobs; '
         'these figures do not establish a controlled hardware speed ratio. A separate isolated end-to-end benchmark is required.',
         '', 'PA aligns each person-frame with proper Sim(3), removing scale error. Absolute MPJPE and pelvis position '
         'therefore determine metric placement quality. Test is not used for checkpoint selection.',
         '', 'Only complete methods are listed. NLF fine-tuning remains pending until its final Test is complete. '
-        'An interim Multi-HMR snapshot is explicitly labeled if final evaluation is still running.']
+        'Training-intermediate snapshots are excluded.']
     lines+=['','## Motion consistency','',
         '| Model | Pelvis velocity error (mm/s) | Root-relative body22 acceleration error (mm/s²) |',
         '|---|---:|---:|']
