@@ -72,7 +72,7 @@ window.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='s'){e.
 window.addEventListener('beforeunload',e=>{if([...state.files.values()].some(f=>f.dirty)){e.preventDefault();e.returnValue='';}});
 $$('.resize-handle').forEach(handle=>{handle.onpointerdown=e=>{handle.setPointerCapture(e.pointerId);const start=e.clientX,left=$('#explorer').getBoundingClientRect().width,right=$('#ai-panel').getBoundingClientRect().width;handle.onpointermove=ev=>{const delta=ev.clientX-start;if(handle.dataset.side==='left')document.documentElement.style.setProperty('--left',Math.max(150,Math.min(480,left+delta))+'px');else document.documentElement.style.setProperty('--right',Math.max(340,Math.min(window.innerWidth-left-260,right-delta))+'px');};handle.onpointerup=()=>handle.onpointermove=null;};});
 // A fragment access key is exchanged for an HttpOnly cookie and removed from history.
-const fragment=new URLSearchParams(location.hash.slice(1));if(fragment.has('password')||fragment.has('key')){const password=fragment.get('password')??fragment.get('key');history.replaceState(null,'',location.pathname+location.search);api('/api/login',{method:'POST',body:JSON.stringify({password})}).then(init).catch(e=>{$('#login-error').textContent=e.message;});}else init();
+const fragment=new URLSearchParams(location.hash.slice(1)),query=new URLSearchParams(location.search);if(query.has('key')||fragment.has('password')||fragment.has('key')){const password=query.get('key')??fragment.get('password')??fragment.get('key');query.delete('key');const clean=query.toString();history.replaceState(null,'',location.pathname+(clean?'?'+clean:''));api('/api/login',{method:'POST',body:JSON.stringify({password})}).then(init).catch(e=>{showLogin();$('#login-error').textContent=e.message;});}else init();
 
 $('#reload-file').onclick=async()=>{const p=state.activeFile,file=state.files.get(p);if(!p)return;if(file.dirty&&!confirm('변경을 버리고 디스크에서 다시 읽을까요?'))return;state.files.delete(p);await openFile(p);};
 
@@ -115,7 +115,7 @@ async function showRecentReports(container){
 }
 
 function renderGoal(goal){
- const panel=$('#goal-status');panel.hidden=!goal;if(!goal){panel.innerHTML='';return;}
+ const panel=$('#goal-status'),icon=$('#goal-info');panel.hidden=false;icon.dataset.status=goal?.status||'none';icon.title=goal?'목표 상태: '+goal.status:'목표 상태 보기';if(!goal){panel.innerHTML='<p class="muted">현재 설정된 목표가 없습니다. Goal을 체크하고 목표를 전송해 주세요.</p>';return;}
  const labels={active:'진행 중',paused:'일시정지',complete:'완료',completed:'완료',blocked:'확인 필요',budget_limited:'예산 소진'};
  panel.innerHTML='<div class="goal-title"><b>◎ Goal · '+esc(labels[goal.status]||goal.status)+'</b><span>'+Number(goal.tokensUsed||0).toLocaleString()+' tokens</span></div><div class="goal-objective">'+esc(goal.objective)+'</div><div class="goal-actions"><button data-action="'+(goal.status==='active'?'pause':'resume')+'">'+(goal.status==='active'?'일시정지':'재개')+'</button><button data-action="clear">해제</button></div>';
  panel.querySelectorAll('button').forEach(b=>b.onclick=async()=>{try{const result=await api('/api/chats/'+state.activeChat+'/goal',{method:'POST',body:JSON.stringify({action:b.dataset.action})});renderGoal(result.goal);}catch(e){toast(e.message);}});
@@ -128,3 +128,7 @@ async function refreshLimits(){
  if(chatOnly||document.hidden)return;try{const data=await api('/api/limits');const limits=data.rateLimits||{};const el=$('#cli-limits');el.innerHTML='';for(const [key,fallback]of [['primary','단기'],['secondary','주간']]){const window=limits[key];if(!window)continue;const left=Math.max(0,100-window.usedPercent);const mins=window.windowDurationMins;const label=key==='primary'?'token limit':'token limit '+(mins&&mins%60===0?(mins/60)+'h':fallback);const row=document.createElement('div');row.className='limit-row';row.title=window.resetsAt?'초기화: '+new Date(window.resetsAt*1000).toLocaleString():'';row.innerHTML='<span>'+label+'</span><div class="mini-meter"><i style="width:'+left+'%"></i></div><b>'+left+'%</b>';el.append(row);}if(!el.childNodes.length)el.innerHTML='<span class="muted">계정 한도 정보 없음</span>';}catch(e){$('#cli-limits').innerHTML='<span class="muted">한도 조회 불가</span>';}
 }
 if(!chatOnly){const wait=setInterval(()=>{if(!$('#shell').hidden){clearInterval(wait);refreshGpu();refreshLimits();setInterval(refreshGpu,5000);setInterval(refreshLimits,60000);}},300);document.addEventListener('visibilitychange',()=>{if(!document.hidden){refreshGpu();refreshLimits();}});}
+
+$('#goal-info').onclick=()=>{const dialog=$('#goal-dialog');if(!dialog.open)dialog.showModal();};
+$('#goal-dialog-close').onclick=()=>$('#goal-dialog').close();
+$('#goal-dialog').addEventListener('click',event=>{if(event.target===$('#goal-dialog')){const box=event.target.getBoundingClientRect();if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)event.target.close();}});

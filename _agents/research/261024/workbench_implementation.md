@@ -25,3 +25,9 @@ Moved the web application to `src/apps/research-workbench/`. Chat and AI Agent n
 Native goals use Codex app-server thread/goal APIs. A verification goal created/read a fixture and reached native `complete` with persisted usage accounting. Goal checkbox, state, pause/resume/clear, and service-restart continuation are connected. Account quota is fetched from the signed-in CLI without model inference; GPU telemetry is likewise direct system data. GPUSTAT follows compact gpustat-style rows without GPU names/temperatures. Refresh defaults the right Chat to 30%, while dragging can exceed half the viewport.
 
 The user explicitly requested migration of the ongoing NLF comparison goal to the web AI Agent after goal verification. Full operating state and completion criteria are recorded in `nlf_goal_handoff.md`; training is adopted rather than restarted.
+
+### Compact Goal controls and query-key login
+
+Replaced the persistent Goal status area with a small status icon immediately left of the Goal checkbox. It opens a native dialog with objective, status, usage, and pause/resume/clear controls. The dialog closes with its close button, Escape, or an outside click; incoming goal events update the content without opening it. Browser verification used the existing handed-off NLF goal without pausing or modifying that goal.
+
+Added the requested `?key=...` initial login alongside fragment login. The login secret is exchanged for the existing session cookie, removed from browser history/address, and other parameters such as the target AI Agent session are preserved. Browser verification confirmed login and authenticated API access with `?key=cvlab`.

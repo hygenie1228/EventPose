@@ -88,3 +88,7 @@
 - Telemetry: display GPU VRAM used percentage in a larger 4×2 grid, red when in use and green when idle. Label the compact account quota row `token limit`; omit the separate Codex quota heading. Refresh GPU telemetry without model tokens.
 
 - Remove the explorer filename-filter input; the user wants only the file tree.
+
+- Keep Goal status compact: a small icon immediately left of the Goal checkbox opens a popup containing objective/status/usage and pause/resume/clear controls. Do not reserve a large persistent status panel above the composer.
+
+- Support initial web login from `?key=...` as requested; exchange the supplied login secret for the session cookie and remove it from the browser address, preserving other URL parameters.
