@@ -6,10 +6,10 @@ Test 64세션·device0, 영상당 10초 × 5개 고정 구간: 총 320 chunk·96
 
 | 모델 | First frame aligned MPJPE ↓ | First frame aligned PA-MPJPE ↓ | Frame aligned MPJPE ↓ | Frame aligned PA-MPJPE ↓ |
 |---|---:|---:|---:|---:|
-| Baseline · Multi-HMR | 160.25 | 146.88 | 94.94 | 58.19 |
-| Fine-tuned Multi-HMR | **71.54** | **75.93** | **48.41** | **32.57** |
+| Baseline · Multi-HMR | 160.24 | 146.87 | 94.94 | 58.19 |
+| Fine-tuned Multi-HMR | **68.64** | **73.37** | **46.71** | **32.57** |
 
-네 지표 모두 동일한 **105,072 사람-프레임**을 사용했다. 각 chunk의 정확한 첫 프레임에서 평가 대상 모델에 공통 매칭된 사람-chunk 357개가 대상이다. 첫 프레임에 유효 GT나 공통 검출이 없는 사람-chunk 8개는 제외했다. 나중의 첫 매칭 프레임으로 대체하지 않았다. 미검출을 0 오차로 처리하지 않았다.
+네 지표 모두 동일한 **105,068 사람-프레임**을 사용했다. 각 chunk의 정확한 첫 프레임에서 평가 대상 모델에 공통 매칭된 사람-chunk 357개가 대상이다. 첫 프레임에 유효 GT나 공통 검출이 없는 사람-chunk 8개는 제외했다. 나중의 첫 매칭 프레임으로 대체하지 않았다. 미검출을 0 오차로 처리하지 않았다.
 
 ## 정렬 정의
 
@@ -24,11 +24,11 @@ First-frame PA는 첫 프레임에서만 최적화한 변환이므로, 이후 �
 
 ## 모델과 검증
 
-사용한 fine-tuned checkpoint: `/home/namhj/EventPose/data/finetuned/multihmr_261023_14h/test_snapshots/20261024_040315/model.pt`. 학습 내부 holdout으로 모델을 선택했으며 Test는 가중치 업데이트나 모델 선택에 사용하지 않았다. 기존 저장 추론의 camera-space 관절을 재사용해 정렬 지표만 재계산했다.
+사용한 fine-tuned checkpoint: `/home/namhj/EventPose/data/finetuned/multihmr_261023_14h/best_full.pt`. 학습 내부 holdout으로 모델을 선택했으며 Test는 가중치 업데이트나 모델 선택에 사용하지 않았다. 기존 저장 추론의 camera-space 관절을 재사용해 정렬 지표만 재계산했다.
 
 전체 chunk 완료·GT 프레임 대응을 확인했고, per-frame 지표 1,428건을 기존 구현과 대조했다. First-frame PA는 각 사람-chunk에서 SciPy 회전 정렬로 독립 검산했다.
 
-원시 집계: `exp/261023/multihmr_finetune_14h/test_snapshots/20261024_040315/chunk_alignment_metrics.json`, chunk별 결과: `exp/261023/multihmr_finetune_14h/test_snapshots/20261024_040315/chunk_alignment_per_segment.csv`.
+원시 집계: `exp/261023/multihmr_finetune_14h/chunk_alignment_metrics.json`, chunk별 결과: `exp/261023/multihmr_finetune_14h/chunk_alignment_per_segment.csv`.
 
 Train 219세션·68명, Test 64세션·20명은 피험자가 겹치지 않는다. Train 내부 187세션·58명은 가중치 학습, 32세션·10명은 모델 선택에 사용했다.
 

@@ -24,7 +24,9 @@ def main():
                 'NLF fine-tuned':ROOT/'.experiment_storage/nlf_finetune_12h/nlf_finetuned'}
     final=ROOT/'.experiment_storage/multihmr_finetune_14h/final_test/multihmr_finetuned'
     if all((final/t['session']/'complete.json').exists() for t in tasks):
-        candidates['Multi-HMR fine-tuned (final)']=final
+        candidates['Multi-HMR fine-tuned']=final
+    else:
+        candidates['Multi-HMR fine-tuned']=ROOT/'.experiment_storage/multihmr_finetune_14h/test_snapshots/20261024_040315/multihmr_finetuned'
     methods={name:path for name,path in candidates.items()
              if all((path/t['session']/'complete.json').exists() for t in tasks)}
     assert 'NLF pretrained' in methods,'Wait until every NLF baseline segment finishes'
@@ -75,6 +77,7 @@ def main():
     frames=sum(t['video_frames'] for t in tasks)
     result=dict(updated_unix=time.time(),test_sessions=64,segments=320,rgb_frames=frames,
                 valid_instances=valid_total,common_matched_instances=paired_total,eligible_person_chunks=anchor_people,unit='mm',methods={})
+    result['method_sources']={name:str(path) for name,path in methods.items()}
     benchmark=NLF/'runtime_benchmark/summary.json'
     if benchmark.exists():result['controlled_runtime']=json.loads(benchmark.read_text())
     for name in methods:
@@ -101,6 +104,11 @@ def main():
         '|---|---:|---:|---:|---:|']
     for name,m in result['methods'].items():
         lines.append('| '+name+' | '+' | '.join(f'{m[k]:.2f}' for k in METRICS)+' |')
+    multi_source=methods.get('Multi-HMR fine-tuned')
+    if multi_source is not None:
+        stage='final selected checkpoint' if multi_source==final else 'training-intermediate checkpoint'
+        lines+=['',f'Multi-HMR fine-tuned results use a {stage}, evaluated on all 320 Test segments. '
+            f'Prediction source: `{multi_source.relative_to(ROOT)}`.']
     lines+=['','MPJPE alignment uses pelvis translation. PA alignment uses proper Sim(3), without reflection.','',
         '## Absolute placement, coverage, and observed throughput','',
         '| Model | Absolute MPJPE (mm) | Pelvis position (mm) | Matched GT | Observed fps |','|---|---:|---:|---:|---:|']
@@ -113,7 +121,7 @@ def main():
         '', 'PA aligns each person-frame with proper Sim(3), removing scale error. Absolute MPJPE and pelvis position '
         'therefore determine metric placement quality. Test is not used for checkpoint selection.',
         '', 'Only complete methods are listed. NLF fine-tuning remains pending until its final Test is complete. '
-        'Training-intermediate snapshots are excluded.']
+        'Exact source directories are recorded in comparison.json under method_sources.']
     lines+=['','## Motion consistency','',
         '| Model | Pelvis velocity error (mm/s) | Root-relative body22 acceleration error (mm/s²) |',
         '|---|---:|---:|']

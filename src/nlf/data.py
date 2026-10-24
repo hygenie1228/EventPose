@@ -56,8 +56,11 @@ class PersonCrops(Dataset):
         left,top=np.floor(center-side/2).astype(int)
         side=int(np.ceil(side));size=self.resolution
         with Image.open(CACHE/'images'/row['session']/f'{row["frame"]:06d}.jpg') as im:
-            image=im.convert('RGB').crop((left,top,left+side,top+side))
-            image=image.resize((size,size),Image.Resampling.BILINEAR)
+            # Resample directly: near-camera projected joints can produce huge
+            # out-of-frame boxes. Avoid allocating a side-by-side padded image.
+            image=im.convert('RGB').transform((size,size),Image.Transform.EXTENT,
+                (int(left),int(top),int(left+side),int(top+side)),
+                resample=Image.Resampling.BILINEAR)
             if self.augment:image=ImageEnhance.Brightness(image).enhance(np.random.uniform(.85,1.15))
             image=np.array(image,dtype=np.float32)/255.
         K[0,2]-=left;K[1,2]-=top;K[:2]*=size/side
