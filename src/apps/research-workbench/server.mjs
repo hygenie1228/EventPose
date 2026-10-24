@@ -52,13 +52,13 @@ function emit(s,event){event={...event,time:new Date().toISOString(),seq:s.event
 for(const s of sessions.values()){const day=s.created.slice(2,10).replaceAll('-','');if(!fs.existsSync(path.join(ROOT,'_agents/research',day,s.id+'.jsonl')))for(const event of s.events)record(s,event);}
 function publicSession(s){return {id:s.id,pane:s.pane,title:s.title,running:s.running,created:s.created,goal:s.goal||null,codexThread:s.codexThread||null};}
 function getSession(id){const s=sessions.get(id);if(!s)error(404,'Chat not found');return s;}
-function stop(s){if(goalClients.has(s.id)){goalClients.get(s.id).pause().catch(e=>emit(s,{type:'log',text:e.message}));return;}const p=jobs.get(s.id);if(p){try{process.kill(-p.pid,'SIGTERM');}catch{p.kill('SIGTERM');}}}
+function stop(s){if(goalClients.has(s.id)){(s.goal?goalClients.get(s.id).pause():goalClients.get(s.id).interrupt()).catch(e=>emit(s,{type:'log',text:e.message}));return;}const p=jobs.get(s.id);if(p){try{process.kill(-p.pid,'SIGTERM');}catch{p.kill('SIGTERM');}}}
 async function goalClient(s){
  if(goalClients.has(s.id))return goalClients.get(s.id);
  const client=new CodexGoalClient({root:ROOT,onError:e=>{s.running=false;goalClients.delete(s.id);emit(s,{type:'done',code:-1,text:e.message});},onEvent:(method,p)=>{
   if(method==='thread/goal/updated'){s.goal=p.goal;emit(s,{type:'goal',goal:s.goal});}
   else if(method==='thread/goal/cleared'){s.goal=null;emit(s,{type:'goal',goal:null});}
-  else if(method==='turn/started'){s.running=true;emit(s,{type:'status',text:'Codex가 목표를 수행 중입니다'});}
+  else if(method==='turn/started'){s.running=true;emit(s,{type:'status',text:'Codex가 작업 중입니다'});}
   else if(method==='turn/completed'){s.running=false;emit(s,{type:'done',code:p.turn.status==='failed'?1:0,text:p.turn.error?.message||'이번 작업 완료'});}
   else if(method==='item/completed'||method==='item/started'){
    const i=p.item;const type={agentMessage:'agent_message',commandExecution:'command_execution',fileChange:'file_change',mcpToolCall:'mcp_tool_call'}[i.type]||i.type;
@@ -67,7 +67,7 @@ async function goalClient(s){
  }});
  goalClients.set(s.id,client);
  try{await client.connect();const roots=[];try{roots.push(fs.realpathSync(path.join(ROOT,'exp')));}catch{}
-  s.codexThread=await client.load(s.codexThread,'Read _agents/instruct.md. Complete the user objective and verify it before marking it complete. Keep dataset/data read-only. Write all reports in Korean to _agents/report/YYMMDD_name.md and notes directly to _agents/research/YYMMDD/. Inspect long training/evaluation only every 30 minutes. Use the user language.',roots);persist();return client;
+  s.codexThread=await client.load(s.codexThread,'Read _agents/instruct.md. Complete the user objective and verify it before marking it complete. Keep dataset/data read-only. Write all reports in Korean to _agents/report/YYMMDD_name.md and notes directly to _agents/research/YYMMDD/. Inspect long training/evaluation only every 30 minutes. Use the user language. Execution is on the GPU host with device access. Only create a persistent goal when explicitly requested. Normal chats do not create goals.',roots);persist();return client;
  }catch(e){client.close();goalClients.delete(s.id);throw e;}
 }
 async function startGoalTurn(s,prompt,context,newGoal){
@@ -77,7 +77,7 @@ async function startGoalTurn(s,prompt,context,newGoal){
  const text=(context?'Selected workspace file: '+context+'\n\n':'')+prompt;
  if(client.turn){
   if(newGoal)error(409,'실행 중에는 Goal 체크를 끄고 추가 메시지를 보내 주세요');
-  await client.steer(text);emit(s,{type:'user',text:prompt,context:context||null,steered:true});emit(s,{type:'log',text:'추가 지시를 현재 Goal 작업에 전달했습니다'});return;
+  await client.steer(text);emit(s,{type:'user',text:prompt,context:context||null,steered:true});emit(s,{type:'log',text:'추가 메시지를 현재 작업에 전달했습니다'});return;
  }
  s.running=true;if(s.title==='New chat')s.title=prompt.slice(0,44);
  emit(s,{type:'user',text:prompt,context:context||null});
@@ -201,7 +201,7 @@ export const server=http.createServer(async(req,res)=>{
    if(!streams.has(s.id))streams.set(s.id,new Set());streams.get(s.id).add(res);
    const timer=setInterval(()=>res.write(': heartbeat\n\n'),20000);req.on('close',()=>{clearInterval(timer);streams.get(s.id)?.delete(res);});return;
   }
-  if(match[2]==='message'&&req.method==='POST'){const b=await body(req);if(b.context)await resolveFile(b.context);if(b.goal||s.goal?.status==='active'||goalClients.has(s.id))await startGoalTurn(s,b.prompt,b.context,!!b.goal);else startTurn(s,b.prompt,b.context);return json(res,202,{ok:true});}
+  if(match[2]==='message'&&req.method==='POST'){const b=await body(req);if(b.context)await resolveFile(b.context);await startGoalTurn(s,b.prompt,b.context,!!b.goal);return json(res,202,{ok:true,running:s.running,seq:s.events.length-1});}
   if(match[2]==='goal'){
    const client=await goalClient(s);if(req.method==='POST'){const b=await body(req);if(b.action==='pause')await client.pause();else if(b.action==='clear'){await client.clear();s.goal=null;}else if(b.action==='resume'){await client.goal(null,'active');if(!s.running)await client.start('계속해서 현재 목표를 수행하고 완료 여부를 검증해 주세요.');}else error(400,'Unknown goal action');}
    s.goal=await client.getGoal();persist();return json(res,200,{goal:s.goal});

@@ -1,5 +1,10 @@
 # Workspace Instructions
 
+## Current GPU allocation — latest user instruction
+
+- 앞으로 새 GPU 작업은 물리 GPU 3, 4, 5, 6만 사용한다. 이전 GPU 0–5 사용/6 유휴 지정보다 우선한다. 실행 중인 학습·관리 프로세스는 중복 실행하거나 재시작하지 않는다.
+- NLF 최종 평가는 GPU 3–6의 4개 worker로, 동일 GPU 속도 비교는 GPU 3에서 순차 수행한다. 평가와 결과 검증이 완료되면 해당 Goal을 종료한다.
+
 ## Code organization — explicit user requirements
 
 - Use `/home/namhj/EventPose/ChallengeHOR` as an architectural reference only; it is not a runtime dependency.
@@ -105,3 +110,4 @@
 
 - Remove the viewer file-size/UTF-8 status strip as well; do not display redundant metadata bars.
 - On chat selection or page refresh, show the most recent message by scrolling restored history to the bottom in both Chat and AI Agent. Preserve deliberate scrolling back while reading older messages.
+- Both ordinary Chat and AI Agent conversations accept messages during a running response using native turn steering, without requiring Goal. Keep Send and Stop available. Native clients execute on the authorized GPU host so CUDA devices remain visible; retain the immutable-dataset instructions and use `.venv-humanpose/bin/python` for scientific code.

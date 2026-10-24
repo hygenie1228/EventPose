@@ -63,3 +63,11 @@ Removed the viewer file-size/UTF-8 status strip and its render binding. Opening 
 ### Open restored chats at the latest message
 
 Chat selection/reload now forces the initial history render to the bottom in both panes. Layout, font and image-load adjustments keep the bottom anchored while the user is following the latest messages; manually scrolling back preserves the reading position. Verified with 70 synthetic conversation pairs per pane, including page reload and manually reading older messages, without model calls or JavaScript errors.
+
+### Ordinary chat steering and GPU host access
+
+All new Chat and AI Agent turns now use the native app-server client, including conversations without Goal enabled. Both panes can steer a running turn; Send remains available beside Stop, and ordinary chats do not create goals. Native ordinary Stop interrupts the turn without attempting to pause a nonexistent goal. A response sequence/running-state acknowledgement prevents an older send response from overwriting newer completion events.
+
+The user reported that the transferred agent could not see GPU device nodes although host telemetry showed them. Host inspection confirmed all seven RTX 8000 devices. The workspace-write sandbox was hiding host devices from the agent. Native thread start/resume now uses this authorized GPU host's full-access execution profile with the existing dataset read-only instructions retained. A real non-Goal AI Agent command verified `torch.cuda.is_available() == True` and `torch.cuda.device_count() == 7` using the project environment. The blocked NLF goal was explicitly resumed with that evidence and the user's latest GPU 3–6 instruction preserved.
+
+An in-flight ordinary conversation was saved, the service updated, and that same thread resumed. Real tests in both Chat and AI Agent waited for an active `sleep 12` tool call, delivered another message through `turn/steer`, and verified the resulting reply markers. Both tests preserved a null goal, recorded native steering input, and completed successfully. Backend tests passed. No additional training workload was launched by these verification tests.

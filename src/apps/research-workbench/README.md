@@ -49,3 +49,9 @@ node test/browser.mjs           # deployed browser E2E; uses actual CLI chats
 ```
 
 Browser tests require Chromium (`node_modules/.bin/playwright install chromium`) and the running server. Test fixtures are tiny generated files in `test/fixtures/` (ignored by Git); see the fixture preparation in `test/prepare-fixtures.mjs`. Browser screenshots and results go to `exp/261024/research_workbench/`. The Playwright development dependency is pinned to a Chromium version compatible with this server's Ubuntu 18.04.
+
+## Host execution and mid-response input
+
+All newly sent conversations now use native Codex app-server turns, with or without Goal. Additional messages steer the current turn and ordinary messages do not create goals. Stop interrupts an ordinary turn; Goal controls also manage persisted goal state.
+
+The deployment uses the GPU host's full-access execution profile because the prior workspace-write isolation did not expose `/dev/nvidia*`. Project instructions still require datasets and model assets to remain read-only, and browser file-operation endpoints independently enforce their read-only paths. Scientific commands should use `.venv-humanpose/bin/python`. The actual native Agent environment was verified to detect CUDA and seven GPUs.
