@@ -9,3 +9,6 @@
 /.experiment_storage/
 __pycache__/
 *.py[cod]
+/.venv-humanpose/
+/tools/third_party/
+/ChallengeHOR/

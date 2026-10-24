@@ -1,5 +1,26 @@
 # Workspace Instructions
 
+## Code organization — explicit user requirements
+
+- Use `/home/namhj/EventPose/ChallengeHOR` as an architectural reference only; it is not a runtime dependency.
+- `scripts/` contains only user-facing launchers for training, demo/inference, evaluation, and visualization. Do not put temporary experiment scripts, benchmarks, migration scripts, inspections, audits, monitors, or one-off helpers there; these belong in `tools/`.
+- `src/` is model-first: Multi-HMR code and its data code belong in `src/multihmr/`; NLF code and its data code belong in `src/nlf/`. Common evaluation, metrics, and visualization implementations belong in `src/utils/`. Its top level contains only `README.md` and directories, never loose Python files. Do not create generic `src/data`, `src/evaluation`, `src/inference`, `src/training`, or `src/visualization` directories.
+- Put the executable training/evaluation implementation in the respective `scripts/train_multihmr.py`, `scripts/train_nlf.py`, `scripts/evaluate_multihmr.py`, and `scripts/evaluate_nlf.py`; do not create separate generic training/evaluation source folders. Reusable model/data/metric helpers remain in the model directory or `src/utils/`.
+- Put Multi-HMR implementation directly in `src/multihmr/`, copied substantially unchanged from upstream. Preserve upstream licenses/notices; limit integration edits to necessary imports and paths. Include the backbone source needed to construct the model, so cloning this Git repository does not require a separate Multi-HMR checkout or a developer-only torch.hub cache.
+- Reserve `thirdparties/` for external mask/image-processing components; do not put the main Multi-HMR implementation there.
+- Manage remaining external repositories under `thirdparties/` as pinned Git submodules, following ChallengeHOR. Multi-HMR and NLF are copied source under `src/`, never submodules. `tools/` must contain files only, not source directories; remove the obsolete `tools/third_party/` layout after preserving dependencies.
+- Keep temporary/auxiliary code in `tools/`. Compatibility wrappers for live processes may remain temporarily, but do not duplicate the core implementation there.
+- Store each experiment's fine-tuned checkpoints in its own `exp/YYMMDD/{experiment}/checkpoints/`, not `data/finetuned/`. Pretrained weights and licensed SMPL-X assets remain in `data/` and must have documented setup steps.
+
+## Pose metric reporting
+
+- Use only pretrained baselines and checkpoints selected after training completion in final comparison tables; do not substitute training-intermediate snapshots. Do not use vague labels such as "frozen interim model". Explain the exact checkpoint in supporting metadata.
+- Bold the best value in each metric column (lower error, higher coverage/throughput). Do not claim a best value when the comparison is still incomplete.
+- The Multi-HMR main table uses 10-second chunks and four mm-valued metrics: first-frame-aligned MPJPE, first-frame-aligned PA-MPJPE, frame-aligned MPJPE, frame-aligned PA-MPJPE. First-frame alignment uses exactly frame 0 and stays fixed across the chunk; frame alignment is recomputed per frame. MPJPE alignment is pelvis translation; PA is proper Sim(3). Omit the status column.
+- Archive unused temporary Python utilities under `exp/_code_backup/`. Keep only currently needed experiment support in `tools/`; normal training/demo/evaluation/visualization must work without `tools/` source dependencies.
+
+- Display pose estimation errors (MPJPE and PA-MPJPE variants) in millimetres (mm) in user-facing tables and reports. Preserve metre-valued geometric coordinates and explicitly named `_m` raw metric fields internally; multiply by 1000 for display.
+
 ## Immutable datasets
 
 - Treat `dataset/` (server L) and `orig_dataset/` (server I) as strictly read-only.
@@ -11,14 +32,14 @@
 
 - Run every experiment in a named subdirectory of a date-scoped directory: `exp/YYMMDD/{exp_name}/` (for example, `exp/261023/processed_visualization/`). Never place experiment results directly under the date directory.
 - Store results, derived samples, visualization assets, logs, and manifests inside that dated experiment directory.
-- Implement all Python scripts under `tools/`. Never create or implement Python files under `exp/`, including `exp/261023/`.
+- Put runnable experiment entry points in `scripts/` and learning/evaluation implementations in `src/`. Keep `tools/` compatibility links only where live jobs still need old paths. Never implement Python files under `exp/`.
 - Use a temporary directory inside the dated experiment directory when temporary files are required.
 
 ## Persistent model assets
 
-- Store model checkpoints, downloaded model weights, human body model files, and other important reusable assets under `data/`.
+- Store pretrained weights and human body model files under `data/`. Store experiment fine-tuned checkpoints inside that experiment's `exp/YYMMDD/{exp_name}/checkpoints/` (user instruction). Existing `data/finetuned` links are only live-job compatibility paths.
 - Reuse the SMPL/SMPL-X assets in `data/human_model_files/`; do not copy them into a dataset or experiment directory unless an isolated experiment explicitly requires a derived artifact.
-- Keep large or important reusable outputs out of `exp/` when they are checkpoints or model assets; place them in an appropriately named subdirectory under `data/` instead.
+- Keep downloaded reusable assets in `data/`; experiment-specific fine-tuned checkpoints belong to the corresponding experiment directory.
 
 ## GT dataset processing
 
@@ -36,6 +57,8 @@
 - GPU jobs may use all eight GPUs, subject to actual encoder session limits.
 
 ## Repository and local storage
+
+- Store research notes under `_agents/research/YYMMDD/` (for example `261023/` and `261024/`). Write all documents in `_agents/research/261023/` in English, as explicitly requested by the user. Keep `src/README.md` in English.
 
 - Repository remote: `https://github.com/hygenie1228/EventPose`.
 - Ignore external storage symlinks (`data`, `dataset`, `orig_dataset`, `etri_processed`, `exp`), `.experiment_storage/`, and Python caches in Git. Do not delete symlinks when asked to ignore them.

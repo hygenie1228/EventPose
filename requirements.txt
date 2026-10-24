@@ -1,0 +1,20 @@
+# Tested core environment: Python 3.10, torch 2.3.0 / torchvision 0.18.0, CUDA 12.1.
+# Install torch/torchvision using the matching official CUDA wheel index first.
+numpy<2
+scipy
+pillow
+opencv-python
+torch>=2.3,<2.4
+torchvision>=0.18,<0.19
+einops
+roma
+smplx
+trimesh
+pyrender
+pyglet<2
+pyvista
+tqdm
+h5py
+tensorboard
+plyfile
+matplotlib

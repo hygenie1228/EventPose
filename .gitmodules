@@ -1,0 +1,3 @@
+[submodule "thirdparties/Human3R"]
+	path = thirdparties/Human3R
+	url = https://github.com/fanegg/Human3R.git
