@@ -79,3 +79,4 @@
 
 - Persist all browser Agent user/assistant/tool events under `_agents/research/YYMMDD/agent_sessions/` as complete JSONL and readable Markdown. Record this agent's implementation/research notes under the same date-scoped research directory. Put deliverable reports under `_agents/report/`.
 - Workbench defaults: white/light theme, readable 15–16px text, prominent 30px close buttons, one Codex panel on the right and a second below the viewer, and top-bar one/two-panel buttons and light/dark theme buttons. The bottom panel must resize up to 50% of the workspace height. Each viewer/chat must scroll independently and keep the chat composer visible; show file/chat loading states.
+- Default the right Codex pane to 60% of the viewport; do not impose the old 750px drag-resize limit. Show animated spinners for loading and animated progress while Codex is working.
