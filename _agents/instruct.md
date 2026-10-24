@@ -92,3 +92,9 @@
 - Keep Goal status compact: a small icon immediately left of the Goal checkbox opens a popup containing objective/status/usage and pause/resume/clear controls. Do not reserve a large persistent status panel above the composer.
 
 - Support initial web login from `?key=...` as requested; exchange the supplied login secret for the session cookie and remove it from the browser address, preserving other URL parameters.
+
+- Scale browser UI density down on laptop/small windows: keep the top bar compact (32–40px), reduce tabs/toolbars/padding and text at smaller viewport widths/heights, and preserve visible composers and independent scrolling.
+
+- On viewports <=767px wide, show one conversation panel with Chat / AI Agent tabs: hide the top bar, explorer, viewer and footer. Background goals keep running. Use compact laptop chrome/fonts at smaller desktop widths/heights.
+
+- In one-panel view, place Chat and AI Agent mode tabs together in the panel heading, including on phones. Keep their tabs/conversations independent and preserve unsent drafts across mode/layout changes. Remove the Research partner/Ready/current CLI login info banner.

@@ -31,3 +31,9 @@ The user explicitly requested migration of the ongoing NLF comparison goal to th
 Replaced the persistent Goal status area with a small status icon immediately left of the Goal checkbox. It opens a native dialog with objective, status, usage, and pause/resume/clear controls. The dialog closes with its close button, Escape, or an outside click; incoming goal events update the content without opening it. Browser verification used the existing handed-off NLF goal without pausing or modifying that goal.
 
 Added the requested `?key=...` initial login alongside fragment login. The login secret is exchanged for the existing session cookie, removed from browser history/address, and other parameters such as the target AI Agent session are preserved. Browser verification confirmed login and authenticated API access with `?key=cvlab`.
+
+### Laptop density and phone/one-panel mode switching
+
+Reduced the top chrome to 32–40px and scaled typography, tabs, toolbars, margins and composers for smaller desktop widths/heights. On <=767px screens only one conversation area is visible, with Chat / AI Agent tabs; explorer, viewer, top bar and footer are hidden. The user's later request to switch Chat/AI Agent on phones supersedes the earlier Chat-only phone layout. In desktop one-panel mode the same tabs switch between independent panes. Two-panel mode restores Chat on the right and AI Agent below the viewer. Drafts are kept per pane and chat, including across iframe reparenting. Removed the agent-info banner rather than merely hiding its text.
+
+Browser verification passed at 1600×1000, 1440×900, 1280×800, 1024×650, 390×844 and 375×667. Both phone modes and composers remained usable. A separate test verified one-panel switching, draft preservation and two-panel restoration without JavaScript errors. No model calls or training interruptions were needed for these UI tests.
