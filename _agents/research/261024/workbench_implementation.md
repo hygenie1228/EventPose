@@ -45,3 +45,9 @@ Added native `turn/steer` support with the current turn ID. Messages sent during
 Deployment preserved the current NLF goal by saving its paused state, updating the web service, and resuming that same native goal/thread. A real mid-goal message was accepted with HTTP 202 and recorded as `steered: true`; it asked only for connection acknowledgement and did not change the NLF objective or trigger GPU queries.
 
 AI Agent iframe typography now inherits the parent Chat's message/editor/composer font sizes instead of shrinking based on iframe width. Browser verification confirmed matching 14px message and input fonts at a 1280px laptop viewport and a visible Send button in the active NLF goal. Backend tests passed.
+
+### Open Agent report links in the shared viewer
+
+Workspace links in Chat/AI Agent messages now open the main file viewer. The embedded AI Agent forwards file-open requests to its same-origin parent instead of updating its hidden local viewer. Workspace-root paths, workspace absolute paths with optional line numbers, file URIs, and same-origin file/media links are normalized; external links retain their separate-tab behavior. Markdown-relative links still resolve against the source file, while root-prefixed project paths avoid accidental duplicate directories.
+
+On phones, a clicked report opens a full-screen viewer overlay with a return-to-chat button. Embedded Agent initialization no longer reopens the parent's last file, preventing it from unexpectedly covering the chat during pane switches. Browser fixtures verified Chat links, Agent forwarding, file URIs, external links, and mobile return navigation at 1280px and 390px without model calls or JavaScript errors.
