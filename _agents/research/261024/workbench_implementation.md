@@ -59,3 +59,7 @@ Removed the bottom Workspace connected/host/UTF-8 footer and its JavaScript bind
 ### Remove viewer metadata strip
 
 Removed the viewer file-size/UTF-8 status strip and its render binding. Opening Markdown in the browser still works without JavaScript errors, and the space is available to the file/Agent panels.
+
+### Open restored chats at the latest message
+
+Chat selection/reload now forces the initial history render to the bottom in both panes. Layout, font and image-load adjustments keep the bottom anchored while the user is following the latest messages; manually scrolling back preserves the reading position. Verified with 70 synthetic conversation pairs per pane, including page reload and manually reading older messages, without model calls or JavaScript errors.

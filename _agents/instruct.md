@@ -104,3 +104,4 @@
 - Remove the bottom Workspace connected/host/UTF-8 status bar entirely and give its space to the workspace.
 
 - Remove the viewer file-size/UTF-8 status strip as well; do not display redundant metadata bars.
+- On chat selection or page refresh, show the most recent message by scrolling restored history to the bottom in both Chat and AI Agent. Preserve deliberate scrolling back while reading older messages.
