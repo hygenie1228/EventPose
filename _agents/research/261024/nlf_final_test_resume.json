@@ -1,0 +1,28 @@
+{
+  "pid": 46605,
+  "started_unix": 1792861664.63513,
+  "command": [
+    "/home/namhj/EventPose/.venv-humanpose/bin/python",
+    "-u",
+    "/home/namhj/EventPose/scripts/evaluate_nlf.py",
+    "supervise",
+    "--method",
+    "nlf_finetuned",
+    "--checkpoint",
+    "/home/namhj/EventPose/exp/261024/nlf_finetune_12h/checkpoints/best_full.torchscript",
+    "--gpus",
+    "3,4,5,6",
+    "--workers",
+    "4",
+    "--batch",
+    "16"
+  ],
+  "log": "/home/namhj/EventPose/exp/261024/nlf_finetune_12h/logs/final_test_gpu3_6.log",
+  "gpus": [
+    3,
+    4,
+    5,
+    6
+  ],
+  "training_restarted": false
+}

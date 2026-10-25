@@ -1,0 +1,17 @@
+{
+  "started_unix": 1792863022.4231956,
+  "controllers": [
+    {
+      "action": "watchdog",
+      "pid": 86503,
+      "start_ticks": "287400324",
+      "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/tools/goal_runtime_control.py watchdog --config /home/namhj/EventPose/_agents/research/261024/rgb_event_goal_36h.json --status /home/namhj/EventPose/_agents/research/261024/rgb_event_goal_watchdog_status.json",
+      "pgid": 86503,
+      "status_path": "/home/namhj/EventPose/_agents/research/261024/rgb_event_goal_watchdog_status.json",
+      "log": "/home/namhj/EventPose/exp/261024/rgb_event_36h/logs/goal_watchdog.log"
+    }
+  ],
+  "native_goal_verified": true,
+  "encodings": 4,
+  "conditions": 10
+}

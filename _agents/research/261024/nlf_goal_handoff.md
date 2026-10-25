@@ -1,3 +1,5 @@
+> 최신 상태: 아래는 오전 이관 당시의 역사 기록이다. NLF 학습·4모델 전체Test·동일GPU속도·원시결과검증은 모두 완료됐다. 현재는4인코딩/10조건 RGB-event 36시간 Goal이며 GPU2–6을 사용한다. 실행 중인 새 작업과 다음 점검 시각은 `_agents/research/261024/rgb_event_implementation_handoff.json` 및 `exp/261024/rgb_event_36h/pipeline_state.json`을 따른다. 아래의 과거 학습 PID/관리 프로세스를 재시작하지 않는다.
+
 # NLF / Multi-HMR 목표 이관
 
 사용자가 현재 진행 중인 목표를 웹 UI의 **AI Agent 탭**으로 이관하라고 명시했다. 이 문서는 재시작 계획이 아니라 실행 중인 작업을 이어받기 위한 상태 기록이다.

@@ -2,8 +2,8 @@
 
 ## Current GPU allocation — latest user instruction
 
-- 앞으로 새 GPU 작업은 물리 GPU 3, 4, 5, 6만 사용한다. 이전 GPU 0–5 사용/6 유휴 지정보다 우선한다. 실행 중인 학습·관리 프로세스는 중복 실행하거나 재시작하지 않는다.
-- NLF 최종 평가는 GPU 3–6의 4개 worker로, 동일 GPU 속도 비교는 GPU 3에서 순차 수행한다. 평가와 결과 검증이 완료되면 해당 Goal을 종료한다.
+- 최신 확장 목표에서 새 GPU 작업은 물리 GPU 2, 3, 4, 5, 6만 사용한다. 이전 GPU 3–6 및 0–5 지정보다 우선한다. 실행 중인 학습·관리·평가 프로세스는 중복 실행하거나 재시작하지 않는다.
+- 이미 재개한 NLF 최종 평가는 GPU 3–6의 4개 worker로 유지하고 동일 GPU 속도 비교는 GPU 3에서 순차 수행한다. 이후 RGB/event 10조건(원본 RGB·미세조정 RGB 및 event-only/RGB+event 각각 4인코딩) 실험까지 완료·검증해야 새 Goal을 완료 종료한다. 인코딩에는 `tools/visualize_data.py`의 배경128·양극성255·음극성0 회색조 표현을 반드시 포함한다. 새 고정 36시간 범위는 2026-10-24 17:17:17~2026-10-26 05:17:17 UTC이며 미완료면 사용자 요청에 따라 자동 pause한다. 상세 목표와 타이머 설정은 `_agents/research/261024/rgb_event_goal_36h.json`을 따른다. 모든 새 실험 프로세스는 해당 설정의 managed_jobs_file에 PID·PGID·명령·시작 tick을 등록하고, 학습 자체에도 동일 마감을 전달해 종료 전 체크포인트를 보존한다.
 
 ## Code organization — explicit user requirements
 

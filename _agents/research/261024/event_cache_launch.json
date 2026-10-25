@@ -1,0 +1,9 @@
+{
+  "pid": 22363,
+  "role": "event_cache_v2_build",
+  "start_ticks": "287554026",
+  "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/tools/prepare_event_cache.py build --workers 4 --size 224",
+  "pgid": 22363,
+  "started_unix": 1792864559.452106,
+  "log": "/home/namhj/EventPose/exp/261024/rgb_event_36h/logs/event_cache_v2_build.log"
+}

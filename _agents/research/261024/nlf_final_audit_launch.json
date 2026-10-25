@@ -1,0 +1,8 @@
+{
+  "pid": 98280,
+  "role": "nlf_final_comparison_audit",
+  "start_ticks": "287459223",
+  "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/tools/audit_nlf_comparison.py",
+  "pgid": 98280,
+  "log": "/home/namhj/EventPose/exp/261024/nlf_finetune_12h/logs/final_comparison_audit.log"
+}

@@ -1,0 +1,8 @@
+{
+  "pid": 36609,
+  "role": "event_cache_final_audit",
+  "start_ticks": "288611586",
+  "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/tools/audit_event_experiments.py --cache-only",
+  "pgid": 36609,
+  "launched_unix": 1792875135.0480855
+}

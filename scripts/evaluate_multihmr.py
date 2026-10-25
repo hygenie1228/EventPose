@@ -37,12 +37,12 @@ def prepare():
     return tasks
 
 
-def worker(rank):
+def worker(rank,workers=5):
     base.OUT=TEST;base.configure_torch()
     tasks=json.loads((TEST/'tasks.json').read_text())
     chosen=json.loads((RESULT_OUT/'selected.json').read_text())
     model=base.load_multihmr(chosen['checkpoint'])
-    names=sorted({t['parent_session'] for t in tasks})[rank::6]
+    names=sorted({t['parent_session'] for t in tasks})[rank::workers]
     for name in names:
         clips=[t for t in tasks if t['parent_session']==name]
         if all((TEST/METHOD/t['session']/'complete.json').exists() for t in clips):
@@ -63,12 +63,12 @@ def worker(rank):
         finally:cached.unlink(missing_ok=True)
 
 
-def supervise():
+def supervise(gpus=(2,3,4,5,6)):
     tasks=prepare();running=[]
-    for rank in range(6):
-        env=dict(os.environ,CUDA_VISIBLE_DEVICES=str(rank),OMP_NUM_THREADS='2',TMPDIR=str(WORK/'tmp'))
+    for rank,gpu in enumerate(gpus):
+        env=dict(os.environ,CUDA_VISIBLE_DEVICES=str(gpu),OMP_NUM_THREADS='2',TMPDIR=str(WORK/'tmp'))
         log=(TEST/'logs'/f'worker_{rank}.log').open('a',buffering=1)
-        p=subprocess.Popen([sys.executable,'-u',str(Path(__file__).resolve()),'worker','--rank',str(rank)],
+        p=subprocess.Popen([sys.executable,'-u',str(Path(__file__).resolve()),'worker','--rank',str(rank),'--workers',str(len(gpus))],
                            env=env,cwd=ROOT,stdout=log,stderr=subprocess.STDOUT)
         running.append((p,log))
     while any(p.poll() is None for p,_ in running):
@@ -82,8 +82,91 @@ def supervise():
     save(RESULT_OUT/'final_test_status.json',dict(status='complete',completed_segments=320,updated_unix=time.time()))
 
 
+def prepare_event_test(config_path):
+    from multihmr.event_data import OUT as event_out
+    config=json.loads(Path(config_path).read_text())
+    manifest=json.loads((OUT/'manifest.json').read_text())
+    assert hashlib.sha256((ROOT/'dataset/split.json').read_bytes()).hexdigest()==manifest['test_split_sha256']
+    source=ROOT/'.experiment_storage/humanpose_gt_segments'
+    tasks=json.loads((source/'tasks.json').read_text())
+    assert len(tasks)==320 and sum(task['video_frames'] for task in tasks)==96124
+    result_root=ROOT/'.experiment_storage/rgb_event_36h/test_results'
+    result_root.mkdir(parents=True,exist_ok=True)
+    for name in ['rgb','logs']:(result_root/name).mkdir(exist_ok=True)
+    link=event_out/'results'
+    try:link.symlink_to(result_root,target_is_directory=True)
+    except FileExistsError:assert link.resolve()==result_root.resolve()
+    regressor=result_root/'joint_regressor.npy'
+    if not regressor.exists():
+        temporary=regressor.with_name(regressor.name+'.'+str(os.getpid())+'.tmp')
+        shutil.copyfile(source/'joint_regressor.npy',temporary);temporary.replace(regressor)
+    return config,tasks,result_root,event_out
+
+
+def event_worker(config_path,rank,workers):
+    from multihmr.event_inference import load_model,infer,CachedEvents
+    config,tasks,result_root,event_out=prepare_event_test(config_path)
+    base.OUT=result_root;base.configure_torch()
+    checkpoint=None if config.get('original') else event_out/'checkpoints'/config['name']/'best.pt'
+    model=load_model(config,checkpoint)
+    names=sorted({task['parent_session'] for task in tasks})[rank::workers]
+    for name in names:
+        clips=[task for task in tasks if task['parent_session']==name]
+        if all((result_root/config['name']/task['session']/'complete.json').exists() for task in clips):continue
+        cached=result_root/'rgb'/(config['name']+'_'+name+'.mp4')
+        source=None
+        try:
+            if config['mode']!='event':shutil.copyfile(clips[0]['source_video'],cached)
+            if config['mode']!='rgb':source=CachedEvents(name,config['encoding'])
+            for raw in clips:
+                if (result_root/config['name']/raw['session']/'complete.json').exists():continue
+                # An event-only task deliberately has no usable RGB video input.
+                task=dict(raw,video=str(cached) if config['mode']!='event' else '',
+                          checkpoint=str(checkpoint) if checkpoint else 'original',input_mode=config['mode'],
+                          event_encoding=config.get('encoding'),rgb_pixels_used=config['mode']!='event')
+                collector=base.Collector(task,config['name'])
+                try:
+                    infer(model,collector,config.get('encoding'),config.get('batch_size',16),event_source=source)
+                    collector.save()
+                except Exception:
+                    collector.save(partial=True);raise
+        finally:
+            if source is not None:source.close()
+            cached.unlink(missing_ok=True)
+
+
+def event_supervise(config_path,gpus):
+    config,tasks,result_root,event_out=prepare_event_test(config_path)
+    jobs=[]
+    for rank,gpu in enumerate(gpus):
+        env=dict(os.environ,CUDA_VISIBLE_DEVICES=str(gpu),OMP_NUM_THREADS='2',PYTHONDONTWRITEBYTECODE='1')
+        log=(result_root/'logs'/(config['name']+'_'+str(rank)+'.log')).open('a',buffering=1)
+        process=subprocess.Popen([sys.executable,'-u',__file__,'worker','--event-config',str(config_path),
+            '--rank',str(rank),'--workers',str(len(gpus))],cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT)
+        jobs.append((process,log))
+    status_path=event_out/'test_status'/(config['name']+'.json')
+    def status(state):
+        return dict(status=state,completed_segments=sum((result_root/config['name']/task['session']/'complete.json').exists() for task in tasks),
+                    total_segments=320,updated_unix=time.time(),gpus=list(gpus),
+                    workers=[dict(pid=process.pid,exit_code=process.poll()) for process,_ in jobs])
+    while any(process.poll() is None for process,_ in jobs):
+        save(status_path,status('running'));time.sleep(15)
+    for _,log in jobs:log.close()
+    if any(process.returncode!=0 for process,_ in jobs):
+        save(status_path,status('failed'));raise RuntimeError('Event comparison Test worker failed; inspect logs')
+    assert all((result_root/config['name']/task['session']/'complete.json').exists() for task in tasks)
+    save(status_path,status('complete'))
+
+
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('stage',choices=['supervise','worker']);p.add_argument('--rank',type=int,default=0)
+    p.add_argument('--event-config',type=Path);p.add_argument('--workers',type=int,default=5)
+    p.add_argument('--gpus',default='2,3,4,5,6')
     a=p.parse_args()
-    if a.stage=='supervise':supervise()
-    else:worker(a.rank)
+    gpus=tuple(int(value) for value in a.gpus.split(','))
+    assert gpus and len(set(gpus))==len(gpus) and all(gpu in range(2,7) for gpu in gpus)
+    if a.event_config:
+        if a.stage=='supervise':event_supervise(a.event_config,gpus)
+        else:event_worker(a.event_config,a.rank,a.workers)
+    elif a.stage=='supervise':supervise(gpus)
+    else:worker(a.rank,a.workers)

@@ -1,0 +1,7 @@
+{
+  "pid": 15088,
+  "role": "event_postprocess_manager",
+  "start_ticks": "287974183",
+  "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/tools/finalize_event_experiments.py",
+  "pgid": 15088
+}

@@ -211,6 +211,8 @@ def checkpoint(path,model,optimizer,config,step,epoch,metrics,baseline,started,f
 
 def main(config_path):
     config=json.loads(Path(config_path).read_text())
+    if config.get('experiment')=='rgb_event_36h':
+        return run_event_trial(config)
     overrides=OUT/'training_overrides.json'
     if overrides.exists():config.update(json.loads(overrides.read_text()).get(config['name'],{}))
     rank=int(os.environ['RANK']);local=int(os.environ['LOCAL_RANK'])
@@ -318,6 +320,191 @@ def main(config_path):
              successful_steps=successful,elapsed_seconds=time.time()-started,best_pa_mpjpe_mm=best,
              last_metrics=metrics,checkpoint=str(ckpt_dir/'best.pt'),completed_unix=time.time()))
     dist.barrier();dist.destroy_process_group()
+
+
+@torch.no_grad()
+def validate_event(model,loader,reg,device):
+    """Actual detections on Train holdout; no GT boxes/indices enter inference."""
+    from multihmr.event_data import model_inputs
+    model.eval();original=model.base.detection;image_ids=[]
+    def detection(*args,**kwargs):
+        value=original(*args,**kwargs);image_ids[:]=value[2][0].detach().cpu().tolist();return value
+    model.base.detection=detection
+    total=np.zeros(6,np.float64)
+    try:
+        for batch in loader:
+            inputs={k:v.to(device,non_blocking=True) for k,v in model_inputs(batch,model.mode).items()}
+            with torch.autocast('cuda',dtype=torch.float16):
+                people=model(**inputs,is_training=False,det_thresh=.3,nms_kernel_size=3)
+            assert len(people)==len(image_ids)
+            grouped=[[] for _ in batch['index']]
+            with torch.autocast('cuda',enabled=False):
+                for image,person in zip(image_ids,people):
+                    grouped[image].append((reg@person['v3d'].float()).cpu().numpy())
+            for image,predictions in enumerate(grouped):
+                target=batch['joints'][image].numpy();valid=batch['valid'][image].numpy().astype(bool)
+                K=batch['original_K'][image].numpy();shape=batch['image_shape'][image].tolist()
+                predictions=np.stack(predictions) if predictions else np.empty((0,55,3),np.float32)
+                mapping=match_people(predictions,target,valid,K,K,shape)
+                for gt_id,pred_id in mapping.items():
+                    total[:3]+=joint_errors(predictions[pred_id,:22],target[gt_id,:22])
+                total[3]+=len(mapping);total[4]+=valid.sum();total[5]+=len(predictions)
+    finally:
+        model.base.detection=original
+    return dict(zip(['mpjpe_mm','root_mpjpe_mm','pa_mpjpe_mm'],
+                    (1000*total[:3]/total[3]).tolist() if total[3] else [None]*3),
+                matched_instances=int(total[3]),valid_instances=int(total[4]),
+                predicted_instances=int(total[5]),coverage=float(total[3]/total[4]) if total[4] else 0.)
+
+
+def event_selection_rank(metrics,minimum_coverage=.95):
+    if metrics['pa_mpjpe_mm'] is None:
+        return (-1,metrics['coverage'],0)
+    if metrics['coverage']>=minimum_coverage:
+        return (1,-metrics['pa_mpjpe_mm'],metrics['coverage'])
+    return (0,metrics['coverage'],-metrics['pa_mpjpe_mm'])
+
+
+def run_event_trial(config):
+    """Single-GPU, half-day controlled RGB/event adaptation with safe resume."""
+    import fcntl
+    import signal
+    from multihmr.event_model import EventMultiHMR
+    from multihmr.event_data import Frames as EventFrames,collate as event_collate,model_inputs,OUT as EVENT_OUT
+    from utils.event_encoding import ENCODINGS
+    visible=[int(value) for value in os.environ.get('CUDA_VISIBLE_DEVICES','').split(',') if value]
+    assert len(visible)==1 and visible[0] in range(2,7),'Set exactly one physical GPU from 2–6'
+    assert config['mode'] in ('rgb','event','fusion')
+    run_dir=EVENT_OUT/'runs'/config['name'];run_dir.mkdir(parents=True,exist_ok=True)
+    assets=EVENT_OUT/'checkpoints'/config['name'];assets.mkdir(parents=True,exist_ok=True)
+    lock_path=ROOT/'.experiment_storage/rgb_event_36h/run_locks'/config['name']
+    lock_path.parent.mkdir(parents=True,exist_ok=True)
+    lock=lock_path.open('a');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+    assert not (run_dir/'complete.json').exists(),'This trial already completed; refusing duplicate training'
+    configure_torch();torch.cuda.set_device(0);device=torch.device('cuda',0)
+    seed=config.get('seed',261024);random.seed(seed);np.random.seed(seed);torch.manual_seed(seed)
+    started=config.get('trial_started_unix',time.time());pilot=config.get('pilot_steps',0)
+    finish=min(started+config.get('hours',12)*3600,config['deadline_unix']-300)
+    assert finish>started,'No training budget remains'
+    base=load_multihmr();configure_model(base,config.get('last_blocks',8))
+    channels=ENCODINGS[config['encoding']]['channels'] if config['mode']!='rgb' else 0
+    model=EventMultiHMR(base,config['mode'],channels).to(device)
+    # Modality-specific module initialization must not change the shared RGB
+    # augmentation/random stream (especially pilot runs with zero data workers).
+    random.seed(seed);np.random.seed(seed);torch.manual_seed(seed)
+    selected={name:parameter for name,parameter in model.named_parameters() if parameter.requires_grad}
+    groups=[]
+    for backbone in (False,True):
+        values=[parameter for name,parameter in selected.items() if name.startswith('base.backbone.')==backbone]
+        if values:
+            rate=config.get('backbone_lr',1e-6) if backbone else config.get('head_lr',1e-5)
+            groups.append(dict(params=values,lr=rate,initial_lr=rate))
+    optimizer=torch.optim.AdamW(groups,weight_decay=config.get('weight_decay',.01))
+    scaler=torch.cuda.amp.GradScaler(init_scale=512)
+    train=EventFrames('training',config['mode'],config.get('encoding'),augment=config.get('augment',True),
+                      limit=config.get('pilot_train_limit',128) if pilot else 0,
+                      sessions=config.get('pilot_training_sessions') if pilot else None)
+    validation=EventFrames('validation',config['mode'],config.get('encoding'),
+                           limit=config.get('pilot_validation_limit',32) if pilot else 0,
+                           sessions=config.get('pilot_validation_sessions') if pilot else None)
+    workers=config.get('workers',2);batch_size=config.get('batch_size',16)
+    generator=torch.Generator().manual_seed(seed)
+    loader=DataLoader(train,batch_size=batch_size,shuffle=True,generator=generator,collate_fn=event_collate,
+                      num_workers=workers,pin_memory=True,drop_last=True,persistent_workers=workers>0)
+    val_loader=DataLoader(validation,batch_size=batch_size,collate_fn=event_collate,num_workers=workers,
+                         pin_memory=True,persistent_workers=workers>0)
+    reg=torch.from_numpy(np.load(WORK/'joint_regressor.npy')).to(device)
+    step=successful=epoch=0;best_metrics=None;best_rank=(-2,0,0);baseline=None
+    resume=assets/'last.pt'
+    if resume.exists() and not pilot:
+        restored=torch.load(resume,map_location='cpu')
+        assert restored['config']==config,'Resume configuration changed'
+        unexpected=model.load_state_dict(restored['model_delta'],strict=False).unexpected_keys
+        assert not unexpected
+        optimizer.load_state_dict(restored['optimizer']);scaler.load_state_dict(restored['amp_scaler'])
+        step=restored['step'];successful=restored['successful_steps'];epoch=restored['epoch']
+        started=restored['started_unix'];finish=min(started+config.get('hours',12)*3600,config['deadline_unix']-300)
+        baseline=restored['baseline'];best_metrics=restored['best_metrics']
+        if best_metrics is not None:best_rank=event_selection_rank(best_metrics,config.get('minimum_coverage',.95))
+        random.setstate(restored['random_state']);np.random.set_state(restored['numpy_state'])
+        torch.set_rng_state(restored['torch_rng_state']);torch.cuda.set_rng_state(restored['cuda_rng_state'])
+        generator.set_state(restored['sampler_generator_state'])
+    save(run_dir/'configuration.json',config)
+    save(run_dir/'started.json',dict(pid=os.getpid(),started_unix=started,finish_unix=finish,
+        physical_gpu=visible[0],mode=config['mode'],encoding=config.get('encoding'),
+        training_frames=len(train),validation_frames=len(validation),batch_size=batch_size,
+        trainable_parameters=sum(parameter.numel() for parameter in selected.values()),
+        initialization='original pretrained Multi-HMR, not the previous RGB-finetuned model',
+        backbone_warmup_seconds=config.get('backbone_warmup_seconds',1800),test_used_for_selection=False))
+    def checkpoint(label,metrics):
+        value=dict(model_delta={name:parameter.detach().cpu() for name,parameter in selected.items()},
+            config=config,step=step,successful_steps=successful,epoch=epoch,started_unix=started,
+            metrics=metrics,metrics_step=metrics_step,metrics_apply_to_checkpoint=metrics_step==step,
+            best_metrics=best_metrics,baseline=baseline,optimizer=optimizer.state_dict() if not pilot else None,
+            amp_scaler=scaler.state_dict(),random_state=random.getstate(),numpy_state=np.random.get_state(),
+            torch_rng_state=torch.get_rng_state(),cuda_rng_state=torch.cuda.get_rng_state(),
+            sampler_generator_state=generator.get_state(),test_used_for_selection=False)
+        destination=assets/(label+'.pt');temporary=destination.with_suffix('.tmp.pt')
+        torch.save(value,temporary);temporary.replace(destination)
+    interrupted=[False]
+    def stop_signal(signum,frame):interrupted[0]=True
+    signal.signal(signal.SIGTERM,stop_signal);signal.signal(signal.SIGINT,stop_signal)
+    metrics=validate_event(model,val_loader,reg,device);metrics_step=step
+    if baseline is None:baseline=metrics
+    save(run_dir/'baseline.json',baseline)
+    last_validation=last_save=time.time();model.train()
+    while time.time()<finish and not interrupted[0] and not (pilot and step>=pilot):
+        for batch in loader:
+            elapsed=time.time()-started
+            if time.time()>=finish or interrupted[0] or (pilot and step>=pilot):break
+            for name,parameter in selected.items():
+                if name.startswith('base.backbone.'):
+                    parameter.requires_grad_(elapsed>=config.get('backbone_warmup_seconds',1800))
+            b,gt=targets(batch,device)
+            fraction=min(1.,elapsed/(config.get('hours',12)*3600))
+            rate_scale=min(1.,(step+1)/config.get('warmup_steps',100))*(.1+.9*.5*(1+math.cos(math.pi*fraction)))
+            for group in optimizer.param_groups:group['lr']=group['initial_lr']*rate_scale
+            optimizer.zero_grad(set_to_none=True)
+            with torch.autocast('cuda',dtype=torch.float16):
+                output=model(**model_inputs(b,model.mode),idx=gt['idx'],is_training=True)
+            loss,components=losses(output,gt,reg,config)
+            assert torch.isfinite(loss),{key:float(value.detach()) for key,value in components.items()}
+            scaler.scale(loss).backward();scaler.unscale_(optimizer)
+            norm=torch.nn.utils.clip_grad_norm_(list(selected.values()),1.)
+            before=scaler.get_scale();scaler.step(optimizer);scaler.update()
+            successful+=int(scaler.get_scale()>=before);step+=1
+            if step%25==0 or pilot:
+                progress=dict(step=step,successful_steps=successful,elapsed_seconds=time.time()-started,
+                    images_per_second=step*batch_size/max(time.time()-started,1e-6),
+                    grad_norm=float(norm) if torch.isfinite(norm) else None,amp_scale=scaler.get_scale(),
+                    peak_memory_gib=torch.cuda.max_memory_allocated()/1024**3,updated_unix=time.time(),
+                    **{key:float(value.detach()) for key,value in components.items()})
+                save(run_dir/'progress.json',progress);print(json.dumps(progress),flush=True)
+            if time.time()-last_save>=300:
+                checkpoint('last',metrics);last_save=time.time()
+            if time.time()-last_validation>=config.get('validation_minutes',45)*60:
+                metrics=validate_event(model,val_loader,reg,device);metrics_step=step;last_validation=time.time()
+                record=dict(metrics,step=step,successful_steps=successful,time=time.time())
+                with (run_dir/'validation.jsonl').open('a') as stream:stream.write(json.dumps(record)+'\n')
+                rank=event_selection_rank(metrics,config.get('minimum_coverage',.95))
+                if rank>best_rank:
+                    best_rank=rank;best_metrics=metrics;checkpoint('best',metrics);save(run_dir/'best.json',record)
+                checkpoint('last',metrics);last_save=time.time();model.train()
+        epoch+=1
+    assert successful>0,'No optimizer update succeeded'
+    # Save before a final holdout pass so deadline interruption cannot lose progress.
+    checkpoint('last',metrics)
+    if time.time()<config['deadline_unix']-120 and not interrupted[0]:
+        metrics=validate_event(model,val_loader,reg,device);metrics_step=step
+        rank=event_selection_rank(metrics,config.get('minimum_coverage',.95))
+        record=dict(metrics,step=step,successful_steps=successful,time=time.time())
+        if rank>best_rank:
+            best_rank=rank;best_metrics=metrics;checkpoint('best',metrics);save(run_dir/'best.json',record)
+        checkpoint('last',metrics)
+    save(run_dir/'complete.json',dict(status='pilot_complete' if pilot else 'interrupted' if interrupted[0] else 'complete',
+        step=step,successful_steps=successful,elapsed_seconds=time.time()-started,best_metrics=best_metrics,
+        completed_unix=time.time(),checkpoint=str(assets/'best.pt'),test_used_for_selection=False))
+    lock.close()
 
 
 if __name__=='__main__':

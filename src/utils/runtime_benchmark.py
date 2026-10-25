@@ -67,19 +67,25 @@ def worker(method):
     (OUT/f'{method}.json').write_text(json.dumps(result,indent=2));print(json.dumps(result,indent=2))
 
 def supervise(gpu):
+    assert gpu in (2,3,4,5,6), 'Use physical GPUs 2–6 only'
     plan()
+    identity=subprocess.check_output(['nvidia-smi',f'--id={gpu}',
+        '--query-gpu=index,uuid,name,driver_version','--format=csv,noheader'],text=True).strip()
     methods=['multihmr_pretrained','nlf_pretrained','multihmr_finetuned','nlf_finetuned']
     for method in methods:
         env=dict(os.environ,CUDA_VISIBLE_DEVICES=str(gpu),PYTHONDONTWRITEBYTECODE='1',OMP_NUM_THREADS='2')
+        started_unix=time.time()
         before=time.perf_counter()
         subprocess.run([sys.executable,'-u',__file__,'worker','--method',method],cwd=ROOT,env=env,check=True)
         result=json.loads((OUT/f'{method}.json').read_text());result['cold_process_wall_seconds']=time.perf_counter()-before
+        result.update(gpu_identity=identity,cuda_visible_devices=str(gpu),
+                      process_started_unix=started_unix,process_finished_unix=time.time())
         (OUT/f'{method}.json').write_text(json.dumps(result,indent=2))
     results={m:json.loads((OUT/f'{m}.json').read_text()) for m in methods}
     (OUT/'summary.json').write_text(json.dumps(results,indent=2))
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('stage',choices=['worker','supervise'])
-    p.add_argument('--method');p.add_argument('--gpu',type=int,default=0);a=p.parse_args()
+    p.add_argument('--method');p.add_argument('--gpu',type=int,choices=[2,3,4,5,6],default=3);a=p.parse_args()
     if a.stage=='worker':worker(a.method)
     else:supervise(a.gpu)

@@ -1,0 +1,31 @@
+{
+  "status": "running",
+  "updated_unix": 1792849711.1707997,
+  "completed_segments": 0,
+  "workers": [
+    {
+      "pid": 76492,
+      "exit_code": 1
+    },
+    {
+      "pid": 76493,
+      "exit_code": null
+    },
+    {
+      "pid": 76494,
+      "exit_code": 1
+    },
+    {
+      "pid": 76495,
+      "exit_code": 1
+    },
+    {
+      "pid": 76496,
+      "exit_code": 1
+    },
+    {
+      "pid": 76497,
+      "exit_code": null
+    }
+  ]
+}

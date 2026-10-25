@@ -10,9 +10,13 @@ def highlight_table_bests(lines):
         rows=[[x.strip().replace('**','') for x in line.strip('|').split('|')] for line in output[i+2:end]]
         if len(rows)>1:
             for column,title in enumerate(header):
+                # Counts, budgets and statistical evidence are context, not
+                # performance columns with a meaningful best model.
+                if any(word in title for word in ['표본','cluster','업데이트','경과','차이','holm','95%']):
+                    continue
                 try:values=[float(row[column].rstrip('%')) for row in rows]
                 except (ValueError,IndexError):continue
-                higher=any(word in title for word in ['fps','throughput','coverage','matched gt'])
+                higher=any(word in title for word in ['fps','throughput','coverage','matched gt','프레임/초','crop/초','샘플/초','매칭률','검출률'])
                 best=(max if higher else min)(values)
                 for row,value in zip(rows,values):
                     if value==best:row[column]='**'+row[column]+'**'

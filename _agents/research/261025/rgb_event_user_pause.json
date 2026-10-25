@@ -1,0 +1,95 @@
+{
+  "status": "processes_suspended_by_user",
+  "paused_unix": 1792901249.0677018,
+  "signal": "SIGSTOP",
+  "jobs": [
+    {
+      "pid": 71605,
+      "role": "event_experiment_scheduler",
+      "start_ticks": "287780480",
+      "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/tools/run_event_experiments.py",
+      "pgid": 71605,
+      "paused_by_user": true
+    },
+    {
+      "pid": 15088,
+      "role": "event_postprocess_manager",
+      "start_ticks": "287974183",
+      "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/tools/finalize_event_experiments.py",
+      "pgid": 15088,
+      "paused_by_user": true
+    },
+    {
+      "pid": 51890,
+      "role": "train:rgb_baseline",
+      "start_ticks": "287692478",
+      "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/rgb_baseline.json",
+      "pgid": 51890,
+      "gpu": 2,
+      "config": "/home/namhj/EventPose/exp/261024/rgb_event_36h/configs/rgb_baseline.json",
+      "log": "/home/namhj/EventPose/exp/261024/rgb_event_36h/logs/rgb_baseline.log",
+      "kind": "train",
+      "name": "rgb_baseline",
+      "paused_by_user": true
+    },
+    {
+      "pid": 11837,
+      "role": "train:fusion_count33",
+      "start_ticks": "287959511",
+      "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_count33.json",
+      "pgid": 11837,
+      "kind": "train",
+      "name": "fusion_count33",
+      "gpu": 4,
+      "launched_unix": 1792868614.4001713,
+      "config": "/home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_count33.json",
+      "log": "/home/namhj/EventPose/exp/261024/rgb_event_36h/logs/pipeline_train_fusion_count33.log",
+      "paused_by_user": true
+    },
+    {
+      "pid": 11842,
+      "role": "train:fusion_bins100",
+      "start_ticks": "287959532",
+      "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_bins100.json",
+      "pgid": 11842,
+      "kind": "train",
+      "name": "fusion_bins100",
+      "gpu": 5,
+      "launched_unix": 1792868614.6439793,
+      "config": "/home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_bins100.json",
+      "log": "/home/namhj/EventPose/exp/261024/rgb_event_36h/logs/pipeline_train_fusion_bins100.log",
+      "paused_by_user": true
+    },
+    {
+      "pid": 11848,
+      "role": "train:fusion_surface20",
+      "start_ticks": "287959555",
+      "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_surface20.json",
+      "pgid": 11848,
+      "kind": "train",
+      "name": "fusion_surface20",
+      "gpu": 6,
+      "launched_unix": 1792868614.8685033,
+      "config": "/home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_surface20.json",
+      "log": "/home/namhj/EventPose/exp/261024/rgb_event_36h/logs/pipeline_train_fusion_surface20.log",
+      "paused_by_user": true
+    },
+    {
+      "pid": 60326,
+      "role": "train:fusion_visualize_gray",
+      "start_ticks": "289099952",
+      "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_visualize_gray.json",
+      "pgid": 60326,
+      "kind": "train",
+      "name": "fusion_visualize_gray",
+      "gpu": 3,
+      "launched_unix": 1792880019.2119207,
+      "config": "/home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_visualize_gray.json",
+      "log": "/home/namhj/EventPose/exp/261024/rgb_event_36h/logs/pipeline_train_fusion_visualize_gray.log",
+      "paused_by_user": true
+    }
+  ],
+  "checkpoint_policy": "RAM and existing checkpoints preserved; no processes restarted",
+  "gpu_memory_still_allocated": true,
+  "deadline_unchanged": "2026-10-26 05:17:17 UTC"
+}

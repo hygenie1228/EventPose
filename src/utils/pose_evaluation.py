@@ -44,7 +44,7 @@ def prepare():
     import cv2
     import h5py
     import smplx
-    from humanpose_metrics import self_check
+    from utils.humanpose_metrics import self_check
     torch=configure_torch()
     assert h5py.version.hdf5_version_tuple>=(2,0,0),h5py.version.info
     atomic_json(OUT/'metric_self_checks.json',self_check())
@@ -148,7 +148,7 @@ class Collector:
         self.folder.mkdir(parents=True,exist_ok=True)
 
     def collect(self,joints,predK):
-        from humanpose_metrics import match_people
+        from utils.humanpose_metrics import match_people
         row=self.row_for_pos.get(self.current_pos)
         if row is not None:
             self.seen[row]=True;self.n_pred[row]=len(joints)

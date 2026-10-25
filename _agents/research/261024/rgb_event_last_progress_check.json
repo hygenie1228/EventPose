@@ -1,0 +1,226 @@
+{
+  "observed_unix": 1792899613.4753046,
+  "observed_utc": "2026-10-25 03:40:13 UTC",
+  "next_check_not_before_utc": "2026-10-25 04:10:13 UTC",
+  "jobs": [
+    {
+      "kind": "train",
+      "name": "rgb_baseline",
+      "gpu": 2,
+      "pid": 51890,
+      "live_identity_match": true,
+      "progress.json": {
+        "step": 6825,
+        "successful_steps": 6824,
+        "elapsed_seconds": 33644.27056646347,
+        "images_per_second": 3.2457235112182,
+        "grad_norm": 37.185401916503906,
+        "amp_scale": 1024.0,
+        "peak_memory_gib": 7.418056488037109,
+        "updated_unix": 1792899588.2334826,
+        "loss": 3.8621842861175537,
+        "pa_mm": 25.953248977661133,
+        "root_mm": 35.10565185546875,
+        "detection": 0.36828818917274475,
+        "offset": 0.002873718738555908,
+        "rotation": 0.02608472853899002,
+        "shape": 0.3660234808921814,
+        "absolute": 0.005518901627510786
+      },
+      "best.json": {
+        "mpjpe_mm": 75.13677090284894,
+        "root_mpjpe_mm": 48.48970919052738,
+        "pa_mpjpe_mm": 33.58303995775159,
+        "matched_instances": 2337,
+        "valid_instances": 2364,
+        "predicted_instances": 2405,
+        "coverage": 0.9885786802030457,
+        "step": 6625,
+        "successful_steps": 6624,
+        "time": 1792898634.6153471
+      }
+    },
+    {
+      "kind": "train",
+      "name": "fusion_count33",
+      "gpu": 4,
+      "pid": 11837,
+      "live_identity_match": true,
+      "progress.json": {
+        "step": 6700,
+        "successful_steps": 6699,
+        "elapsed_seconds": 30945.57357597351,
+        "images_per_second": 3.4641464871441805,
+        "grad_norm": 48.499515533447266,
+        "amp_scale": 1024.0,
+        "peak_memory_gib": 7.432583808898926,
+        "updated_unix": 1792899559.7633305,
+        "loss": 4.2905659675598145,
+        "pa_mm": 29.52889633178711,
+        "root_mm": 39.99837112426758,
+        "detection": 0.3123101592063904,
+        "offset": 0.006237265188246965,
+        "rotation": 0.03194651007652283,
+        "shape": 0.4195707440376282,
+        "absolute": 0.004389630630612373
+      },
+      "best.json": {
+        "mpjpe_mm": 76.20266068576515,
+        "root_mpjpe_mm": 49.23033160596162,
+        "pa_mpjpe_mm": 33.652973626118595,
+        "matched_instances": 2337,
+        "valid_instances": 2364,
+        "predicted_instances": 2404,
+        "coverage": 0.9885786802030457,
+        "step": 5790,
+        "successful_steps": 5789,
+        "time": 1792895266.7731416
+      }
+    },
+    {
+      "kind": "train",
+      "name": "fusion_bins100",
+      "gpu": 5,
+      "pid": 11842,
+      "live_identity_match": true,
+      "progress.json": {
+        "step": 7725,
+        "successful_steps": 7723,
+        "elapsed_seconds": 30963.689212560654,
+        "images_per_second": 3.99177239975651,
+        "grad_norm": 47.78586959838867,
+        "amp_scale": 1024.0,
+        "peak_memory_gib": 7.440761089324951,
+        "updated_unix": 1792899578.1113303,
+        "loss": 4.167662143707275,
+        "pa_mm": 29.38649559020996,
+        "root_mm": 35.472381591796875,
+        "detection": 0.31695306301116943,
+        "offset": 0.007616902235895395,
+        "rotation": 0.03354843333363533,
+        "shape": 0.4081869125366211,
+        "absolute": 0.0027596084401011467
+      },
+      "best.json": {
+        "mpjpe_mm": 74.88054569342637,
+        "root_mpjpe_mm": 48.72819772422786,
+        "pa_mpjpe_mm": 33.53229388671147,
+        "matched_instances": 2333,
+        "valid_instances": 2364,
+        "predicted_instances": 2397,
+        "coverage": 0.9868866328257191,
+        "step": 7274,
+        "successful_steps": 7273,
+        "time": 1792897787.9045422
+      }
+    },
+    {
+      "kind": "train",
+      "name": "fusion_surface20",
+      "gpu": 6,
+      "pid": 11848,
+      "live_identity_match": true,
+      "progress.json": {
+        "step": 7400,
+        "successful_steps": 7399,
+        "elapsed_seconds": 30890.87152814865,
+        "images_per_second": 3.832847509256623,
+        "grad_norm": 39.59140396118164,
+        "amp_scale": 2048.0,
+        "peak_memory_gib": 7.430428504943848,
+        "updated_unix": 1792899505.525161,
+        "loss": 3.8186333179473877,
+        "pa_mm": 23.591428756713867,
+        "root_mm": 35.68782043457031,
+        "detection": 0.5347816348075867,
+        "offset": 0.010325038805603981,
+        "rotation": 0.04087068885564804,
+        "shape": 0.5675792694091797,
+        "absolute": 0.0026625599712133408
+      },
+      "best.json": {
+        "mpjpe_mm": 75.62197247407224,
+        "root_mpjpe_mm": 48.791159362665105,
+        "pa_mpjpe_mm": 33.49979828342826,
+        "matched_instances": 2334,
+        "valid_instances": 2364,
+        "predicted_instances": 2400,
+        "coverage": 0.9873096446700508,
+        "step": 7004,
+        "successful_steps": 7003,
+        "time": 1792897867.8234477
+      }
+    },
+    {
+      "kind": "train",
+      "name": "fusion_visualize_gray",
+      "gpu": 3,
+      "pid": 60326,
+      "live_identity_match": true,
+      "progress.json": {
+        "step": 4775,
+        "successful_steps": 4775,
+        "elapsed_seconds": 19531.515047311783,
+        "images_per_second": 3.9116269168543703,
+        "grad_norm": 42.12398147583008,
+        "amp_scale": 2048.0,
+        "peak_memory_gib": 7.426538467407227,
+        "updated_unix": 1792899549.811502,
+        "loss": 3.605311393737793,
+        "pa_mm": 24.580854415893555,
+        "root_mm": 34.415916442871094,
+        "detection": 0.25114938616752625,
+        "offset": 0.01194074284285307,
+        "rotation": 0.036760710179805756,
+        "shape": 0.5134194493293762,
+        "absolute": 0.006117354612797499
+      },
+      "best.json": {
+        "mpjpe_mm": 76.48082442555264,
+        "root_mpjpe_mm": 49.48712679397628,
+        "pa_mpjpe_mm": 34.14411125981192,
+        "matched_instances": 2338,
+        "valid_instances": 2364,
+        "predicted_instances": 2411,
+        "coverage": 0.9890016920473773,
+        "step": 4346,
+        "successful_steps": 4346,
+        "time": 1792897729.315568
+      }
+    }
+  ],
+  "failed": [],
+  "cache": {
+    "status": "complete",
+    "completed_unix": 1792873742.0454328,
+    "sessions": 283,
+    "limited": false,
+    "frames_by_role": {
+      "validation": 2048,
+      "training": 116146,
+      "test": 96124
+    }
+  },
+  "managers": {
+    "71605": {
+      "start_ticks": "287780480",
+      "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/tools/run_event_experiments.py",
+      "pgid": 71605
+    },
+    "86503": {
+      "start_ticks": "287400324",
+      "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/tools/goal_runtime_control.py watchdog --config /home/namhj/EventPose/_agents/research/261024/rgb_event_goal_36h.json --status /home/namhj/EventPose/_agents/research/261024/rgb_event_goal_watchdog_status.json",
+      "pgid": 86503
+    },
+    "15088": {
+      "start_ticks": "287974183",
+      "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/tools/finalize_event_experiments.py",
+      "pgid": 15088
+    }
+  },
+  "gpu_observation": "0, 0 %, 463 MiB\n1, 0 %, 3 MiB\n2, 100 %, 9121 MiB\n3, 100 %, 10295 MiB\n4, 100 %, 10297 MiB\n5, 100 %, 10267 MiB\n6, 100 %, 10295 MiB\n",
+  "training_complete": [],
+  "test_complete": [
+    "rgb_original"
+  ]
+}

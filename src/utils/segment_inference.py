@@ -16,6 +16,7 @@ import time
 
 import numpy as np
 import utils.pose_evaluation as base
+from utils.video_frames import frames
 
 ROOT=base.ROOT
 ARCHIVE=ROOT/'exp/261023/humanpose_gt_segments'
@@ -64,19 +65,6 @@ def prepare():
     base.atomic_json(OLD/'interrupted_for_segments.json',dict(reason='User selected frozen random frame segments',
                                                            new_experiment=str(ARCHIVE),time=time.time()))
     print('Prepared',len(tasks),'segments',sum(t['video_frames'] for t in tasks),'frames',flush=True)
-
-
-def frames(task):
-    import cv2
-    cap=cv2.VideoCapture(task['video']);assert cap.isOpened()
-    assert cap.set(cv2.CAP_PROP_POS_FRAMES,task['start_frame'])
-    assert round(cap.get(cv2.CAP_PROP_POS_FRAMES))==task['start_frame']
-    try:
-        for pos in range(task['video_frames']):
-            ok,image=cap.read();assert ok
-            assert round(cap.get(cv2.CAP_PROP_POS_FRAMES))==task['start_frame']+pos+1
-            yield pos,cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
-    finally:cap.release()
 
 
 def multihmr(model,c):

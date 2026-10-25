@@ -1,0 +1,28 @@
+{
+  "requested_unix": 1792865774.99186,
+  "status": "deferred_until_current_goal_finishes",
+  "task": "NLF 미세조정 모델의 Test 성능 악화 원인 분석",
+  "ordering": "현재 RGB/event 36시간 목표를 먼저 수행한다. 목표 조기 완료 후 후속 분석을 수행하고, 36시간 마감으로 pause되면 후속 분석도 대기하며 현재 마감을 연장하지 않는다.",
+  "preserve": [
+    "exp/261024/nlf_finetune_12h/checkpoints/",
+    "exp/261024/nlf_finetune_12h/runs/",
+    "exp/261024/nlf_finetune_12h/selected.json",
+    "exp/261024/nlf_finetune_12h/comparison.json",
+    ".experiment_storage/nlf_finetune_12h/nlf_pretrained/",
+    ".experiment_storage/nlf_finetune_12h/nlf_finetuned/"
+  ],
+  "checks": [
+    "실제 평가 checkpoint·step·내보내기 tensor·기본/학습 결과 경로와 timing metadata 전수 대조",
+    "GT 인물 crop 기반 학습/내부 검증과 실제 detector crop 기반 전체 추론의 차이",
+    "학습에서 직접 예측한 canonical joint와 최종 SMPL-X fitting/회귀 관절 사이의 감독·평가 정의 차이",
+    "좌표계·mm/m·crop intrinsic·translation·관절 대응과 공통 매칭 집합 재검증",
+    "과적합·내부 holdout 대표성·backbone 업데이트 범위·학습률·학습곡선 분석",
+    "필요 시 보존된 세 trial checkpoint의 진단 비교와 대조 실험. 사후 Test 진단을 새 모델 선택용 검증으로 혼동하지 않음"
+  ],
+  "reported_evidence": {
+    "nlf_pretrained_frame_pa_mpjpe_mm": 53.41341314207452,
+    "nlf_finetuned_frame_pa_mpjpe_mm": 62.20275166524781,
+    "selected_internal_holdout_pa_mm": 32.35024056630209
+  },
+  "do_not_start_now": true
+}

@@ -1,0 +1,9 @@
+{
+  "pid": 71605,
+  "role": "event_experiment_scheduler",
+  "start_ticks": "287780480",
+  "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/tools/run_event_experiments.py",
+  "pgid": 71605,
+  "started_unix": 1792866824.1082165,
+  "log": "/home/namhj/EventPose/exp/261024/rgb_event_36h/logs/pipeline.log"
+}

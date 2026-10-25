@@ -87,6 +87,9 @@ def worker(a):
         finally:cached.unlink(missing_ok=True)
 
 def supervise(a):
+    gpus=[int(value) for value in a.gpus.split(',')]
+    assert gpus and len(set(gpus))==len(gpus) and all(2<=gpu<=6 for gpu in gpus), 'Use physical GPUs 2–6 only'
+    assert a.workers<=len(gpus), 'Each evaluation worker needs a distinct allowed GPU'
     if a.method=='nlf_finetuned':
         metadata=json.loads(a.checkpoint.with_suffix('.json').read_text())
         assert metadata['test_used_for_selection'] is False
@@ -94,7 +97,7 @@ def supervise(a):
             '--delta',metadata['source_delta'],'--checkpoint',str(a.checkpoint)],cwd=ROOT,check=True)
     tasks=prepare();jobs=[]
     for rank in range(a.workers):
-        env=dict(os.environ,CUDA_VISIBLE_DEVICES=str(rank),OMP_NUM_THREADS='2')
+        env=dict(os.environ,CUDA_VISIBLE_DEVICES=str(gpus[rank]),OMP_NUM_THREADS='2')
         log=(WORK/'logs'/f'{a.method}_{rank}.log').open('a',buffering=1)
         p=subprocess.Popen([sys.executable,'-u',__file__,'worker','--rank',str(rank),'--workers',str(a.workers),
             '--method',a.method,'--checkpoint',str(a.checkpoint),'--batch',str(a.batch)],env=env,cwd=ROOT,stdout=log,stderr=subprocess.STDOUT)
@@ -104,13 +107,18 @@ def supervise(a):
             completed_segments=sum((WORK/a.method/t['session']/'complete.json').exists() for t in tasks),
             workers=[dict(pid=p.pid,exit_code=p.poll()) for p,_ in jobs]))
         time.sleep(15)
-    for p,log in jobs:log.close();assert p.returncode==0,(p.pid,p.returncode)
+    for _,log in jobs:log.close()
+    if any(p.returncode!=0 for p,_ in jobs):
+        base.atomic_json(OUT/f'{a.method}_status.json',dict(status='failed',updated_unix=time.time(),
+            completed_segments=sum((WORK/a.method/t['session']/'complete.json').exists() for t in tasks),
+            workers=[dict(pid=p.pid,exit_code=p.returncode) for p,_ in jobs]))
+        raise RuntimeError('NLF evaluation worker failed; inspect worker logs')
     assert all((WORK/a.method/t['session']/'complete.json').exists() for t in tasks)
     base.atomic_json(OUT/f'{a.method}_status.json',dict(status='inference_complete',completed_segments=320,updated_unix=time.time()))
     if a.method=='nlf_finetuned':
         env=dict(os.environ,PYTHONPATH=str(ROOT/'src'),PYTHONDONTWRITEBYTECODE='1')
         subprocess.run([sys.executable,'-m','utils.compare_methods'],cwd=ROOT,env=env,check=True)
-        subprocess.run([sys.executable,str(ROOT/'src/utils/runtime_benchmark.py'),'supervise','--gpu','0'],
+        subprocess.run([sys.executable,str(ROOT/'src/utils/runtime_benchmark.py'),'supervise','--gpu',str(gpus[0])],
                        cwd=ROOT,env=env,check=True)
         subprocess.run([sys.executable,'-m','utils.compare_methods'],cwd=ROOT,env=env,check=True)
 
@@ -118,7 +126,8 @@ if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('stage',choices=['worker','supervise'])
     p.add_argument('--checkpoint',type=Path,default=ROOT/'data/pretrained/nlf/nlf_l_multi.torchscript')
     p.add_argument('--method',default='nlf_pretrained');p.add_argument('--rank',type=int,default=0)
-    p.add_argument('--workers',type=int,default=6);p.add_argument('--batch',type=int,default=16)
+    p.add_argument('--gpus',default='3,4,5,6',help='Physical evaluation GPU IDs; only 2–6 are allowed')
+    p.add_argument('--workers',type=int,default=4);p.add_argument('--batch',type=int,default=16)
     p.add_argument('--smoke',action='store_true');a=p.parse_args()
     if a.stage=='worker':worker(a)
     else:supervise(a)

@@ -1,0 +1,17 @@
+{
+  "reference_observation_utc": "2026-10-24 19:20:36 UTC",
+  "new_training_or_evaluation_queries": false,
+  "remaining_gpu_hour_capacity": 169.7235409064425,
+  "remaining_primary_training_gpu_hours": 106.12244383626515,
+  "reference_rgb_test_fps": 7.3465300372774776,
+  "assumed_remaining_test_gpu_hours": 35.58422338787593,
+  "nominal_unallocated_gpu_hours": 28.01687368230143,
+  "full_paired_seed_training_and_test_gpu_hours": 31.269040206907306,
+  "limitations": [
+    "RGB timing is an optimistic proxy for fusion/event-only, not a measurement of those conditions",
+    "Counts approximate original Test remaining work; segment lengths differ",
+    "Fragmentation, model loads, validation tails,18 runtime runs and full audits need additional reserves"
+  ],
+  "provisional_decision": "Do not admit extra full12h paired seeds now. Reassess with measured event Test throughput and queue completion. Do not shorten any of the nine main trials.",
+  "short_seed_policy": "A shorter paired trial cannot stand in for same-budget12h seed replication; label separately if budget later supports it."
+}
