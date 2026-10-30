@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "checked_kst": "2026-10-30T00:15:13.503877+09:00",
+  "CPU_only": true,
+  "synthetic_fake_backbone_only": false,
+  "Test_used": false,
+  "checks": {
+    "inner_ViT_bypass_avoids_RGB_hook_recursion_and_is_frozen": true,
+    "fixed_polarity_color_log_brightness_and_weak_support": true,
+    "spatial_Transformer_initial_identity_preserves_semantic_basis": true,
+    "projection_learns_while_shared_RGB_parameters_remain_exact": true,
+    "adapter_only_reload_and_missing_event_identity": true,
+    "matched_fixed_global_static_RGB_semantic_controls": true,
+    "actual_builder_shared_frozen_RGB_and_adapter_only_parameters": true,
+    "actual_causal_Train_event_ViT_shape_and_hook_bypass_CPU_SDPA": true
+  },
+  "sources": {
+    "src/multihmr/part_aggregation_model.py": "c94863d9ee21fbefb90ff1be2e82ca1d2f919123d7a268793b494a2efb2f677c",
+    "src/multihmr/part_aggregation_data.py": "76b84a15471ceeeffaa5fb92b5a1059ecdcb0563d46324c7e95b59d3f86fa8ce",
+    "src/multihmr/part_aggregation_training.py": "1aaec81087d2af8a5c9b96ab28fbfe9aad2efa9676b0f39155e7f7683076a6fa",
+    "src/multihmr/part_aggregation_evaluation.py": "b7dacf0a42b78ef21cadb009defb27514f2b364ed6fdce4440b9596dd4f206da",
+    "src/utils/part_aggregation_metrics.py": "5817d5a0f6d1f64d5f36d951ac585e08e44e8c46f5b87e7c4f38518d61063d60",
+    "scripts/train_multihmr.py": "d7f7b68771c02ff788d06a8df502bc8e335d3b4ffd2368251a7d481b8af8892d",
+    "scripts/evaluate_multihmr.py": "e7b65ed91ae97aec03d5e39f01bd74b8cb9ad5d9b95d26ca5a133d89a15cda84",
+    "tools/run_part_aggregation.py": "5465b6dc45bee644a83fc9373608f7802e9053a9519323b7e5a9efc80a84b70b",
+    "src/multihmr/part_aggregation_v2.py": "4b72e1a6c5f9dd8c02c2a4b6423ffd538dc5375f4f33afe4c298baeca890aba0",
+    "src/multihmr/part_aggregation_factory.py": "750d145b3aba4bd2aace52661ebf69eb78fb6d2e7aed0bf320017ff50baa95b9",
+    "src/multihmr/part_aggregation_v3.py": "a16be11eed1bc20c95d67c0091e7e0d4750134872019ad79dc73d962d6897689",
+    "src/multihmr/part_aggregation_data_v3.py": "c8d7e2aee91a17bc1f61e40a81ecaed7b77bd466ebf6022d0070995814706b4a",
+    "src/multihmr/part_aggregation_v4.py": "5488dc0454db12764b841fe62c9f0db81a895e590d703981860f025f86d7ced7",
+    "src/multihmr/part_aggregation_v5.py": "a88a93eda27ca8175ebedb82c407dd1fcc3f66eb068cbc6f9e4ed548ddc6f1a9",
+    "src/multihmr/part_aggregation_v6.py": "b171ff05ecf13ed30a724f0858b93ca5a651c1295a04262ab9b7fa0afbb55603"
+  },
+  "actual_RGB_parameter_tensors": 115,
+  "actual_Train_event_feature_shape": [
+    3,
+    128,
+    32,
+    32
+  ],
+  "model_source_sha256": "b171ff05ecf13ed30a724f0858b93ca5a651c1295a04262ab9b7fa0afbb55603",
+  "limitation": "CPU structural/shared-weight checks; actual event probe uses CPU SDPA fallback; no actual pose accuracy or CUDA pilot verification"
+}

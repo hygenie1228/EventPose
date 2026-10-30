@@ -45,9 +45,12 @@ def main():
     summary_path = OUT / 'event_build_summary.json'
     cache = read(summary_path if summary_path.exists() else OUT / 'event_build_status.json')
     cache = {key: value for key, value in cache.items() if key not in ('results', 'config')}
-    managers = {str(pid): identity(pid) for pid in (71605, 86503, 15088)}
-    gpu = subprocess.check_output(['nvidia-smi', '--query-gpu=index,utilization.gpu,memory.used',
-                                   '--format=csv,noheader'], text=True)
+    launches = NOTE.parent / '261026/rgb_event_extension_managers.json'
+    ids = read(launches)['pids'] if launches.exists() else [71605, 86503, 15088]
+    managers = {str(pid): identity(pid) for pid in ids}
+    gpu = '\n'.join(subprocess.run(['nvidia-smi', '-i', str(index),
+        '--query-gpu=index,utilization.gpu,memory.used', '--format=csv,noheader'],
+        capture_output=True, text=True, timeout=10).stdout.strip() or f'{index}: unavailable' for index in range(2,7))
     record = dict(observed_unix=now, observed_utc=utc(now), next_check_not_before_utc=utc(now + 1800),
                   jobs=rows, failed=state['failed'], cache=cache, managers=managers, gpu_observation=gpu,
                   training_complete=state['training_complete'], test_complete=state['test_complete'])
@@ -79,7 +82,8 @@ def main():
     text += f"\n캐시 {cache.get('sessions', cache.get('complete_sessions'))}/283세션. "
     if (OUT / 'cache_final_audit.json').exists():
         text += '283세션 원본 매핑·타임스탬프·인과성·보정값 검증 통과. '
-    text += f"실패 기록: {state['failed'] or '없음'}. 다음 정기 확인은 {utc(now + 1800)} 이후다. 고정 마감은 2026-10-26 05:17:17 UTC다.\n"
+    goal = read(NOTE / 'rgb_event_goal_36h.json')
+    text += f"실패 기록: {state['failed'] or '없음'}. 다음 정기 확인은 {utc(now + 1800)} 이후다. 고정 마감은 {utc(goal['deadline_unix'])}다.\n"
     report.write_text(text)
     print(json.dumps(dict(observed=utc(now), next_check=utc(now + 1800), jobs=brief,
                           failed=state['failed'], cache=cache, managers_live={key: bool(value) for key, value in managers.items()},

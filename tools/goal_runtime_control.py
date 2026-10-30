@@ -93,12 +93,18 @@ def stop_registered(config):
             stopped.append({'pid': pid, 'status': 'unsafe_group_preserved'})
             continue
         try:
-            os.killpg(pid, signal.SIGTERM)
+            # Let the trainer save first. Signalling its DataLoader workers at
+            # the same instant raises a worker-failure exception in the parent
+            # before its graceful checkpoint handler reaches the loop boundary.
+            if job.get('role','').startswith('train:'):
+                os.kill(pid, signal.SIGTERM)
+            else:
+                os.killpg(pid, signal.SIGTERM)
         except ProcessLookupError:
             continue
         # Keep checkpoints/logs; training implementations must also receive this
         # same deadline and save before expiry. Never delete experiment files.
-        until = time.monotonic() + 15
+        until = time.monotonic() + 30
         while identity(pid) == current and time.monotonic() < until:
             time.sleep(.2)
         if identity(pid) == current:

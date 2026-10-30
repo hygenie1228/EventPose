@@ -1,0 +1,11 @@
+{
+  "checked_unix": 1793252799.0450335,
+  "scope": "Report-failure recovery only; no training progress read",
+  "new_manager_pid": 49833,
+  "new_manager_alive": true,
+  "report_success_timestamp": 1793252763.9959497,
+  "main_table_first": true,
+  "architecture_embedded": true,
+  "training_restarted": false,
+  "resolved_failure": "GT diagnostic metadata wrongly treated as intervention result"
+}

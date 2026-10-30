@@ -1,0 +1,13 @@
+{
+  "checked_unix": 1793254873.714034,
+  "scope": "Synthetic structural counterexample, NOT learned checkpoint result",
+  "variant": "v1 frozen part_aware",
+  "configured_output_bias": 0.125,
+  "max_event_mass": 1.1350517561031018e-43,
+  "max_feature_change_with_null_selected": 0.12500011920928955,
+  "null_choice_alone_is_not_RGB_identity": true,
+  "cause": "Affine output bias survives when the weighted event message approaches zero; available and geometric support remain true",
+  "v1_results_must_not_be_relabelled_as_fixed": true,
+  "proposed_v2_invariant": "zero weighted event message implies zero event residual via bias-free projection or gating the entire affine output",
+  "intervention_interpretation": "Missing event also removes the bias adapter; intact vs zero/shuffle is needed to establish pixel-event usage"
+}

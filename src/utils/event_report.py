@@ -1,5 +1,6 @@
 """Korean report generated only from completed event comparison artifacts."""
 import json
+import datetime
 from pathlib import Path
 from .report_format import highlight_table_bests
 from .chunk_alignment import METRICS
@@ -37,8 +38,8 @@ def render(result, runtime, training, prior=None, cache=None):
         f"모든 10조건에서 공통 매칭되고 정확한 구간 frame0에 검출된 표본은 {population[names[0]]['samples']:,}개다. "
         '검출률은 이 교집합이 아닌 전체 유효 GT를 분모로 한다. 미검출은 0오차가 아니다. '
         '교집합이 비면 자세 오차를 NA로 표시하고 아래 RGB/fusion 쌍별 결과로 판단한다.', '',
-        '| 조건 | 첫 frame0 MPJPE (mm) | 첫 frame0 PA-MPJPE (mm) | 프레임별 MPJPE (mm) | 프레임별 PA-MPJPE (mm) |',
-        '|---|---:|---:|---:|---:|']
+        '| 조건 | first frame-aligned MPJPE (mm) | first frame-aligned PA-MPJPE (mm) | frame-aligned MPJPE (mm) | frame-aligned PA-MPJPE (mm) | Root absolute depth error (RPE-Z, mm) |',
+        '|---|---:|---:|---:|---:|---:|']
     if prior is not None:
         old_labels = {'Multi-HMR pretrained': 'Multi-HMR 기본', 'NLF pretrained': 'NLF 기본',
                       'Multi-HMR fine-tuned': 'Multi-HMR 학습', 'NLF fine-tuned': 'NLF 학습'}
@@ -54,7 +55,7 @@ def render(result, runtime, training, prior=None, cache=None):
         index = lines.index('## 10조건의 동일 표본 자세 비교')
         lines[index:index] = block + ['']
     for name in names:
-        lines.append('| ' + labels[name] + ' | ' + ' | '.join(number(population[name][key]) for key in METRICS) + ' |')
+        lines.append('| ' + labels[name] + ' | ' + ' | '.join(number(population[name].get(key)) for key in METRICS+['root_depth_error_mm']) + ' |')
     lines += ['', '첫 frame0 정렬 변환은 10초 구간 전체에 고정한다. MPJPE는 pelvis 평행이동, '
         'PA는 반사를 허용하지 않는 양의 등방 scale·회전·이동이다. 실제 metric scale 위치는 다음 정렬 전 오차로 확인한다.', '',
         '| 조건 | 절대 MPJPE (mm) | Pelvis 위치 (mm) | GT 매칭률 (%) | Pelvis 속도 (mm/s) | Root 가속도 (mm/s²) |',
@@ -126,7 +127,8 @@ def render(result, runtime, training, prior=None, cache=None):
                      f"{row['successful_steps'] if row else '—'} | `{row['checkpoint'] if row else '원본 multiHMR_896_L.pt'}` |")
     lines += ['', '모든 학습 조건은 같은 원본 초기화, seed261024, 동일 115,838 Train 프레임·2,045 holdout 프레임, '
         'batch16·RGB 색상 증강·AdamW·AMP를 사용했다. Head/adapter를 먼저 학습하고 30분 후 후반8 backbone을 '
-        '작은 학습률로 업데이트했다. 약12시간의 물리 GPU 예산을 맞췄으며 처리량 차이로 업데이트 수는 다르다. '
+        '작은 학습률로 업데이트했다. 약12시간의 학습 경과 예산을 맞췄으며 처리량 차이로 업데이트 수는 다르다. '
+        '이 시간에는 검증·저장·로딩이 포함되며 실제 순수 GPU 연산시간과는 다르다. '
         'holdout만으로 checkpoint를 골랐다. 이벤트 입력은 4가지 동결된 인코딩이며 RGB와 동일 픽셀로 겹치지 않고 '
         '센서 내외부 파라미터를 반영한 분리 encoder/fusion을 사용했다. 이벤트 단독은 RGB 검출·crop·GT 입력을 사용하지 않는다.', '',
         '저장된 희소 이벤트 프레임을 사용했으며 원시 이벤트의 개수·세부 시각을 복원한 것은 아니다. '
@@ -147,6 +149,26 @@ def render(result, runtime, training, prior=None, cache=None):
             '4개 CPU worker를 사용했다. 세션 작업 경과 합은 병렬 작업별 wall time의 합이며 CPU 코어 시간 측정값은 아니다. '
             '이 표는 수정된 v2 최종 캐시의 생성 비용이다. 폐기 보존한 v1 준비 비용은 전체36시간 경과에 별도로 포함된다. '
             '캐시 fps에는 이 일회성 생성시간이 제외되므로 온라인 fps와 함께 판단해야 한다.', '']
+        extension = cache.get('execution_extension')
+        if extension:
+            utc = lambda value: datetime.datetime.fromtimestamp(value, datetime.timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
+            index = lines.index('## 학습 예산과 출처')
+            block = ['## 중단 후 추가 실행 구간', '',
+                f"사용자 승인에 따른 추가 구간은 **{utc(extension['started_unix'])}~{utc(extension['deadline_unix'])}**다. "
+                '원래36시간 마감을 임의로 재설정한 것이 아니라, 사용자24시간 추가승인으로 대체했다. '
+                '원래 결과와 중단 전 checkpoint를 보존하고 optimizer·AMP·RNG를 복원했다. '
+                '사용자가 중단한 대기시간은 각 모델의12시간 학습량에 포함하지 않았다.', '',
+                '| 조건 | 중단 전 경과 (시간) | 재개 후 경과 (시간) | 총 학습 경과 (시간) |',
+                '|---|---:|---:|---:|']
+            for name, prior_seconds in extension['prior_training_seconds'].items():
+                total = training[name]['elapsed_seconds']
+                assert total >= prior_seconds
+                block.append(f"| {labels[name]} | {number(prior_seconds/3600)} | {number((total-prior_seconds)/3600)} | {number(total/3600)} |")
+            block += ['', '저장 checkpoint 이후 중단까지의 짧은 미저장 업데이트는 복구되지 않을 수 있다. '
+                '이 구간의 경과시간도 보수적으로 기존 예산에 포함했으므로 추가학습시간을 늘리는 데 사용하지 않았다. '
+                '모델·optimizer·AMP·RNG를 복원했지만 DataLoader의 중간 epoch 프레임 순서를 bit 단위로 재현했다고 주장하지 않는다. '
+                '물리GPU3의장치오류로 정상GPU2·4·5·6을 사용했다. CUDA정수순번과물리번호의차이를 실제UUID로 대조하고 새작업은UUID로지정했다.', '']
+            lines[index:index] = block
     # Model-specific populations are not a fair ranking population.
     own_start = lines.index('## 모델별 검출 표본의 보조 오차')
     own_end = lines.index('## RGB baseline과 RGB+이벤트의 대응 비교')
@@ -172,6 +194,13 @@ def supporting_evidence():
     cache = dict(sessions=283, bytes=sum(row['bytes'] for row in summary['results']),
                  wall_seconds=summary['completed_unix'] - launch['started_unix'],
                  summed_task_seconds=sum(row.get('total_seconds', 0) for row in summary['results']))
+    goal = read(ROOT / '_agents/research/261024/rgb_event_goal_36h.json')
+    if goal.get('extension_started_unix'):
+        conditions = read(OUT / 'experiment_manifest.json')['conditions']
+        cache['execution_extension'] = dict(started_unix=goal['extension_started_unix'],
+            deadline_unix=goal['deadline_unix'], prior_training_seconds={
+                value['name']: value['resume_authorization']['prior_elapsed_seconds']
+                for value in conditions if value.get('resume_authorization')})
     return prior, cache
 
 

@@ -70,6 +70,11 @@ def main():
     test_sessions = {value['session'] for value in plan['sessions'] if value['role'] == 'test'}
     admitted_training = set()
     while time.time() < goal['deadline_unix'] and not stopping[0]:
+        priority_path = OUT / 'training_priority.json'
+        if priority_path.exists():
+            requested_order = read(priority_path)['order']
+            assert len(requested_order) == len(set(requested_order)) == 9 and set(requested_order) == set(order)
+            order = requested_order
         for job in list(state['jobs']):
             handle = children.get(job['pid'])
             code = handle.poll() if handle is not None else None
@@ -100,16 +105,29 @@ def main():
         occupied = {job['gpu'] for job in state['jobs']}
         occupied |= {job['gpu'] for job in pilot_jobs if live(job)}
         running = {job['kind'] + ':' + job['name'] for job in state['jobs']}
-        for gpu in (2, 3, 4, 5, 6):
+        for gpu in goal.get('allowed_gpus', [2, 3, 4, 5, 6]):
             if gpu in occupied:
                 continue
+            probe = subprocess.run(['nvidia-smi', '-i', str(gpu), '--query-compute-apps=pid',
+                                    '--format=csv,noheader,nounits'], capture_output=True, text=True, timeout=10)
+            if probe.returncode or probe.stdout.strip():
+                continue  # Preserve external jobs and skip unhealthy GPU devices.
+            uuid_probe = subprocess.run(['nvidia-smi', '-i', str(gpu), '--query-gpu=uuid',
+                                         '--format=csv,noheader'], capture_output=True, text=True, timeout=10)
+            if uuid_probe.returncode:
+                continue
+            gpu_uuid = uuid_probe.stdout.strip()
+            assert gpu_uuid.startswith('GPU-')
             chosen = None
             if train_ready and pilots_ready:
                 for name in order:
                     tag = 'train:' + name
                     if tag not in running and tag not in state['failed'] and not role_complete('train', name):
                         duration = config[name]['hours'] * 3600
-                        if 'trial_started_unix' in config[name]:
+                        authorization = config[name].get('resume_authorization')
+                        if authorization and authorization.get('resumed_unix') is None:
+                            duration -= authorization['prior_elapsed_seconds']
+                        elif 'trial_started_unix' in config[name]:
                             duration = max(0, config[name]['trial_started_unix'] + duration - time.time())
                         # Keep at least three hours for full Test, controlled
                         # online/cache runtime, statistics and final verification.
@@ -127,7 +145,12 @@ def main():
             kind, name = chosen
             if kind == 'train':
                 cfg = read(configs[name])
-                if 'trial_started_unix' not in cfg:
+                authorization = cfg.get('resume_authorization')
+                if authorization and authorization.get('resumed_unix') is None:
+                    authorization['resumed_unix'] = time.time()
+                    cfg['trial_started_unix'] = authorization['resumed_unix'] - authorization['prior_elapsed_seconds']
+                    write(configs[name], cfg)
+                elif 'trial_started_unix' not in cfg:
                     cfg['trial_started_unix'] = time.time(); write(configs[name], cfg)
                 config[name] = cfg
                 command = [sys.executable, '-u', str(ROOT / 'scripts/train_multihmr.py'), '--config', str(configs[name])]
@@ -138,7 +161,8 @@ def main():
             log_path = OUT / 'logs' / ('pipeline_' + kind + '_' + name + '.log')
             log = log_path.open('a', buffering=1)
             process = subprocess.Popen(command, cwd=ROOT, env=dict(os.environ,
-                CUDA_VISIBLE_DEVICES=str(gpu), OMP_NUM_THREADS='2', PYTHONDONTWRITEBYTECODE='1'),
+                CUDA_VISIBLE_DEVICES=gpu_uuid, EVENTPOSE_PHYSICAL_GPU=str(gpu),
+                OMP_NUM_THREADS='2', PYTHONDONTWRITEBYTECODE='1'),
                 stdout=log, stderr=subprocess.STDOUT, start_new_session=True)
             record = register_job(goal, process.pid, kind + ':' + name)
             record.update(kind=kind, name=name, gpu=gpu, launched_unix=time.time(),

@@ -14,8 +14,8 @@ import time
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / 'src'), str(ROOT)]
-OUT = ROOT / 'exp/261024/rgb_event_36h'
-WORK = ROOT / '.experiment_storage/rgb_event_36h/runtime'
+OUT = Path(os.environ.get('EVENTPOSE_EVENT_OUT', ROOT / 'exp/261024/rgb_event_36h'))
+WORK = OUT/'runtime/work' if os.environ.get('EVENTPOSE_EVENT_OUT') else ROOT / '.experiment_storage/rgb_event_36h/runtime'
 
 
 def read(path):
@@ -31,7 +31,7 @@ def worker(name, source_kind):
     base.configure_torch()
     base.OUT = WORK / (name + '_' + source_kind)
     base.OUT.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(ROOT / '.experiment_storage/humanpose_gt_segments/joint_regressor.npy',
+    shutil.copyfile(OUT/'test/joint_regressor.npy' if os.environ.get('EVENTPOSE_EVENT_OUT') else ROOT / '.experiment_storage/humanpose_gt_segments/joint_regressor.npy',
                     base.OUT / 'joint_regressor.npy')
     checkpoint = None if config.get('original') else OUT / 'checkpoints' / name / 'best.pt'
     started = time.perf_counter()
@@ -85,18 +85,23 @@ def supervise(gpu):
     from tools.goal_runtime_control import register_job
     from multihmr.event_data import save
     assert gpu in range(2, 7)
-    goal = read(ROOT / '_agents/research/261024/rgb_event_goal_36h.json')
+    goal = read(ROOT / '_agents/research/261026/new_split_agent_goal.json' if os.environ.get('EVENTPOSE_EVENT_OUT') else ROOT / '_agents/research/261024/rgb_event_goal_36h.json')
     assert time.time() < goal['deadline_unix']
     # Completion marker is necessary but not sufficient: also demand an empty GPU.
     assert (OUT / 'training_test_pipeline_complete.json').is_file()
     active = subprocess.check_output(['nvidia-smi', '-i', str(gpu),
         '--query-compute-apps=pid', '--format=csv,noheader,nounits'], text=True).strip()
     assert not active, 'Chosen GPU has a compute process; do not interfere'
-    tasks = read(ROOT / 'exp/261024/nlf_finetune_12h/runtime_benchmark/tasks.json')
+    if os.environ.get('EVENTPOSE_EVENT_OUT'):
+        source=read(OUT/'test/tasks.json')
+        parents=sorted({t['parent_session'] for t in source})
+        tasks=[next(t for t in source if t['parent_session']==parents[i]) for i in (0,len(parents)//2,len(parents)-1)]
+    else:tasks = read(ROOT / 'exp/261024/nlf_finetune_12h/runtime_benchmark/tasks.json')
     assert len(tasks) == 3 and len({task['parent_session'] for task in tasks}) == 3
     save(OUT / 'runtime/tasks.json', tasks)
     identity = subprocess.check_output(['nvidia-smi', '-i', str(gpu),
         '--query-gpu=index,uuid,name,driver_version', '--format=csv,noheader'], text=True).strip()
+    gpu_uuid = identity.split(',')[1].strip()
     conditions = read(OUT / 'experiment_manifest.json')['conditions']
     for config in conditions:
         for source in (['cached'] if config['mode'] == 'rgb' else ['cached', 'online']):
@@ -106,7 +111,7 @@ def supervise(gpu):
             if path.exists():
                 assert read(path).get('gpu_identity') == identity
                 continue
-            env = dict(os.environ, CUDA_VISIBLE_DEVICES=str(gpu), OMP_NUM_THREADS='2',
+            env = dict(os.environ, CUDA_VISIBLE_DEVICES=gpu_uuid, EVENTPOSE_PHYSICAL_GPU=str(gpu), OMP_NUM_THREADS='2',
                        PYTHONDONTWRITEBYTECODE='1')
             started = time.time()
             with (OUT / 'runtime' / (config['name'] + '_' + source + '.log')).open('a') as log:
@@ -116,7 +121,7 @@ def supervise(gpu):
                 register_job(goal, process.pid, 'event_runtime_' + config['name'] + '_' + source)
                 assert process.wait() == 0, str(path)
             result = read(path)
-            result.update(gpu_identity=identity, cuda_visible_devices=str(gpu),
+            result.update(gpu_identity=identity, cuda_visible_devices=gpu_uuid,physical_gpu=str(gpu),
                           process_started_unix=started, process_finished_unix=time.time(),
                           cold_process_wall_seconds=time.time() - started)
             save(path, result)

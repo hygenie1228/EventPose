@@ -1,0 +1,21 @@
+{
+  "checked_unix": 1793255972.8181403,
+  "scope": "Source/design freeze only, no live training status inspected",
+  "v1_source_frozen": true,
+  "v2_source_matches_frozen_design": true,
+  "design_frozen_unix": 1793255396.893092,
+  "primary_four_conditions": [
+    "v2_rgb_only",
+    "v2_fixed",
+    "v2_global_dynamic",
+    "v2_part_dynamic"
+  ],
+  "matched_global_part_ablations": [
+    "v2_global_dynamic_no_support",
+    "v2_part_dynamic_no_support",
+    "v2_global_dynamic_no_warmup",
+    "v2_part_dynamic_no_warmup"
+  ],
+  "additional_shared_training_changes": "Initial null bias -2 and gate learning rate 1e-4 are shared by v2 global/part; do not attribute the v1/v2 difference to spatial support alone",
+  "performance_verified": false
+}

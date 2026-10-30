@@ -1,0 +1,19 @@
+{
+  "status": "prototype_passed",
+  "checked_kst": "2026-10-29T21:45:58.738799+09:00",
+  "CPU_only": true,
+  "synthetic_inputs_only": true,
+  "Test_used": false,
+  "checks": {
+    "coarse_initialization_kernel_sum_and_position_interpolation": true,
+    "calibrated_stride7_centres_match_RGB_query_grid": true,
+    "dense_actual_module_shapes_and_dynamic_horizons": true,
+    "eval_step0_reload_exact_learned_gate": true,
+    "missing_empty_off_camera_all_null_identity": true,
+    "local_occupancy_uses_exact_stride7_patch": true,
+    "matched_fixed_global_static_and_RGB_controls": true,
+    "post_warmup_pose_and_motion_gradient_paths": true
+  },
+  "model_source_sha256": "9a0a618b076af189de16733f10569573e3506f553bb0ea8b9522e80602ee352c",
+  "limitation": "No frozen V5 design, actual strong RGB builder, CUDA pilot, full training or accuracy verification yet"
+}

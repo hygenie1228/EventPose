@@ -1,0 +1,7 @@
+{
+  "pid": 60854,
+  "role": "extension24h_deadline_watchdog",
+  "start_ticks": "300865553",
+  "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/tools/goal_runtime_control.py watchdog --config /home/namhj/EventPose/_agents/research/261024/rgb_event_goal_36h.json --status /home/namhj/EventPose/_agents/research/261026/rgb_event_deadline_watchdog_status.json",
+  "pgid": 60854
+}

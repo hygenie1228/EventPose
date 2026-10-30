@@ -1,0 +1,28 @@
+{
+  "checked_unix": 1793250218.977434,
+  "scope": "Initial independent source review; not a training/final-completion certificate",
+  "source_sha256": {
+    "src/multihmr/part_aggregation_model.py": "32fc675731da5091c36b90556c5fdde05c92ffe7f66427812f7328d4ee0f2a5b",
+    "src/multihmr/part_aggregation_data.py": "76b84a15471ceeeffaa5fb92b5a1059ecdcb0563d46324c7e95b59d3f86fa8ce",
+    "_agents/report/261029_부위별_동적_이벤트_집계_설계와_실험.md": "a55541fc6dcd47e63f5ea5343820834bc98cf857f8f96b0fd7ffe10188acd401"
+  },
+  "observed": [
+    "Model forward whitelist excludes GT joints/boxes/motion",
+    "Part supervision is a separate training-only method",
+    "RGB and event use calibrated separate camera planes",
+    "Event bin boundaries are left-open/right-closed and end at actual RGB time",
+    "Part-agnostic weights are averaged across six parts",
+    "Explicit no-event choice is included",
+    "Same RGB pretrained initialization and same configured update budget for four conditions"
+  ],
+  "pending": [
+    "CUDA pilot successful update/gradient evidence",
+    "Full training and holdout-only improvement",
+    "Full Test with common sample scoring",
+    "Paired part-aware versus global comparison",
+    "Zero/shuffle events diagnostic",
+    "English real-data final figure and full artifact verification",
+    "20-hour deadline and owned job preservation stop"
+  ],
+  "baseline_caveat": "fixed_all means equal weights on three disjoint bin features, not raw 200ms count integration"
+}

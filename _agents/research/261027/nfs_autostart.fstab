@@ -1,0 +1,2 @@
+147.46.76.228:/home/namhj/share /home/namhj/share nfs rw,vers=3,proto=tcp,hard,_netdev,nofail,x-systemd.mount-timeout=60s 0 0
+147.46.174.20:/mnt/storage /mnt/nfs_L nfs rw,vers=4.2,proto=tcp,hard,_netdev,nofail,x-systemd.mount-timeout=60s 0 0

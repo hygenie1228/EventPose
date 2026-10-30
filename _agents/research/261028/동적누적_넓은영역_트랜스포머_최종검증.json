@@ -1,0 +1,69 @@
+{
+  "검증시각_한국시간": "2026-10-28T22:28:26.412658+09:00",
+  "보고서": "/home/namhj/EventPose/_agents/report/261028_자세정보이득_기반_관절별_이벤트_동적누적_제안.md",
+  "보고서_sha256": "c4853484c0767c1a309988e98de3076b7f78be3ab93287aedfb331d74db57279",
+  "본문그림수": 5,
+  "로컬링크수": 10,
+  "그림": [
+    {
+      "파일": "/home/namhj/EventPose/exp/261028/dynamic_aggregation_real_examples/전신_넓은영역_실제누적_비교.png",
+      "크기": [
+        2755,
+        1450
+      ],
+      "sha256": "8066c8e398bc2aefe1d151b9a70e3d6abbc78a3fc2be8b4d4d1e51f1cbc11681"
+    },
+    {
+      "파일": "/home/namhj/EventPose/exp/261028/dynamic_aggregation_real_examples/양쪽다리_전체영역_실제비교.png",
+      "크기": [
+        2880,
+        1360
+      ],
+      "sha256": "a689bad5a3f530cbc89bc22a8d56c3dc45781758b10b62899a867a422325cda1"
+    },
+    {
+      "파일": "/home/namhj/EventPose/exp/261028/dynamic_aggregation_real_examples/양팔_전체영역_실제비교.png",
+      "크기": [
+        2880,
+        800
+      ],
+      "sha256": "9a712996865fd9cb33ed38c0ba391499c6954ea338b10dab45e8754e71f0a90a"
+    },
+    {
+      "파일": "/home/namhj/EventPose/exp/261028/dynamic_aggregation_real_examples/상체_실제누적_비교.png",
+      "크기": [
+        2755,
+        1450
+      ],
+      "sha256": "62aec457b8e91b267a5b8fa39afa64ef00487db59ff7af6a6812191533f90f22"
+    },
+    {
+      "파일": "/home/namhj/EventPose/exp/261028/dynamic_aggregation_diagram/운동량조건부_트랜스포머_네트워크_제안.png",
+      "크기": [
+        3410,
+        1860
+      ],
+      "sha256": "00272c4f50d4fae62992d396e825c624fbcf779f3b02e5f45bce37e358173204"
+    }
+  ],
+  "다리ROI": {
+    "영역": [
+      351,
+      301,
+      589,
+      639
+    ],
+    "크기": [
+      238,
+      338
+    ],
+    "면적확대배수": 13.542760942760943
+  },
+  "넓은영역_통계_이동량_보고서일치": true,
+  "Transformer중심_설계": true,
+  "시간gate_이전_무제한시간혼합_금지_명시": true,
+  "그림직접시각검수": true,
+  "원본stat보존": true,
+  "학습실행": false,
+  "추론모델완성으로표시": false
+}

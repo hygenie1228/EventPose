@@ -50,9 +50,9 @@ def main():
     gpu = None
     while time.time() < goal['deadline_unix'] - 300:
         for candidate in range(2, 7):
-            active = subprocess.check_output(['nvidia-smi', '-i', str(candidate),
-                '--query-compute-apps=pid', '--format=csv,noheader,nounits'], text=True).strip()
-            if not active:
+            probe = subprocess.run(['nvidia-smi', '-i', str(candidate),
+                '--query-compute-apps=pid', '--format=csv,noheader,nounits'], capture_output=True,text=True)
+            if probe.returncode == 0 and not probe.stdout.strip():
                 gpu = candidate
                 break
         if gpu is not None:

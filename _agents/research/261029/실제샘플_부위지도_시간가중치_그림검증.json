@@ -1,0 +1,29 @@
+{
+  "checked_unix": 1793263738.1367352,
+  "model": "v1 part_dynamic",
+  "real_heldout_cases": 2,
+  "subjects": [
+    "236",
+    "258"
+  ],
+  "GT_only_case_selection": true,
+  "selection_existed_before_v2_attention": false,
+  "learned_attention_weights_not_schematic": true,
+  "GT_crop_display_only": true,
+  "source_stats_preserved": true,
+  "future_events": false,
+  "PNG_viewed": true,
+  "SVG_visible_text_English": true,
+  "PDFinfo_passed": true,
+  "formats": [
+    "png",
+    "svg",
+    "pdf"
+  ],
+  "interpretation": "V1 negative event-use examples; same fixed cases will be reused across later versions",
+  "artifacts": {
+    "png": "11d5d171efdc9eff12f43ad9b2a3038cb71f2a7e4d2ada4929217c29e404319f",
+    "svg": "5195c6d7f21cc85b48595a998d5fc5e6b488a63f2155a666cf526eeb14b7731a",
+    "pdf": "b8823455beeaec7339761f2dc8ee9eed94f4133f3b5156b0133a6523686c07e4"
+  }
+}

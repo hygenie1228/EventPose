@@ -1,0 +1,12 @@
+{
+  "goal": {
+    "threadId": "01a17738-6081-7b60-8992-a31687c5acc0",
+    "objective": "사용자 최신 요청으로 기존 28시간 Goal의 미완료 후속 작업을 대체한다. 전체 고정15시간(2026-10-27 04:15:31~19:15:31 UTC)에 body(_b) Multi-HMR의 device3 RGB+device4 event, device3 event+device4 RGB, device3 event+device4 event 세 조건의 열화 원인을 실제 코드·데이터·gradient·모달리티 제거검사로 분석하고 수정해 미세조정·전체 Test 평가한다. RGB 단독보다 개선을 목표로 하되 개선을 보장하거나 Test로 방법·checkpoint를 선택하지 않는다. RGB가 있는 조건은 해당 RGB 단독의 원래 검출/복원 경로를 유지하고 event 정보를 추가하는 구조로 수정해, 기존 event 주센서+저해상도 RGB 보조 CNN 비대칭을 해소한다. event-only는 학습·검출·추론에서 RGB 픽셀 미사용을 유지한다. 실제 센서 내외부 보정과 과거 timestamp 대응을 사용하며 GTbox/pose/depth를 추론 입력으로 쓰지 않는다. 수정 구조와 adapter 초기화·학습률·backbone 적응·기하·event 기여도 및 ablation을 검증한다. 같은 split/body Train과 피험자분리 holdout에서만 trial/checkpoint를 선택하고, RGB3/RGB4 대조군도 동일 초기화 출처·학습예산·batch·증강으로 통제한다. 기존 RGB checkpoint·캐시를 재사용하면 split해시/Train피험자누수/프레임매핑/출처를 검증해 별도 manifest에 고정하며 이전 fusion 결과는 새 방법 결과로 쓰지 않는다. 전체Train 및 고정균형subset coverage·실제샘플·고유프레임·완료epoch·성공update를 보고한다. 각 본학습trial은 동일3시간예산·최대4시간 원칙을 유지하며 총15시간에 분석·데이터검증·캐시·학습·전체Test·동일GPU속도·통계·보고서감사를 포함한다. 공통 body Test10초구간·동일GT에서 first frame-aligned MPJPE, first frame-aligned PA-MPJPE, frame-aligned MPJPE, frame-aligned PA-MPJPE, full3D Root position error(mm)의5수치열을 RGB 단독 및 기존/수정세조건과 비교한다. exact frame0 고정변환·매프레임pelvis평행이동/properSim3·미검출0금지 원칙을 유지하고 RPE-Z·검출률·절대오차·속도/가속도·동일GPU 온라인/캐시속도·CI/Holm·효과크기·동작속도별분석·실제예측시각화·checkpoint출처 및 반복한계를 별도 보고한다. dataset/,orig_dataset/,etri_processed/,data/는 읽기전용, 과학계산은 .venv-humanpose/bin/python. 최신 사용자 GPU 지정은 물리1,2,4,5만이며 실제 UUID·버스·정상/유휴를 검증한다. GPU3 및 타인작업은 조작하지 않는다. 새 출력 exp/261027/device34_fusion_repair_15h/, 설정 _agents/research/261027/device34_fusion_repair_goal_15h.json, 보고서 _agents/report/261027_센서융합_열화원인_분석과_재실험.md. 모든 새 프로세스를 PID/PGID/시작tick/명령으로 등록하고 이전 Goal은 본인 등록 작업만 신원 확인 후 checkpoint를 보존해 중단한다. 학습/평가와 보고서는30분간격 점검·갱신하며 실패/사용자요청은 예외다. 마감에는 이번 작업만 checkpoint보존정지 후 사용자지시대로 Goalpause한다. 실제 최종checkpoint·전체Test·프레임매핑·원시5지표·실제입력·동일GPU 실행증거·보고서숫자를 검증해야 complete하며 무개선도 정직하게 보고한다.",
+    "status": "active",
+    "tokenBudget": null,
+    "tokensUsed": 2673362,
+    "timeUsedSeconds": 55747,
+    "createdAt": 1793003658,
+    "updatedAt": 1793074688
+  }
+}

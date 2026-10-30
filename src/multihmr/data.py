@@ -16,8 +16,8 @@ import time
 import numpy as np
 
 ROOT=Path(__file__).resolve().parents[2]
-OUT=ROOT/'exp/261023/multihmr_finetune_14h'
-WORK=ROOT/'.experiment_storage/multihmr_finetune_14h'
+OUT=Path(os.environ.get('EVENTPOSE_PREPARATION_OUT', ROOT/'exp/261023/multihmr_finetune_14h'))
+WORK=Path(os.environ.get('EVENTPOSE_RGB_CACHE', ROOT/'.experiment_storage/multihmr_finetune_14h'))
 ASSETS=OUT/'checkpoints'
 
 
@@ -91,6 +91,9 @@ def extract(item):
         else:
             step=max(1,int(round(fps/2)))
             selected=available[::step]
+        maximum=int(os.environ.get('EVENTPOSE_MAX_'+role.upper()+'_FRAMES', '0'))
+        if maximum and len(selected)>maximum:
+            selected=selected[np.linspace(0,len(selected)-1,maximum,dtype=int)]
         poses=f['params/smplx_pose_axis_angle'][:][selected].astype(np.float32)
         betas=f['params/smplx_betas'][:][selected].astype(np.float32)
         transl=f['params/translation_world_m'][:][selected].astype(np.float32)
@@ -106,7 +109,10 @@ def extract(item):
         rgb=cv2.cvtColor(bgr,cv2.COLOR_BGR2RGB)
         # Preserve native pixels and aspect ratio; contain/pad is applied in loader.
         image=Image.fromarray(rgb)
-        image.save(image_dir/f'{pos:06d}.jpg',quality=95,subsampling=0)
+        if os.environ.get('EVENTPOSE_LOSSLESS_RGB_CACHE')=='1':
+            image.save(image_dir/f'{pos:06d}.png')
+        else:
+            image.save(image_dir/f'{pos:06d}.jpg',quality=95,subsampling=0)
         cursor+=1
         if cursor==len(wanted):break
     cap.release();assert cursor==len(wanted)

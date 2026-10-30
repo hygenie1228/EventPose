@@ -1,0 +1,32 @@
+{
+  "reason": "Unavailable physicalGPU3 changes numericCUDAordinals; use GPUUUID for allnewlaunches",
+  "preserved_live_training": [
+    {
+      "pid": 65182,
+      "name": "rgb_baseline",
+      "recorded_gpu": 2,
+      "actual_gpu": 2,
+      "uuid": "GPU-ba69cb68-67b5-09a9-24cd-205c450821d5"
+    },
+    {
+      "pid": 65187,
+      "name": "fusion_count33",
+      "recorded_gpu": 4,
+      "actual_gpu": 5,
+      "uuid": "GPU-88cf24af-0bc7-ad30-f05a-9c02ccdb936b"
+    },
+    {
+      "pid": 65191,
+      "name": "fusion_bins100",
+      "recorded_gpu": 5,
+      "actual_gpu": 6,
+      "uuid": "GPU-0623ec69-638f-14e7-d4b1-6bb4120d6a6f"
+    }
+  ],
+  "failed_trial_retry": "fusion_surface20 failed before CUDA initialization; corrected UUID retry authorized",
+  "manager_pids": [
+    60854,
+    69010,
+    69013
+  ]
+}

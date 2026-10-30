@@ -1,0 +1,97 @@
+{
+  "time": 1792902164.4951243,
+  "processes": [
+    [
+      12422,
+      "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_bins100.json "
+    ],
+    [
+      12424,
+      "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_bins100.json "
+    ],
+    [
+      12429,
+      "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_surface20.json "
+    ],
+    [
+      12431,
+      "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_surface20.json "
+    ],
+    [
+      12442,
+      "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_count33.json "
+    ],
+    [
+      12444,
+      "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_count33.json "
+    ],
+    [
+      15088,
+      "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/tools/finalize_event_experiments.py "
+    ],
+    [
+      16091,
+      "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_bins100.json "
+    ],
+    [
+      16092,
+      "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_bins100.json "
+    ],
+    [
+      16205,
+      "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_surface20.json "
+    ],
+    [
+      16206,
+      "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_surface20.json "
+    ],
+    [
+      16759,
+      "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_count33.json "
+    ],
+    [
+      16760,
+      "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_count33.json "
+    ],
+    [
+      52509,
+      "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/rgb_baseline.json "
+    ],
+    [
+      52511,
+      "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/rgb_baseline.json "
+    ],
+    [
+      57004,
+      "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/rgb_baseline.json "
+    ],
+    [
+      57005,
+      "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/rgb_baseline.json "
+    ],
+    [
+      60737,
+      "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_visualize_gray.json "
+    ],
+    [
+      60739,
+      "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_visualize_gray.json "
+    ],
+    [
+      65060,
+      "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_visualize_gray.json "
+    ],
+    [
+      65061,
+      "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_visualize_gray.json "
+    ],
+    [
+      71605,
+      "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/tools/run_event_experiments.py "
+    ],
+    [
+      86503,
+      "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/tools/goal_runtime_control.py watchdog --config /home/namhj/EventPose/_agents/research/261024/rgb_event_goal_36h.json --status /home/namhj/EventPose/_agents/research/261024/rgb_event_goal_watchdog_status.json "
+    ]
+  ]
+}

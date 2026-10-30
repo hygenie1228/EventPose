@@ -1,0 +1,20 @@
+{
+  "checked_unix": 1793251618.8216898,
+  "NPZ_hash_matches": true,
+  "unique_queries": 288,
+  "subjects": 9,
+  "six_part_path_values_finite_nonnegative": true,
+  "median_recomputed_px": [
+    8.434475234480875,
+    21.628028307359987,
+    23.72823337529549,
+    6.014047812062129,
+    6.586541222547659,
+    9.830728313371077
+  ],
+  "source_stats_preserved": true,
+  "scope": "GT diagnostic only; no learned attention or accuracy improvement evidence",
+  "all_used_GT_times_causal": true,
+  "path_at_least_endpoint_displacement_all_four_coordinates": true,
+  "GT_diagnostic_only_flags": true
+}

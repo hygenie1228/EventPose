@@ -1,0 +1,14 @@
+{
+  "확인시각_KST": "2026-10-29T18:28:33.876709+09:00",
+  "범위": "등록된 기존 관리기 신원 확인만 수행. 학습 및 평가 worker 직접 조회 없음.",
+  "관리기": [
+    {
+      "pid": 17031,
+      "state": "S",
+      "start_ticks_match": true,
+      "pgid_match": true,
+      "command_match": true
+    }
+  ],
+  "실행변경": false
+}

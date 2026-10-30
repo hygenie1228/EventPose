@@ -1,0 +1,49 @@
+{
+  "status": "passed",
+  "CPU_only": true,
+  "CUDA_or_running_jobs_inspected": false,
+  "synthetic_only": true,
+  "checkpoint_or_dataset_loaded": false,
+  "checks": {
+    "output_projection_has_no_bias": true,
+    "uniform_only_while_training_and_step_below_500": true,
+    "step0_eval_uses_learned_gate": true,
+    "state_dict_reload_at_step0_eval_reproduces_learned_gate": true,
+    "all_null_exact_RGB_identity_with_nonzero_projection": true,
+    "null_has_no_projection_bias_leak": true,
+    "missing_empty_and_off_camera_evidence_identity": true,
+    "geometry_diagnostics_exclude_unobservable_patches": true,
+    "predicted_density_suppresses_low_mass_patches": true,
+    "support_gate_has_no_GT_forward_argument": true,
+    "geometry_density_diagnostic_partition_consistent": true,
+    "global_and_part_share_parameters_support_candidates_and_warmup": true,
+    "global_control_differs_only_by_shared_temporal_distribution": true,
+    "post_warmup_event_encoder_transformer_gate_projection_receive_gradients": true,
+    "explicit_factory_preserves_frozen_v1_and_routes_v2": true,
+    "training_and_evaluation_use_versioned_factory_and_eval_mode": true,
+    "v1_source_preserved": true
+  },
+  "details": {
+    "valid_geometry_diagnostics": {
+      "predicted_high_density_patch_count": 501,
+      "predicted_low_density_patch_count": 11,
+      "high_density_residual_energy": 0.0005718158790841699,
+      "low_density_residual_energy": 0.0001518234785180539,
+      "mean_predicted_support": 0.8686763048171997,
+      "calibration_supported_patch_count": 512,
+      "diagnostic_training_step": 0,
+      "interpretation": "Predicted part-map density, not GT foreground/background segmentation"
+    },
+    "encoder.gradient_l2": 0.010566841249333334,
+    "spatial_transformer.gradient_l2": 0.001639259735665817,
+    "time_score.gradient_l2": 0.0023330742764869797,
+    "output.gradient_l2": 0.001376702744695817
+  },
+  "sources": {
+    "src/multihmr/part_aggregation_v2.py": "4b72e1a6c5f9dd8c02c2a4b6423ffd538dc5375f4f33afe4c298baeca890aba0",
+    "src/multihmr/part_aggregation_factory.py": "fbe81fb94b3944ff505c5f710884eec01c8c772a2a96c787c3630824d1a4bd6d",
+    "src/multihmr/part_aggregation_model.py": "c94863d9ee21fbefb90ff1be2e82ca1d2f919123d7a268793b494a2efb2f677c",
+    "src/multihmr/part_aggregation_training.py": "c850d1648c5bfb11117d201ec961872ae89247286838e5f2fca99fae886a428b",
+    "src/multihmr/part_aggregation_evaluation.py": "b7dacf0a42b78ef21cadb009defb27514f2b364ed6fdce4440b9596dd4f206da"
+  }
+}

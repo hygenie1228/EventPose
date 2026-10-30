@@ -1,0 +1,46 @@
+{
+  "requested_unix": 1793001544.97725,
+  "reason": "User moved new-split experiment to a new AI Agent and restricted this agent to four-column report formatting",
+  "jobs": [
+    {
+      "pid": 60854,
+      "role": "extension24h_deadline_watchdog",
+      "signal": "SIGTERM"
+    },
+    {
+      "pid": 16822,
+      "role": "extension24h_event_priority_scheduler",
+      "signal": "SIGTERM"
+    },
+    {
+      "pid": 69013,
+      "role": "extension24h_uuid_postprocess",
+      "signal": "SIGTERM"
+    },
+    {
+      "pid": 65182,
+      "role": "rgb_baseline",
+      "signal": "SIGTERM",
+      "preserve_checkpoint": true
+    },
+    {
+      "pid": 65187,
+      "role": "fusion_count33",
+      "signal": "SIGTERM",
+      "preserve_checkpoint": true
+    },
+    {
+      "pid": 65191,
+      "role": "fusion_bins100",
+      "signal": "SIGTERM",
+      "preserve_checkpoint": true
+    },
+    {
+      "pid": 69036,
+      "role": "fusion_surface20",
+      "signal": "SIGTERM",
+      "preserve_checkpoint": true
+    }
+  ],
+  "note": "Wait for old training checkpoint-save/exit. Do not duplicate or forcibly terminate external work."
+}

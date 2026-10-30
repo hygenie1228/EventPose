@@ -1,0 +1,22 @@
+{
+  "expected_thread": "01a177a3-b535-7012-ba0f-ac98723613cf",
+  "matches": [
+    {
+      "id": "8123e004-1926-454b-ac84-85df4ec88f4f",
+      "pane": "agents",
+      "running": false,
+      "codexThread": "01a177a3-b535-7012-ba0f-ac98723613cf",
+      "goal": {
+        "threadId": "01a177a3-b535-7012-ba0f-ac98723613cf",
+        "objective": "사용자가 요청한 20시간 동안 Part-aware Dynamic Aggregation 전담 agent를 실행해 같은 device의 RGB+event로 인체 3D 자세 추정 네트워크를 설계·구현·학습·평가한다. 시작부터 20시간의 고정 마감을 설정·기록하고 데이터셋/data 읽기전용, 타인 GPU 작업 보존, 장기 작업 직접 확인 30분 간격을 지킨다. RGB-only, 고정 누적, part-agnostic 대조군과 공정하게 비교하며 학습/검증 split만으로 개선을 반복하고 전체 Test의 동일 공통 표본에서 5개 mm 지표로 검증한다. 부위별 시간 집계의 실질적 차이·gradient·동기화·미래 이벤트 누출 부재를 확인하고 실제 데이터 기반 영문 figure 및 한국어 보고서를 _agents/report/에 작성한다. 성능 개선은 실측으로만 보고하며 시간 내 개선 실패나 미완료를 숨기지 않는다. 20시간 마감에 본인 작업만 checkpoint 보존 종료하고 결과와 남은 작업을 기록한다.",
+        "status": "blocked",
+        "tokenBudget": null,
+        "tokensUsed": 1569941,
+        "timeUsedSeconds": 8717,
+        "createdAt": 1793249712,
+        "updatedAt": 1793258430
+      }
+    }
+  ],
+  "checked_unix": 1793260479.958951
+}

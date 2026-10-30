@@ -1,0 +1,42 @@
+[
+  {
+    "name": "rgb_baseline",
+    "source_step": 7171,
+    "successful_steps": 7170,
+    "original_started_unix": 1792865943.9624524,
+    "prior_elapsed_seconds": 35305.10524940491,
+    "checkpoint": "exp/261024/rgb_event_36h/checkpoints/rgb_baseline/last.pt"
+  },
+  {
+    "name": "fusion_count33",
+    "source_step": 7000,
+    "successful_steps": 6999,
+    "original_started_unix": 1792868614.189359,
+    "prior_elapsed_seconds": 32634.878342866898,
+    "checkpoint": "exp/261024/rgb_event_36h/checkpoints/fusion_count33/last.pt"
+  },
+  {
+    "name": "fusion_bins100",
+    "source_step": 8037,
+    "successful_steps": 8035,
+    "original_started_unix": 1792868614.4216073,
+    "prior_elapsed_seconds": 32634.646094560623,
+    "checkpoint": "exp/261024/rgb_event_36h/checkpoints/fusion_bins100/last.pt"
+  },
+  {
+    "name": "fusion_surface20",
+    "source_step": 7736,
+    "successful_steps": 7734,
+    "original_started_unix": 1792868614.6532834,
+    "prior_elapsed_seconds": 32634.41441845894,
+    "checkpoint": "exp/261024/rgb_event_36h/checkpoints/fusion_surface20/last.pt"
+  },
+  {
+    "name": "fusion_visualize_gray",
+    "source_step": 5062,
+    "successful_steps": 5061,
+    "original_started_unix": 1792880018.295999,
+    "prior_elapsed_seconds": 21230.77170276642,
+    "checkpoint": "exp/261024/rgb_event_36h/checkpoints/fusion_visualize_gray/last.pt"
+  }
+]

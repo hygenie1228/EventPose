@@ -1,0 +1,57 @@
+{
+  "session_id": "21a5cce6-e593-4c07-8930-6575193dbbaf",
+  "thread_id": "01a17738-6081-7b60-8992-a31687c5acc0",
+  "title": "新split / Multi-HMR RGB·event 24시간",
+  "goal_status": "active",
+  "pane": "agents",
+  "started_utc": "2026-10-26 07:59:04 UTC",
+  "deadline_utc": "2026-10-27 07:59:04 UTC",
+  "watchdog": {
+    "pid": 25307,
+    "role": "new_split_24h_deadline_watchdog",
+    "start_ticks": "301252768",
+    "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/tools/goal_runtime_control.py watchdog --config /home/namhj/EventPose/_agents/research/261026/new_split_agent_goal.json --status /home/namhj/EventPose/_agents/research/261026/new_split_agent_deadline_status.json",
+    "pgid": 25307
+  },
+  "old_job_shutdown_requested": [
+    {
+      "pid": 60854,
+      "role": "extension24h_deadline_watchdog",
+      "signal": "SIGTERM"
+    },
+    {
+      "pid": 16822,
+      "role": "extension24h_event_priority_scheduler",
+      "signal": "SIGTERM"
+    },
+    {
+      "pid": 69013,
+      "role": "extension24h_uuid_postprocess",
+      "signal": "SIGTERM"
+    },
+    {
+      "pid": 65182,
+      "role": "rgb_baseline",
+      "signal": "SIGTERM",
+      "preserve_checkpoint": true
+    },
+    {
+      "pid": 65187,
+      "role": "fusion_count33",
+      "signal": "SIGTERM",
+      "preserve_checkpoint": true
+    },
+    {
+      "pid": 65191,
+      "role": "fusion_bins100",
+      "signal": "SIGTERM",
+      "preserve_checkpoint": true
+    },
+    {
+      "pid": 69036,
+      "role": "fusion_surface20",
+      "signal": "SIGTERM",
+      "preserve_checkpoint": true
+    }
+  ]
+}

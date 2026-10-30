@@ -1,0 +1,34 @@
+{
+  "recorded_unix": 1793254645.7435894,
+  "evidence": "부위별_동적집계_정기검토_1515.json",
+  "Test_complete_at_observation": false,
+  "observed_holdout_best_PA_mm": {
+    "rgb_only": 25.457853319199096,
+    "fixed": 25.321288936456334,
+    "global_dynamic": 25.281696728678703,
+    "part_dynamic": 25.41639021744217
+  },
+  "observed_coverage_all": 1.0,
+  "observed_current_part_dynamic_event_mass_order": 1e-05,
+  "interpretation": "A small validation accuracy change does not establish useful event aggregation. Current weights suggest near-null selection; frozen-best intervention diagnostics remain necessary.",
+  "candidate_hypotheses_before_new_Test_results": [
+    {
+      "hypothesis": "Background patches receive routed messages despite low absolute part-map density",
+      "candidate": "Config/version-separated learned spatial-support gate; no GT at inference",
+      "required_control": "Identical support in fixed/global/part aggregation"
+    },
+    {
+      "hypothesis": "Time/null gate closes before event features can learn useful corrections",
+      "candidate": "Validation-only curriculum freezing gate parameters initially, then unfreezing",
+      "required_control": "Identical curriculum in global/part counterparts; keep primary unchanged"
+    }
+  ],
+  "acceptance": [
+    "Measured holdout event interventions change error in a useful direction",
+    "Part-aware beats matched global control with the same candidate memory and curriculum",
+    "Frozen final methods evaluated on full common Test population",
+    "Undefined conditional history age remains undefined when event probability <0.05"
+  ],
+  "implementation_owner": "/root/part_aware_aggregation",
+  "primary_training_unchanged": true
+}

@@ -1,0 +1,18 @@
+{
+  "changed_unix": 1793001099.8176427,
+  "scheduler_pid": 16822,
+  "training_processes_preserved": [
+    65182,
+    65187,
+    65191,
+    69036
+  ],
+  "next_admission_order": [
+    "event_count33",
+    "event_bins100",
+    "event_surface20",
+    "event_visualize_gray",
+    "fusion_visualize_gray"
+  ],
+  "reason": "User requested event-only trials instead of deferring them behind RGB/fusion"
+}

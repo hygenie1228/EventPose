@@ -1,0 +1,491 @@
+{
+  "checked_unix": 1793252690.9643164,
+  "checked_kst": "2026-10-29T14:44:50.964323+09:00",
+  "stage": "primary",
+  "failures": [
+    {
+      "role": "report",
+      "error": "KeyError('name')",
+      "time": 1793252541.7375991
+    },
+    {
+      "role": "report",
+      "error": "KeyError('name')",
+      "time": 1793252562.15855
+    },
+    {
+      "role": "report",
+      "error": "KeyError('name')",
+      "time": 1793252582.5928736
+    },
+    {
+      "role": "report",
+      "error": "KeyError('name')",
+      "time": 1793252603.022832
+    },
+    {
+      "role": "report",
+      "error": "KeyError('name')",
+      "time": 1793252623.4511218
+    },
+    {
+      "role": "report",
+      "error": "KeyError('name')",
+      "time": 1793252643.881994
+    },
+    {
+      "role": "report",
+      "error": "KeyError('name')",
+      "time": 1793252664.30199
+    },
+    {
+      "role": "report",
+      "error": "KeyError('name')",
+      "time": 1793252684.722192
+    }
+  ],
+  "scheduler_handle": null,
+  "jobs": [
+    {
+      "pid": 36627,
+      "role": "aggregation_scheduler"
+    },
+    {
+      "pid": 37475,
+      "role": "train:rgb_only"
+    },
+    {
+      "pid": 37476,
+      "role": "train:fixed"
+    },
+    {
+      "pid": 37477,
+      "role": "train:global_dynamic"
+    },
+    {
+      "pid": 37478,
+      "role": "train:part_dynamic"
+    }
+  ],
+  "memory": {
+    "completed": 78,
+    "total": 78,
+    "last_session": "20260729_114904_565147_256_b",
+    "updated_unix": 1793251235.1809459,
+    "completed_sessions": [
+      "20260720_131207_863008_200_b",
+      "20260721_094720_004372_102_b",
+      "20260721_092034_900028_101_b",
+      "20260720_134353_764469_201_b",
+      "20260720_141545_676840_202_b",
+      "20260720_171146_386646_207_b",
+      "20260720_173937_866953_208_b",
+      "20260721_101530_419743_103_b",
+      "20260721_104419_025875_104_b",
+      "20260721_131611_800169_107_b",
+      "20260721_163036_921391_113_b",
+      "20260721_134152_762712_108_b",
+      "20260721_160503_258977_112_b",
+      "20260722_113816_139070_214_b",
+      "20260722_111420_902962_213_b",
+      "20260722_121039_676010_215_b",
+      "20260722_123458_403773_216_b",
+      "20260722_141915_707844_217_b",
+      "20260722_144415_626490_218_b",
+      "20260722_102156_606857_211_b",
+      "20260722_153516_354649_220_b",
+      "20260722_173602_022480_224_b",
+      "20260722_171137_707835_223_b",
+      "20260722_151129_160150_219_b",
+      "20260723_101114_292842_118_b",
+      "20260723_092057_781439_116_b",
+      "20260723_103514_363380_119_b",
+      "20260723_141540_869148_122_b",
+      "20260724_114639_254974_232_b",
+      "20260724_141452_333686_235_b",
+      "20260724_170629_378296_135_b",
+      "20260724_112200_329763_231_b",
+      "20260727_110628_476110_139_b",
+      "20260724_174044_855351_136_b",
+      "20260727_111856_048928_140_b",
+      "20260727_131509_421679_141_b",
+      "20260727_140436_455917_143_b",
+      "20260727_133937_737748_142_b",
+      "20260728_092342_755926_148_b",
+      "20260728_101106_435151_150_b",
+      "20260728_103510_887775_242_b",
+      "20260728_111312_737045_151_b",
+      "20260728_113743_702969_243_b",
+      "20260728_125720_746844_244_b",
+      "20260728_132440_487381_245_b",
+      "20260728_135437_731369_246_b",
+      "20260729_131113_772359_156_b",
+      "20260729_133538_003922_157_b",
+      "20260729_150158_013519_259_b",
+      "20260729_152840_627594_158_b",
+      "20260730_101032_203690_159_b",
+      "20260730_161239_582130_162_b",
+      "20260722_104630_314005_212_b",
+      "20260730_172306_945664_163_b",
+      "20260723_170603_665216_127_b",
+      "20260724_144030_100855_236_b",
+      "20260727_141742_649875_239_b",
+      "20260729_141547_590979_257_b",
+      "20260728_093606_362438_149_b",
+      "20260729_143916_646129_258_b",
+      "20260720_161542_272630_205_b",
+      "20260720_164542_895844_206_b",
+      "20260721_113813_896850_106_b",
+      "20260721_144549_442053_110_b",
+      "20260721_141905_869895_109_b",
+      "20260721_110755_222303_105_b",
+      "20260721_165718_897063_114_b",
+      "20260722_163417_881917_222_b",
+      "20260722_161025_348543_221_b",
+      "20260724_134245_730480_234_b",
+      "20260724_131455_979433_233_b",
+      "20260727_151648_888246_144_b",
+      "20260727_152908_598579_145_b",
+      "20260727_165547_817243_146_b",
+      "20260727_172047_965106_147_b",
+      "20260729_111132_421090_255_b",
+      "20260730_151756_792756_161_b",
+      "20260729_114904_565147_256_b"
+    ]
+  },
+  "main_runs": {
+    "rgb_only": {
+      "started": {
+        "pid": 37475,
+        "physical_gpu": 1,
+        "gpu_uuid": "GPU-d98bf2b1-073b-0738-bc33-0fc86356d368",
+        "started_unix": 1793250892.117106,
+        "finish_unix": 1793261692.117106,
+        "global_deadline_unix": 1793321712,
+        "training_frames": 6501,
+        "validation_frames": 288,
+        "trainable_parameters": 63699162,
+        "initialization": "/home/namhj/EventPose/exp/261028/device3_encoding_12h/checkpoints/rgb3/best.pt",
+        "same_device": true,
+        "test_used_for_selection": false
+      },
+      "progress": {
+        "step": 1200,
+        "successful_steps": 1200,
+        "elapsed_seconds": 1791.1478953361511,
+        "unique_frames_seen": 6497,
+        "grad_norm": 55.403114318847656,
+        "amp_scale": 512.0,
+        "peak_memory_gib": 3.965970993041992,
+        "part_time_weight_std": 0.0,
+        "time_weights_mean": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "updated_unix": 1793252683.26548,
+        "loss": 4.157944679260254,
+        "pa_mm": 28.941810607910156,
+        "root_mm": 34.55561065673828,
+        "detection": 0.37593206763267517,
+        "offset": 0.007539611775428057,
+        "rotation": 0.01447331439703703,
+        "shape": 0.34974390268325806,
+        "absolute": 0.006512248422950506,
+        "part_map_loss": 3.745332717895508,
+        "event_encoder_gradient_l2": 0.0,
+        "spatial_transformer_gradient_l2": 0.0,
+        "time_score_gradient_l2": 0.0,
+        "output_gradient_l2": 0.0
+      },
+      "best": null,
+      "complete": null
+    },
+    "fixed": {
+      "started": {
+        "pid": 37476,
+        "physical_gpu": 2,
+        "gpu_uuid": "GPU-ba69cb68-67b5-09a9-24cd-205c450821d5",
+        "started_unix": 1793250892.2288115,
+        "finish_unix": 1793261692.2288115,
+        "global_deadline_unix": 1793321712,
+        "training_frames": 6501,
+        "validation_frames": 288,
+        "trainable_parameters": 63699162,
+        "initialization": "/home/namhj/EventPose/exp/261028/device3_encoding_12h/checkpoints/rgb3/best.pt",
+        "same_device": true,
+        "test_used_for_selection": false
+      },
+      "progress": {
+        "step": 1125,
+        "successful_steps": 1125,
+        "elapsed_seconds": 1787.564889907837,
+        "unique_frames_seen": 6497,
+        "grad_norm": 82.18324279785156,
+        "amp_scale": 512.0,
+        "peak_memory_gib": 3.982264518737793,
+        "part_time_weight_std": 0.0,
+        "time_weights_mean": [
+          [
+            0.3333333432674408,
+            0.3333333432674408,
+            0.3333333432674408
+          ],
+          [
+            0.3333333432674408,
+            0.3333333432674408,
+            0.3333333432674408
+          ],
+          [
+            0.3333333432674408,
+            0.3333333432674408,
+            0.3333333432674408
+          ],
+          [
+            0.3333333432674408,
+            0.3333333432674408,
+            0.3333333432674408
+          ],
+          [
+            0.3333333432674408,
+            0.3333333432674408,
+            0.3333333432674408
+          ],
+          [
+            0.3333333432674408,
+            0.3333333432674408,
+            0.3333333432674408
+          ]
+        ],
+        "updated_unix": 1793252679.7941,
+        "loss": 3.8101649284362793,
+        "pa_mm": 26.11795997619629,
+        "root_mm": 32.604251861572266,
+        "detection": 0.3666958808898926,
+        "offset": 0.0071657318621873856,
+        "rotation": 0.014004601165652275,
+        "shape": 0.23619504272937775,
+        "absolute": 0.0018764728447422385,
+        "part_map_loss": 3.887444496154785,
+        "event_encoder_gradient_l2": 0.02123577892780304,
+        "spatial_transformer_gradient_l2": 0.014491788111627102,
+        "time_score_gradient_l2": 0.0,
+        "output_gradient_l2": 0.04559094086289406
+      },
+      "best": null,
+      "complete": null
+    },
+    "global_dynamic": {
+      "started": {
+        "pid": 37477,
+        "physical_gpu": 4,
+        "gpu_uuid": "GPU-fee21915-f6ec-b600-ed15-787fd4c98a03",
+        "started_unix": 1793250892.4653747,
+        "finish_unix": 1793261692.4653747,
+        "global_deadline_unix": 1793321712,
+        "training_frames": 6501,
+        "validation_frames": 288,
+        "trainable_parameters": 63699162,
+        "initialization": "/home/namhj/EventPose/exp/261028/device3_encoding_12h/checkpoints/rgb3/best.pt",
+        "same_device": true,
+        "test_used_for_selection": false
+      },
+      "progress": {
+        "step": 1125,
+        "successful_steps": 1125,
+        "elapsed_seconds": 1776.2336995601654,
+        "unique_frames_seen": 6497,
+        "grad_norm": 73.85195922851562,
+        "amp_scale": 512.0,
+        "peak_memory_gib": 3.984011650085449,
+        "part_time_weight_std": 0.0,
+        "time_weights_mean": [
+          [
+            5.8521527535049245e-06,
+            4.900848580291495e-06,
+            5.006138053431641e-06
+          ],
+          [
+            5.8521527535049245e-06,
+            4.900848580291495e-06,
+            5.006138053431641e-06
+          ],
+          [
+            5.8521527535049245e-06,
+            4.900848580291495e-06,
+            5.006138053431641e-06
+          ],
+          [
+            5.8521527535049245e-06,
+            4.900848580291495e-06,
+            5.006138053431641e-06
+          ],
+          [
+            5.8521527535049245e-06,
+            4.900848580291495e-06,
+            5.006138053431641e-06
+          ],
+          [
+            5.8521527535049245e-06,
+            4.900848580291495e-06,
+            5.006138053431641e-06
+          ]
+        ],
+        "updated_unix": 1793252668.699589,
+        "loss": 3.806946277618408,
+        "pa_mm": 26.343219757080078,
+        "root_mm": 32.108638763427734,
+        "detection": 0.3532121777534485,
+        "offset": 0.007235280238091946,
+        "rotation": 0.014545906335115433,
+        "shape": 0.23567639291286469,
+        "absolute": 0.0018382156267762184,
+        "part_map_loss": 3.881580114364624,
+        "event_encoder_gradient_l2": 1.02070162029122e-05,
+        "spatial_transformer_gradient_l2": 1.157241149485344e-05,
+        "time_score_gradient_l2": 3.730117532541044e-05,
+        "output_gradient_l2": 0.010912170633673668
+      },
+      "best": null,
+      "complete": null
+    },
+    "part_dynamic": {
+      "started": {
+        "pid": 37478,
+        "physical_gpu": 5,
+        "gpu_uuid": "GPU-88cf24af-0bc7-ad30-f05a-9c02ccdb936b",
+        "started_unix": 1793250892.4647822,
+        "finish_unix": 1793261692.4647822,
+        "global_deadline_unix": 1793321712,
+        "training_frames": 6501,
+        "validation_frames": 288,
+        "trainable_parameters": 63699162,
+        "initialization": "/home/namhj/EventPose/exp/261028/device3_encoding_12h/checkpoints/rgb3/best.pt",
+        "same_device": true,
+        "test_used_for_selection": false
+      },
+      "progress": {
+        "step": 1275,
+        "successful_steps": 1275,
+        "elapsed_seconds": 1779.1995737552643,
+        "unique_frames_seen": 6498,
+        "grad_norm": 52.91645050048828,
+        "amp_scale": 512.0,
+        "peak_memory_gib": 3.9840126037597656,
+        "part_time_weight_std": 1.2069592685293173e-06,
+        "time_weights_mean": [
+          [
+            4.532039383775555e-06,
+            3.830987225228455e-06,
+            3.6573983379639685e-06
+          ],
+          [
+            4.235293090459891e-06,
+            3.5930438571085688e-06,
+            3.378730070835445e-06
+          ],
+          [
+            4.388875822769478e-06,
+            3.7078400509926723e-06,
+            3.5071077491011238e-06
+          ],
+          [
+            7.04927970218705e-06,
+            5.781659638159908e-06,
+            5.978369699732866e-06
+          ],
+          [
+            7.0062774284451734e-06,
+            5.721401521441294e-06,
+            5.941609742876608e-06
+          ],
+          [
+            4.878841082245344e-06,
+            4.254788109392393e-06,
+            3.928525075025391e-06
+          ]
+        ],
+        "updated_unix": 1793252671.664769,
+        "loss": 2.974308490753174,
+        "pa_mm": 20.90567398071289,
+        "root_mm": 29.80792236328125,
+        "detection": 0.12283088266849518,
+        "offset": 0.003340864321216941,
+        "rotation": 0.014653706923127174,
+        "shape": 0.3046608865261078,
+        "absolute": 0.0033474857918918133,
+        "part_map_loss": 3.781257390975952,
+        "event_encoder_gradient_l2": 3.782081876124721e-06,
+        "spatial_transformer_gradient_l2": 3.53670543518092e-06,
+        "time_score_gradient_l2": 1.2336880899965763e-05,
+        "output_gradient_l2": 0.012742704711854458
+      },
+      "best": null,
+      "complete": null
+    }
+  },
+  "comparison": {
+    "updated_unix": 1793252684.7150915,
+    "conditions": [
+      "rgb_only",
+      "fixed",
+      "global_dynamic",
+      "part_dynamic"
+    ],
+    "completed": [],
+    "pending": [
+      "rgb_only",
+      "fixed",
+      "global_dynamic",
+      "part_dynamic"
+    ],
+    "all_complete": false,
+    "segments": 80,
+    "frames": 24080,
+    "GT_instances": 24080,
+    "metrics": {},
+    "populations": {
+      "all_completed": {}
+    },
+    "coverage": {},
+    "tests": {},
+    "Test_used_for_selection": false,
+    "metrics_keys": [
+      "first_frame_aligned_mpjpe_mm",
+      "first_frame_aligned_pa_mpjpe_mm",
+      "frame_aligned_mpjpe_mm",
+      "frame_aligned_pa_mpjpe_mm",
+      "root_depth_error_mm"
+    ],
+    "root_depth_definition": "mean(abs(pred pelvis Z - GT pelvis Z))*1000 before alignment",
+    "population": "same matched GT instances; exact frame0 required in each person/chunk"
+  },
+  "next_training_review_not_before_unix": 1793254490.9794405
+}

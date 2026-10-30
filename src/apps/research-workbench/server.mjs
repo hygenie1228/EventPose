@@ -1,3 +1,4 @@
+import {gpuStats} from './gpu-stats.mjs';
 import {CodexGoalClient} from './codex-rpc.mjs';
 import http from 'node:http';
 import path from 'node:path';
@@ -125,20 +126,8 @@ async function sendFile(req,res,file,{attachment=false,untrusted=false}={}){
  headers['Content-Length']=Math.max(0,end-start+1);res.writeHead(status,headers);if(req.method==='HEAD'||st.size===0)return res.end();
  const stream=fs.createReadStream(file,{start,end});stream.on('error',()=>res.destroy());res.on('close',()=>stream.destroy());stream.pipe(res);
 }
-let gpuCache={time:0,value:[]},gpuPending=null,limitCache={time:0,value:null},limitPending=null,accountClient=null;
+let limitCache={time:0,value:null},limitPending=null,accountClient=null;
 const command=(bin,args)=>new Promise((resolve,reject)=>execFile(bin,args,{timeout:4000},(e,out)=>e?reject(e):resolve(out)));
-async function gpuStats(){
- if(Date.now()-gpuCache.time<5000)return gpuCache.value;if(gpuPending)return gpuPending;
- gpuPending=(async()=>{
-  const raw=await command('nvidia-smi',['--query-gpu=index,uuid,utilization.gpu,memory.total,memory.used','--format=csv,noheader,nounits']);
-  const values=raw.trim().split('\n').map(line=>{const [index,uuid,util,total,used]=line.split(',').map(v=>v.trim());return {index:Number(index),uuid,utilization:Number(util)||0,totalMiB:Number(total),usedMiB:Number(used)};});
-  try{const apps=(await command('nvidia-smi',['--query-compute-apps=gpu_uuid,pid,used_memory','--format=csv,noheader,nounits'])).trim().split('\n').map(line=>line.split(',').map(v=>v.trim())).filter(v=>/^\d+$/.test(v[1]||''));
-   const ids=[...new Set(apps.map(v=>v[1]))];const users=new Map();if(ids.length){const ps=await command('ps',['-o','pid=,user=','-p',ids.join(',')]);for(const line of ps.trim().split('\n')){const [pid,user]=line.trim().split(/\s+/);users.set(pid,user);}}
-   for(const g of values){const totals=new Map();for(const [uuid,pid,used]of apps)if(uuid===g.uuid){const user=users.get(pid)||'?';totals.set(user,(totals.get(user)||0)+(Number(used)||0));}g.users=[...totals].map(([name,memoryMiB])=>({name,memoryMiB}));}
-  }catch{for(const g of values)g.users=[];}
-  gpuCache={time:Date.now(),value:values};return values;
- })().finally(()=>gpuPending=null);return gpuPending;
-}
 async function cliLimits(){
  if(Date.now()-limitCache.time<60000)return limitCache.value;if(limitPending)return limitPending;
  limitPending=(async()=>{if(!accountClient){accountClient=new CodexGoalClient({root:ROOT,onEvent:()=>{},onError:()=>accountClient=null});await accountClient.connect();}const result=await accountClient.request('account/rateLimits/read',{});const value={rateLimits:result.rateLimits,byLimitId:result.rateLimitsByLimitId||{},updated:new Date().toISOString()};limitCache={time:Date.now(),value};return value;})().finally(()=>limitPending=null);return limitPending;

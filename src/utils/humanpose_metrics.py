@@ -42,7 +42,7 @@ def match_people(pred,target,valid,pred_K,gt_K,image_shape):
 
     Return GT-slot -> prediction index. Gate mean image-space error at 25% of
     image diagonal; count unmatched/missing instances separately during reporting.
-    pred_K and gt_K must project to the same original RGB pixel plane.
+    pred_K and gt_K must project to the same original sensor pixel plane.
     """
     h,w=image_shape
     gt_ids=np.flatnonzero(valid)
@@ -58,6 +58,18 @@ def match_people(pred,target,valid,pred_K,gt_K,image_shape):
         if mask.any():cost[i]=np.linalg.norm(uv_pred[:,mask]-uv[None,mask],axis=-1).mean(1)/np.hypot(w,h)
     rows,cols=linear_sum_assignment(cost)
     return {int(gt_ids[i]):int(pred_ids[j]) for i,j in zip(rows,cols) if cost[i,j]<=.25}
+
+
+def match_people_in_sensor(pred_common,target_common,valid,rotation,translation,K,image_shape):
+    """Match in the observing sensor; keep returned GT identities in common space.
+
+    Reprojection into an unrelated reference camera can turn a native-plane
+    detection with depth error into a miss. Root/pose errors are scored later
+    from the unchanged common-camera predictions, never corrected by matching.
+    """
+    pred=pred_common@rotation.T+translation
+    target=target_common@rotation.T+translation
+    return match_people(pred,target,valid,K,K,image_shape)
 
 
 def self_check():

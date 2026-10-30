@@ -1,0 +1,15 @@
+{
+  "checked_unix": 1793250572.3042362,
+  "source_sha256": "01b4c1856a80e4a7525faef3607d59793898d8cf3604b1ad8df9963920b40098",
+  "scope": "Static source audit, no training progress polling",
+  "verified_by_source": [
+    "Same global deadline passed to every training config",
+    "Owned process identity contains PID/PGID/startticks/command",
+    "Trainer checkpoints periodically and enforces global deadline minus margin",
+    "Supervisor GPU allocation restricted to physical1/2/4/5",
+    "Test metrics updated separately from validation checkpoint selection"
+  ],
+  "identified_risk": "Controls scheduled only after optional extended stage; too little remaining time can leave extended unlaunchable and starve event controls",
+  "recommendation_sent_to_agent": "Prioritize frozen holdout event controls and validation candidates before third-seed/extended training; explicitly record budget skips and reserve final audit",
+  "training_completion_not_claimed": true
+}

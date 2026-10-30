@@ -1,0 +1,35 @@
+{
+  "cpu_checks": {
+    "identity": true,
+    "aligned_translation": true,
+    "RPE_Z_not_3D_norm": true,
+    "exact_frame0": true,
+    "fixed_anchor": true,
+    "common_missing_detections": true,
+    "empty_population_no_fake_zero": true,
+    "body22": true
+  },
+  "real_old_results_crosscheck": true,
+  "chunks": 3,
+  "common_samples": 903,
+  "metrics": {
+    "samples": 903,
+    "anchor_people": 3,
+    "excluded_person_chunks": 0,
+    "first_frame_aligned_mpjpe_mm": 41.81589585404172,
+    "first_frame_aligned_pa_mpjpe_mm": 40.30806050572295,
+    "frame_aligned_mpjpe_mm": 25.49715796432176,
+    "frame_aligned_pa_mpjpe_mm": 19.64926493751096,
+    "root_depth_error_mm": 34.36206107915834,
+    "coverage": 1.0,
+    "matched_instances": 903,
+    "valid_instances": 903,
+    "part_root_aligned_mpjpe_mm": {
+      "torso_head": 13.021752586648196,
+      "left_arm": 29.72030059702614,
+      "right_arm": 30.120835577285,
+      "left_leg": 30.1017714497591,
+      "right_leg": 30.758832299727178
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "url": "https://github.com/geopavlakos/hamer",
+  "commit": "3a01849f4148352e9260b69bf28b65d1671a4905",
+  "upstream_sha256": {
+    "models/losses.py": "53052f7589ead73531202548f452d294a3ae0a15d279a55a8508239ec282c311",
+    "models/mano_wrapper.py": "dbe78558c3ccaa6deaba7731858565dcdd193fb0ee7b6543c059a07f0408239a",
+    "models/hamer.py": "7fc1733274a3212cecc1a50a81ad0a68f4e16aaa72ec3fe682490d0ff221e13d",
+    "models/discriminator.py": "c72ed76c595d5c8350784093dc3332aaeff89a5821de0d218f7c344f9912d4c9",
+    "models/__init__.py": "4114e3886d93ece0fb77f1e6b920decac66ba8c691fdf04237be65ff3ce3c3aa",
+    "models/heads/mano_head.py": "3a7d8a5c2054c118fe6248d93999a0cd65d7d7a530f74df4d35654a93011a8e4",
+    "models/heads/__init__.py": "2eb94877948e61fe8903effce855a751db6627856704579f13d1dd766bf543a4",
+    "models/backbones/__init__.py": "ce33b4c35e787f72b922d12acb539a9b445daceb6ff1a87426766d0ce7a59bdf",
+    "models/backbones/vit.py": "557011238c4759f4017c00182f8235b68d865b2f89cb0760e22321068703b1b5",
+    "models/components/pose_transformer.py": "ee8a11a8b19361d6e069fd7103d00c19cf9403268f4f3e4caf6f6a1e8a0feb93",
+    "models/components/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "models/components/t_cond_mlp.py": "d8d0c820bb576012ea7ee90de6abe40eebe13357ace19338188a0617b2b21a8e",
+    "configs/datasets_eval.yaml": "f79bdd984f982df49f304584e8f507072e430a2c0452c4541696ccd2c0b42346",
+    "configs/__init__.py": "4ba1bb2219fc440166da2ed00b7323bd57b1d445a1b7c3aaeb33469c128fcf28",
+    "configs/cascade_mask_rcnn_vitdet_h_75ep.py": "e6367fe38c9db14e316b1977aeb1a32e82694526a1d078a7fefdf91c48b73d77",
+    "configs/datasets_tar.yaml": "20f7f22bec502f5479832ec0f9a3a2444d0fbe2035801d0168d22173e4823a60",
+    "utils/pylogger.py": "c8a816419a6b61389321f971427e1b88f7fda0345ae49f579318abdcb8349296",
+    "utils/download.py": "214d921b9ac9e35544e8bdda81434459961fa704f9be191dd3366cdaf12a95ef",
+    "utils/skeleton_renderer.py": "a8818691fb88bf46cc5f3ac9fcc85cdf6c3ed54322882557ed5c5cb7b4c08557",
+    "utils/mesh_renderer.py": "9825b4c4c50ed1020b4cab3db2135e0f88a8eb5616a5ab0bd84a44049d749253",
+    "utils/renderer.py": "148a78219241740821d8f0516fd391b1eac09d44237d12a4f28bbcb91f2c8019",
+    "utils/pose_utils.py": "ab119e93f64c1502d3018b4fe416195eeb5ee018e4735002a0ca141ad298b4ef",
+    "utils/misc.py": "5e1bc5edea3a9792e315189a9e5761cd9c87ba03e269d12585ffe8662a9beaba",
+    "utils/rich_utils.py": "4634c280ef2f3f4e52ad20e319d89e4ba45cd1137fc6ba47e122898e932f4d00",
+    "utils/utils_detectron2.py": "f4606395536334562a676d0ce4e3a3961f850d023a0a59ac6f3bd2aa6583bf90",
+    "utils/__init__.py": "a668095eb88cbd5c2b9015d7bf4ae51c12a899e738609c248af9c687791d563d",
+    "utils/render_openpose.py": "b0ff29ab6747a5896ca734c710b8b937a5424b80e7cbdbcb59c87d98a4d8b19d",
+    "utils/geometry.py": "9eb08e438622a36f3bc40d3fd48b776022b80ee26406f0d826d7b7132821e778"
+  },
+  "integration_changes": [
+    "models/__init__.py: lazy imports",
+    "utils/__init__.py: lazy imports"
+  ]
+}

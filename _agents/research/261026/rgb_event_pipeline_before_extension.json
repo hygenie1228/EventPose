@@ -1,0 +1,96 @@
+{
+  "jobs": [
+    {
+      "pid": 51890,
+      "role": "train:rgb_baseline",
+      "start_ticks": "287692478",
+      "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/rgb_baseline.json",
+      "pgid": 51890,
+      "gpu": 2,
+      "config": "/home/namhj/EventPose/exp/261024/rgb_event_36h/configs/rgb_baseline.json",
+      "log": "/home/namhj/EventPose/exp/261024/rgb_event_36h/logs/rgb_baseline.log",
+      "kind": "train",
+      "name": "rgb_baseline"
+    },
+    {
+      "pid": 11837,
+      "role": "train:fusion_count33",
+      "start_ticks": "287959511",
+      "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_count33.json",
+      "pgid": 11837,
+      "kind": "train",
+      "name": "fusion_count33",
+      "gpu": 4,
+      "launched_unix": 1792868614.4001713,
+      "config": "/home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_count33.json",
+      "log": "/home/namhj/EventPose/exp/261024/rgb_event_36h/logs/pipeline_train_fusion_count33.log"
+    },
+    {
+      "pid": 11842,
+      "role": "train:fusion_bins100",
+      "start_ticks": "287959532",
+      "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_bins100.json",
+      "pgid": 11842,
+      "kind": "train",
+      "name": "fusion_bins100",
+      "gpu": 5,
+      "launched_unix": 1792868614.6439793,
+      "config": "/home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_bins100.json",
+      "log": "/home/namhj/EventPose/exp/261024/rgb_event_36h/logs/pipeline_train_fusion_bins100.log"
+    },
+    {
+      "pid": 11848,
+      "role": "train:fusion_surface20",
+      "start_ticks": "287959555",
+      "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_surface20.json",
+      "pgid": 11848,
+      "kind": "train",
+      "name": "fusion_surface20",
+      "gpu": 6,
+      "launched_unix": 1792868614.8685033,
+      "config": "/home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_surface20.json",
+      "log": "/home/namhj/EventPose/exp/261024/rgb_event_36h/logs/pipeline_train_fusion_surface20.log"
+    },
+    {
+      "pid": 60326,
+      "role": "train:fusion_visualize_gray",
+      "start_ticks": "289099952",
+      "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_visualize_gray.json",
+      "pgid": 60326,
+      "kind": "train",
+      "name": "fusion_visualize_gray",
+      "gpu": 3,
+      "launched_unix": 1792880019.2119207,
+      "config": "/home/namhj/EventPose/exp/261024/rgb_event_36h/configs/fusion_visualize_gray.json",
+      "log": "/home/namhj/EventPose/exp/261024/rgb_event_36h/logs/pipeline_train_fusion_visualize_gray.log"
+    }
+  ],
+  "history": [
+    {
+      "pid": 71610,
+      "role": "test:rgb_original",
+      "start_ticks": "287780515",
+      "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/scripts/evaluate_multihmr.py worker --event-config /home/namhj/EventPose/exp/261024/rgb_event_36h/configs/rgb_original.json --rank 0 --workers 1",
+      "pgid": 71610,
+      "kind": "test",
+      "name": "rgb_original",
+      "gpu": 3,
+      "launched_unix": 1792866824.342159,
+      "config": "/home/namhj/EventPose/exp/261024/rgb_event_36h/configs/rgb_original.json",
+      "log": "/home/namhj/EventPose/exp/261024/rgb_event_36h/logs/pipeline_test_rgb_original.log",
+      "ended_unix": 1792880018.090232,
+      "exit_code": 0,
+      "status": "complete"
+    }
+  ],
+  "failed": [],
+  "updated_unix": 1792901243.021971,
+  "training_complete": [],
+  "test_complete": [
+    "rgb_original"
+  ],
+  "train_cache_ready": true,
+  "test_cache_ready": true,
+  "pilots_verified": true,
+  "deadline_unix": 1792991837.0
+}

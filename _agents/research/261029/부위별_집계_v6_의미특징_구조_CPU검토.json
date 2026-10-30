@@ -1,0 +1,16 @@
+{
+  "status": "prototype_passed",
+  "checked_kst": "2026-10-29T23:57:22.113456+09:00",
+  "CPU_only": true,
+  "synthetic_fake_backbone_only": true,
+  "Test_used": false,
+  "checks": {
+    "inner_ViT_bypass_avoids_RGB_hook_recursion_and_is_frozen": true,
+    "fixed_polarity_color_log_brightness_and_weak_support": true,
+    "spatial_Transformer_initial_identity_preserves_semantic_basis": true,
+    "projection_learns_while_shared_RGB_parameters_remain_exact": true,
+    "adapter_only_reload_and_missing_event_identity": true
+  },
+  "model_source_sha256": "27026f20efe5b8c039462123714ce03a7fff436cd43179981b86baa2576015c5",
+  "limitation": "Real DINO event forward, frozen full builder, CUDA, design approval and pose accuracy not verified"
+}

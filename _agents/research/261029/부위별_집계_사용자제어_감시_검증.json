@@ -1,0 +1,12 @@
+{
+  "actual_read_only_control": {
+    "stop": false,
+    "status": "blocked",
+    "reason": null
+  },
+  "blocked_continues_authorized_work": true,
+  "explicit_pause_stops": true,
+  "clear_stops": true,
+  "replacement_stops": true,
+  "Goal_status_not_mutated": true
+}

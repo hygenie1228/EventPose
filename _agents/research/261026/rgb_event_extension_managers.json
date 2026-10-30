@@ -1,0 +1,18 @@
+{
+  "pids": [
+    60854,
+    16822,
+    69013
+  ],
+  "jobs": [
+    {
+      "pid": 16822,
+      "role": "extension24h_event_priority_scheduler",
+      "start_ticks": "301207804",
+      "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/tools/run_event_experiments.py",
+      "pgid": 16822
+    }
+  ],
+  "started_unix": 1793001099.816823,
+  "deadline_utc": "2026-10-27T06:50:02+00:00"
+}

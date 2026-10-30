@@ -1,0 +1,34 @@
+{
+  "reason": "사용자 GPU 실행 촉진 요청에 따라 실제 GT의 GPU 선행 복원과 CPU12 worker로 준비 병목 단축",
+  "previous_job": {
+    "pid": 12024,
+    "role": "cache",
+    "start_ticks": "529812",
+    "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u /home/namhj/EventPose/tools/prepare_device34_body.py cache",
+    "pgid": 12024,
+    "gpu": 2,
+    "gpu_info": {
+      "index": 2,
+      "uuid": "GPU-ba69cb68-67b5-09a9-24cd-205c450821d5",
+      "pci_bus_id": "00000000:60:00.0",
+      "name": "Quadro RTX 8000"
+    },
+    "launched_unix": 1793008644.4554076
+  },
+  "preserved_complete_caches": [
+    "20260721_094720_004372_102_b.h5",
+    "20260729_141547_590979_257_b.h5",
+    "20260724_144030_100855_236_b.h5",
+    "20260720_141545_676840_202_b.h5",
+    "20260729_143916_646129_258_b.h5",
+    "20260728_093606_362438_149_b.h5",
+    "20260720_134353_764469_201_b.h5",
+    "20260720_131207_863008_200_b.h5",
+    "20260727_141742_649875_239_b.h5",
+    "20260721_092034_900028_101_b.h5",
+    "20260723_170603_665216_127_b.h5",
+    "20260722_104630_314005_212_b.h5"
+  ],
+  "training_not_started": true,
+  "requested_unix": 1793009466.8191006
+}

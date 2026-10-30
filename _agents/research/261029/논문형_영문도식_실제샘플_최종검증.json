@@ -1,0 +1,79 @@
+{
+  "검증시각_한국시간": "2026-10-29T05:02:30.084731+09:00",
+  "참고자료_다운로드후직접확인": true,
+  "참고자료_픽셀복제": false,
+  "실제시점수": 4,
+  "피험자수": 3,
+  "실제_RGB이벤트패널수": 20,
+  "그림세트수": 5,
+  "모든그림_PNG_SVG_PDF": true,
+  "도식_visible_text_영어": true,
+  "원본stat보존": true,
+  "미래이벤트사용": false,
+  "학습된신뢰도또는예측결과로표시": false,
+  "GTmesh_실제라벨렌더링": true,
+  "직접시각검수": true,
+  "보고서_sha256": "a90bd8ba94ee68f0b0ccfb390189ddea48a56c35f7708f497b065a0849a4e2c3",
+  "artifacts": [
+    {
+      "path": "/home/namhj/EventPose/exp/261029/dynamic_aggregation_paper_figure/paper_pipeline_reference_style.png",
+      "sha256": "5354dcd0291eec823723a8064362321de10446fc86db63577b527590039d3039"
+    },
+    {
+      "path": "/home/namhj/EventPose/exp/261029/dynamic_aggregation_paper_figure/paper_pipeline_reference_style.svg",
+      "sha256": "86808c154fc8adbee81f93062d6ed6deaab613da5500fe3532ab961ead13d620"
+    },
+    {
+      "path": "/home/namhj/EventPose/exp/261029/dynamic_aggregation_paper_figure/paper_pipeline_reference_style.pdf",
+      "sha256": "a0e95d78c8aecbc88f6dda3f390dd27fa72135b29c672ff52256ed42ec7d59e5"
+    },
+    {
+      "path": "/home/namhj/EventPose/exp/261029/dynamic_aggregation_paper_figure/actual_dataset_gallery.png",
+      "sha256": "3b31f3bfdbb4a2cf0e141f11d7b234d464f66f84406459b9e351e801e9cfd09a"
+    },
+    {
+      "path": "/home/namhj/EventPose/exp/261029/dynamic_aggregation_paper_figure/actual_dataset_gallery.svg",
+      "sha256": "9dd9924d974aded4962ea4ffa825dc67790702124267b752c9a5474a07032ee6"
+    },
+    {
+      "path": "/home/namhj/EventPose/exp/261029/dynamic_aggregation_paper_figure/actual_dataset_gallery.pdf",
+      "sha256": "7c91d887aae96b0d500d11709794d2fcc0041c3c2b2e95023935ea20bb516ceb"
+    },
+    {
+      "path": "/home/namhj/EventPose/exp/261029/dynamic_aggregation_paper_figure/actual_evidence_insets.png",
+      "sha256": "e71737f75adfff032db22af085a90c6ebf6e92e1f97a34caea916f8653b7e6bf"
+    },
+    {
+      "path": "/home/namhj/EventPose/exp/261029/dynamic_aggregation_paper_figure/actual_evidence_insets.svg",
+      "sha256": "c3d5ab793fd64decd7d902d31d9ca80ef2b153b4e7133ccbb588f887212abfd3"
+    },
+    {
+      "path": "/home/namhj/EventPose/exp/261029/dynamic_aggregation_paper_figure/actual_evidence_insets.pdf",
+      "sha256": "4ef024ce599c3671fb4277658716de00a71dc071932cb3816aa5c9a6b79c80d3"
+    },
+    {
+      "path": "/home/namhj/EventPose/exp/261029/dynamic_aggregation_paper_figure/actual_arms_detail.png",
+      "sha256": "dd50b7f91167ad8a35cb9d40ef14ab3f1288b65ff62b5bf383f273d50193705e"
+    },
+    {
+      "path": "/home/namhj/EventPose/exp/261029/dynamic_aggregation_paper_figure/actual_arms_detail.svg",
+      "sha256": "f922e1529bb0672aa018c9bd9d1ba175fb78c2b457d997e8247f26a96d6a96e5"
+    },
+    {
+      "path": "/home/namhj/EventPose/exp/261029/dynamic_aggregation_paper_figure/actual_arms_detail.pdf",
+      "sha256": "05f87398f1760a25990407af1df9d87b94727943909164c2736b5f843b83ee22"
+    },
+    {
+      "path": "/home/namhj/EventPose/exp/261029/dynamic_aggregation_paper_figure/actual_legs_detail.png",
+      "sha256": "e77405bb5d3b2941af5705b4108248eab8ed08708f3c886e96abce4557a7a270"
+    },
+    {
+      "path": "/home/namhj/EventPose/exp/261029/dynamic_aggregation_paper_figure/actual_legs_detail.svg",
+      "sha256": "4c859b5ab24f95ab6295152306658139255ad828903aa747a2d3f1cab48e50dc"
+    },
+    {
+      "path": "/home/namhj/EventPose/exp/261029/dynamic_aggregation_paper_figure/actual_legs_detail.pdf",
+      "sha256": "6fbe9ab8f7c959b7a8a711d12c4dcba5211d6f3d64113ceec8ba61559975be0e"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "checked_unix": 1793256579.8678854,
+  "learned_v1_attention_and_real_GT": true,
+  "Train_holdout_frames": 288,
+  "subjects": 9,
+  "mean_event_probability": 7.667088133234544e-06,
+  "conditional_age_defined_fraction": 0.0,
+  "undefined_age_not_zero": true,
+  "English_plot_text": true,
+  "PNG_directly_viewed": true,
+  "PDFinfo_passed": true,
+  "formats": [
+    "png",
+    "svg",
+    "pdf"
+  ],
+  "interpretation": "Negative event-use result, not successful motion-adaptive aggregation; GT motion bars are means not medians"
+}

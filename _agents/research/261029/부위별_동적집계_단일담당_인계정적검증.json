@@ -1,0 +1,19 @@
+{
+  "확인시각_KST": "2026-10-29T18:42:20.359105+09:00",
+  "동결설계_소스일치": {
+    "src/multihmr/part_aggregation_model.py": true,
+    "src/multihmr/part_aggregation_v2.py": true,
+    "src/multihmr/part_aggregation_v3.py": true,
+    "src/multihmr/part_aggregation_data_v3.py": true,
+    "src/multihmr/part_aggregation_factory.py": true,
+    "src/multihmr/part_aggregation_training.py": false,
+    "src/multihmr/part_aggregation_evaluation.py": true
+  },
+  "학습도구_실제SHA": "80cd7f9425c0d1bc2e28a10acff492fb2e014a1fc288f2e910332a0848820cc7",
+  "학습도구_차이": "동결 계획 이후 validate의 motion 오차 기록 및 train의 motion/event-use gradient 기록이 추가됨. diff를 읽어 forward/loss/optimizer 수정 없음 확인. runtime_training_source_sha256 및 원본 스냅샷으로 실제 버전 보존. 기존 계획을 덮어쓰지 않음.",
+  "CPU감사_통과항목수": 18,
+  "Train전용_승인": true,
+  "V3설정_확인수": 8,
+  "관리기_수정안_현재실행적용": false,
+  "장기진행_조회": false
+}

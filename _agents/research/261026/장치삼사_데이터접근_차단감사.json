@@ -1,0 +1,12 @@
+{
+  "audited_unix": 1793006697.600348,
+  "consecutive_goal_turns_with_same_blocker": 3,
+  "blocker": "실행 환경의 /mnt/nfs_L 미마운트 및 dataset/split.json 부재",
+  "actual_split_available": false,
+  "actual_training_runs": 0,
+  "actual_test_conditions": 0,
+  "goal_achieved": false,
+  "required_external_change": "기존 NFS 마운트 복구 또는 실제 접근 가능한 데이터 경로 제공",
+  "waiting_and_deadline_processes_preserved": true,
+  "deadline_utc": "2026-10-27 12:33:29 UTC"
+}

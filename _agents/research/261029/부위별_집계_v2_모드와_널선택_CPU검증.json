@@ -1,0 +1,8 @@
+{
+  "train_only_uniform_warmup": true,
+  "reload_step0_eval_uses_learned_gate": true,
+  "warmup_ends_at_configured_step": true,
+  "output_projection_bias_absent": true,
+  "all_null_exact_RGB_identity": true,
+  "predicted_density_suppresses_low_mass_patches": true
+}

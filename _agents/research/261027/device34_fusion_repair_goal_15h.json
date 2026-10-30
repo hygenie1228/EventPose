@@ -1,0 +1,53 @@
+{
+  "session_id": "21a5cce6-e593-4c07-8930-6575193dbbaf",
+  "thread_id": "01a17738-6081-7b60-8992-a31687c5acc0",
+  "objective": "사용자 최신 요청으로 기존 28시간 Goal의 미완료 후속 작업을 대체한다. 전체 고정15시간(2026-10-27 04:15:31~19:15:31 UTC)에 body(_b) Multi-HMR의 device3 RGB+device4 event, device3 event+device4 RGB, device3 event+device4 event 세 조건의 열화 원인을 실제 코드·데이터·gradient·모달리티 제거검사로 분석하고 수정해 미세조정·전체 Test 평가한다. RGB 단독보다 개선을 목표로 하되 개선을 보장하거나 Test로 방법·checkpoint를 선택하지 않는다. RGB가 있는 조건은 해당 RGB 단독의 원래 검출/복원 경로를 유지하고 event 정보를 추가하는 구조로 수정해, 기존 event 주센서+저해상도 RGB 보조 CNN 비대칭을 해소한다. event-only는 학습·검출·추론에서 RGB 픽셀 미사용을 유지한다. 실제 센서 내외부 보정과 과거 timestamp 대응을 사용하며 GTbox/pose/depth를 추론 입력으로 쓰지 않는다. 수정 구조와 adapter 초기화·학습률·backbone 적응·기하·event 기여도 및 ablation을 검증한다. 같은 split/body Train과 피험자분리 holdout에서만 trial/checkpoint를 선택하고, RGB3/RGB4는 같은 초기화 출처·batch·증강을 사용하되 최신 사용자 지시대로 더 짧게 학습한다. RGB3는 요청 시점까지 실제 진행한 약103분 후 checkpoint 보존 중단, RGB4는90분, 융합과 event-only는3시간이다. 실제 budget과 checkpoint 학습량을 표시하며 학습량과 센서 효과를 혼동하지 않는다. 기존 RGB checkpoint·캐시를 재사용하면 split해시/Train피험자누수/프레임매핑/출처를 검증해 별도 manifest에 고정하며 이전 fusion 결과는 새 방법 결과로 쓰지 않는다. 전체Train 및 고정균형subset coverage·실제샘플·고유프레임·완료epoch·성공update를 보고한다. 융합·event-only 본학습은3시간·최대4시간, RGB-only는 위 단축 예산을 따르며 총15시간에 분석·데이터검증·캐시·학습·전체Test·동일GPU속도·통계·보고서감사를 포함한다. 공통 body Test10초구간·동일GT에서 first frame-aligned MPJPE, first frame-aligned PA-MPJPE, frame-aligned MPJPE, frame-aligned PA-MPJPE, full3D Root position error(mm)의5수치열을 RGB 단독 및 기존/수정세조건과 비교한다. exact frame0 고정변환·매프레임pelvis평행이동/properSim3·미검출0금지 원칙을 유지하고 RPE-Z·검출률·절대오차·속도/가속도·동일GPU 온라인/캐시속도·CI/Holm·효과크기·동작속도별분석·실제예측시각화·checkpoint출처 및 반복한계를 별도 보고한다. dataset/,orig_dataset/,etri_processed/,data/는 읽기전용, 과학계산은 .venv-humanpose/bin/python. 최신 사용자 GPU 지정은 물리1,2,4,5만이며 실제 UUID·버스·정상/유휴를 검증한다. GPU3 및 타인작업은 조작하지 않는다. 새 출력 exp/261027/device34_fusion_repair_15h/, 설정 _agents/research/261027/device34_fusion_repair_goal_15h.json, 보고서 _agents/report/261027_센서융합_열화원인_분석과_재실험.md. 모든 새 프로세스를 PID/PGID/시작tick/명령으로 등록하고 이전 Goal은 본인 등록 작업만 신원 확인 후 checkpoint를 보존해 중단한다. 학습/평가와 보고서는30분간격 점검·갱신하며 실패/사용자요청은 예외다. 마감에는 이번 작업만 checkpoint보존정지 후 사용자지시대로 Goalpause한다. 실제 최종checkpoint·전체Test·프레임매핑·원시5지표·실제입력·동일GPU 실행증거·보고서숫자를 검증해야 complete하며 무개선도 정직하게 보고한다. 최신 추가 범위: device3 RGB+device3 event 및 device4 RGB+device4 event의 같은 장치 조합도 각3시간 학습·전체 Test·동일GPU속도·holdout ablation에 포함한다. 원본 Multi-HMR RGB3/RGB4의 ETRI 미세조정0시간 성능도 전체 Test로 평가해 표에 넣는다. 전체 새7학습조건과 원본2조건을 동일공통GT의5지표로 제시하고, 별도로 RGB 원본/출처기존학습/이번짧은학습의 실제 학습량별 경향을 표시한다. 학습량이 다른 비교에서 센서만의 효과나 개선을 보장하지 않는다. 고정마감은 한국시간2026-10-28 04:15:31로 유지한다. 사용자 단축 지시의 실행 정정:103분 시점에 중단한 기존 RGB3는 DataLoader 동시종료로 마지막 일부 update가 미보존되어 참고·복구 진단으로 보존한다. 본 비교 RGB3는 새 독립 rgb3_short90 trial에서90분 예산으로 실행해 정확한 update/coverage를 검증한다. 기존 중단 run은 덮어쓰거나90분 결과로 재표시하지 않는다.",
+  "objective_sha256": "b99b29f4519df352aa0db0af6d5153b7fe0b6735df7efd284d6ce1d4b0b2bce4",
+  "previous_objective_sha256": "7f125a40e125cd76ce26348fb6c429f5ff41f2752e300c7416f66c132645c662",
+  "started_unix": 1793074531.0,
+  "deadline_unix": 1793128531.0,
+  "deadline_utc": "2026-10-27 19:15:31 UTC",
+  "allowed_gpus": [
+    1,
+    2,
+    4,
+    5
+  ],
+  "managed_jobs_file": "/home/namhj/EventPose/exp/261027/device34_fusion_repair_15h/managed_jobs.json",
+  "output_root": "/home/namhj/EventPose/exp/261027/device34_fusion_repair_15h",
+  "prior_experiment": "/home/namhj/EventPose/exp/261026/device34_body_28h",
+  "trial_hours": 3,
+  "max_trial_hours": 4,
+  "report": "/home/namhj/EventPose/_agents/report/261027_센서융합_열화원인_분석과_재실험.md",
+  "scope_version": 2,
+  "scope_updated_unix": 1793091527.0348184,
+  "training_conditions": [
+    "rgb3_short90",
+    "rgb4",
+    "rgb3_event4",
+    "event3_rgb4",
+    "event3_event4",
+    "rgb3_event3",
+    "rgb4_event4"
+  ],
+  "pretrained_conditions": [
+    "pre_rgb3",
+    "pre_rgb4"
+  ],
+  "trial_hours_by_condition": {
+    "rgb3": "actual user-stop duration, see user_budget_amendment.json",
+    "rgb4": 1.5,
+    "rgb3_event4": 3,
+    "event3_rgb4": 3,
+    "event3_event4": 3,
+    "rgb3_event3": 3,
+    "rgb4_event4": 3,
+    "rgb3_short90": 1.5
+  },
+  "completion": {
+    "status": "complete",
+    "completed_kst": "2026-10-28 00:45:35 KST",
+    "completed_unix": 1793115935,
+    "agent_review": "exp/261027/device34_fusion_repair_15h/agent_completion_review.json"
+  }
+}

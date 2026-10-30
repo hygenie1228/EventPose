@@ -152,7 +152,12 @@ class Collector:
         row=self.row_for_pos.get(self.current_pos)
         if row is not None:
             self.seen[row]=True;self.n_pred[row]=len(joints)
-            mapping=match_people(joints,self.gt[row],self.valid[row],predK,self.K,self.image_shape)
+            geometry=getattr(self,'matching_sensor_geometry',None)
+            if geometry is not None:
+                from utils.humanpose_metrics import match_people_in_sensor
+                rotation,translation,K,shape=geometry
+                mapping=match_people_in_sensor(joints,self.gt[row],self.valid[row],rotation,translation,K,shape)
+            else:mapping=match_people(joints,self.gt[row],self.valid[row],predK,self.K,self.image_shape)
             for gt_id,pred_id in mapping.items():
                 self.matched[row,gt_id]=joints[pred_id];self.indices[row,gt_id]=pred_id
         if self.current_pos-self.last_progress>=250:
@@ -192,13 +197,13 @@ def rgb_frames(task):
     cap.release()
 
 
-def load_multihmr(checkpoint_path=None):
+def load_multihmr(checkpoint_path=None,device='cuda'):
     sys.path.insert(0,str(ROOT/'src'))
     import torch
     from multihmr.model import Model
     ckpt=torch.load(checkpoint_path or ROOT/'data/human_model_files/pose_estimate/multiHMR_896_L.pt',map_location='cpu')
     args=dict(vars(ckpt['args']));args['type']=args['train_return_type'];args['img_size']=args['img_size'][0]
-    model=Model(**args).cuda().eval();load=model.load_state_dict(ckpt['model_state_dict'],strict=False)
+    model=Model(**args).to(device).eval();load=model.load_state_dict(ckpt['model_state_dict'],strict=False)
     assert all(k.startswith('smpl_layer.') for k in load.missing_keys)
     assert all(k.startswith(('mlp_j2d.','mlp_fov.','mlp_princpt.','mlp_offset_up.')) for k in load.unexpected_keys)
     return model

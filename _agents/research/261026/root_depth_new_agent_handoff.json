@@ -1,0 +1,9 @@
+{
+  "session_id": "21a5cce6-e593-4c07-8930-6575193dbbaf",
+  "accepted": {
+    "ok": true,
+    "running": true,
+    "seq": 183
+  },
+  "metric_definition": "사용자 최신 평가표 지시: 주표를5개수치열로 작성한다. first frame-aligned MPJPE, first frame-aligned PA-MPJPE, frame-aligned MPJPE, frame-aligned PA-MPJPE, Root absolute depth error(RPE-Z,mm). 마지막은 비정렬카메라좌표 pelvis/root의 mean(abs(Z_pred-Z_GT))*1000이며 full3D RPE(norm)은별도보조지표로구분한다. 다섯지표동일공통GT표본을사용하고미평가수치는만들지않는다. src/utils/compare_event_methods.py 및 event_report.py에root_depth_error_mm 지원을추가했고CPU합성검증과이전4모델320구간원시depth재집계를완료했다. 기존과거결과는새split성능으로재사용하지말것. 기존24시간마감및trial당3~4시간제한은변경없음."
+}

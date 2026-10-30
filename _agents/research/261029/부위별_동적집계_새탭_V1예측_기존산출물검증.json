@@ -1,0 +1,42 @@
+{
+  "검증시각_KST": "2026-10-29T17:41:51.208288+09:00",
+  "범위": "완료된 V1 기존 예측만 읽기 검증. 새 학습·추론·평가 및 진행조회 없음.",
+  "판정": "통과",
+  "조건": [
+    "rgb_only",
+    "fixed",
+    "global_dynamic",
+    "part_dynamic"
+  ],
+  "조건별_구간수": 80,
+  "검증_예측파일수": 320,
+  "전체_GT수": 24080,
+  "네조건_공통검출수": 24056,
+  "조건별_검출수": {
+    "rgb_only": 24057,
+    "fixed": 24057,
+    "global_dynamic": 24058,
+    "part_dynamic": 24057
+  },
+  "조건별_예측receipt_checkpoint_SHA": {
+    "rgb_only": "7007dcffa8cdec7ed228f1eca9611d9eafe1be723634c61f861a2a71d5c4cef4",
+    "fixed": "1aa4b66a0e02cdfd625d1da81b1949596b72455da241ddad3e88786259b82b4f",
+    "global_dynamic": "f7b18445e4561205944e7433f9970bf059c479078b4d4ff34cfb997a56f7662c",
+    "part_dynamic": "ebb55b9a776bc986b310a7bc055686d85d88091034d843087498dfa428600f60"
+  },
+  "확인사항": [
+    "예정 구간·split 일치",
+    "partial/smoke 제외",
+    "모든 GT행 처리",
+    "frame0 및 원본프레임 위치 일치",
+    "예측 shape 및 matched 유한값",
+    "기존 원시 예측 SHA 320개 일치",
+    "기존 비교 집계 표본 수 일치",
+    "조건별 checkpoint SHA 일관성"
+  ],
+  "한계": [
+    "checkpoint 파일의 현재 바이트 SHA 재계산은 수행하지 않음",
+    "지표 재계산 및 통계 재실행 없음",
+    "V2 완료 또는 전체 연구 완료를 증명하지 않음"
+  ]
+}

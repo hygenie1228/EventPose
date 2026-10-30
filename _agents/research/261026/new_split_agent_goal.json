@@ -1,0 +1,17 @@
+{
+  "session_id": "21a5cce6-e593-4c07-8930-6575193dbbaf",
+  "thread_id": "01a17738-6081-7b60-8992-a31687c5acc0",
+  "started_unix": 1793001544.672932,
+  "deadline_unix": 1793087944.672932,
+  "deadline_utc": "2026-10-27 07:59:04 UTC",
+  "objective": "변경된 etri_processed/split.json을 기준으로 Multi-HMR의 RGB-only, event-only, RGB+event 미세조정과 Test평가를 새 독립실험으로 완료·검증한다. 사용자지정으로 전체최대24시간(2026-10-26 07:59:04 UTC~2026-10-27 07:59:04 UTC), 각fine-tuning trial은최대3~4시간이다. 본학습을12시간으로늘리지않는다. 총시간에데이터검증·캐시·학습·전체Test·동일GPU속도·보고서검증을포함한다. 고정마감에등록한본인작업만checkpoint보존정지하고Goalpause, 조기전체완료검증후complete.\n현재설정: _agents/research/261026/new_split_agent_goal.json. 실험출력exp/261026/rgb_event_new_split_24h. 기존agent실험은종료/인계대상이고기존프로세스나결과를복제·덮어쓰지않는다. 먼저_agents/instruct.md와새split의실제위치·내용·SHA256·Train/Test피험자분리를검증해새manifest로동결한다. 현재workspace의etri_processed경로가없을수있고dataset은/mnt/nfs_L/etri_processed심볼릭링크다. 실제변경split을확인하되옛split을자동재사용하거나새split을추측생성하지않는다. dataset/,orig_dataset/,etri_processed/,data/읽기전용.\n기본알고리즘은Multi-HMR. 새split에대해원본RGB checkpoint,RGB-only fine-tune,event-only4인코딩,RGB+event4인코딩총10조건을공정비교한다. 각학습3~4시간동일예산·초기화·데이터·증강·batch를고정하고헤드/adapter우선후반backbone·작은LR·AdamW·AMP/유한gradient·주기checkpoint·Train내부holdout선택을계승한다. 시간제한으로전체Train프레임을못돌면피험자/세션균형고정subset을시간내학습가능량으로설계하고전체Train및subsetcoverage,실제본샘플/고유프레임/완료epoch/성공update를명시한다. 전체Train을한epoch학습했다고허위표시하지않는다. Test로학습·인코딩·checkpoint선택금지. 옛미세조정가중치/캐시/결과는새Test피험자학습누수·split해시·프레임매핑을검증하지않고재사용금지;원본사전학습초기화기본.\n인코딩은count33극성분리2ch,bins100의3시간구간×2극성6ch,surface20감쇠20ms극성별2ch,tools/visualize_data.py의배경128/양255/음0최근과거프레임1ch를비교한다. 보정timestamp로인과적대응,미래event금지,MP4손실입력금지,frame_idx×50가정금지. RGB/event를동일픽셀로가정하지않고센서별encoder/adapter와내외부보정반영fusion을사용한다. GTbox/pose/depth는추론입력금지,event-only는학습·검출·crop·추론전부RGB미사용. 저장희소event프레임을원시event개별시각/횟수복원으로주장하지않는다. _agents/report/261025_이벤트데이터분석.md의채택버전스냅샷을보존한다.\n과학계산.venv-humanpose/bin/python,GPU2~6중정상·유휴장치만사용,다른agent작업조작금지. GPU3 NVML장치오류와CUDA정수순번변화가있으므로실제GPU UUID로지정하고물리번호를검증한다. 기존중단정리작업은_agents/research/261026/old_goal_handoff_shutdown.json확인. 새프로세스는설정managed_jobs_file에PID/PGID/시작tick/명령등록. 긴학습/평가30분간격만확인,구체실패예외.\n주요평가표는정확히4지표:first frame-aligned MPJPE,first frame-aligned PA-MPJPE,frame-aligned MPJPE,frame-aligned PA-MPJPE(mm). 정확frame0에서정렬변환을구해구간전체고정하며frame-aligned는매프레임재계산;MPJPE는pelvis평행이동,PA는properSim3. 새split의동일Test10초구간·공통GT에서계산하고미검출0오차금지. 정렬전절대MPJPE·pelvis오차·전체GT검출률·속도/가속도오차도별도보고한다. 내부holdout수치를Test4지표대신채우지않고미평가는명시. 동일GPU순차전체파이프라인속도(인코딩/캐시I/O·디코드·검출·복원·매칭·저장),로딩/메모리,온라인/캐시fps및캐시생성시간/용량을분리한다. RGBbaseline대fusion의피험자/세션clusterbootstrap95%CI와Holm보정·효과크기·동작속도별분석을수행하고반복seed미실시한계및무개선결과도정직하게보고한다.\n_agents/report/YYMMDD_한글제목.md에현재10조건의4지표표·학습예산/coverage·좌표처리·실제예측시각화·속도·통계·단하나추천과근거/한계를작성한다. 좋은값굵게,checkpoint출처별도. notes는_agents/research/YYMMDD/직하위. 최종checkpoint·전체Test완료·프레임매핑·원시지표재계산·동일GPU실행증거·보고서숫자를실제로검증해야완료한다. 계획/캐시/파일존재/일부결과만으로완료하지않는다.",
+  "objective_sha256": "472907490ad13c10394f03a470dcb52d785b1f06aeb14c958d59170d43808d1a",
+  "allowed_gpus": [
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "managed_jobs_file": "/home/namhj/EventPose/exp/261026/rgb_event_new_split_24h/managed_jobs.json"
+}

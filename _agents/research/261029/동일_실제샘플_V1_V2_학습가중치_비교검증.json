@@ -1,0 +1,17 @@
+{
+  "checked_unix": 1793263979.1308594,
+  "V1_V2_identical_real_case_selection": true,
+  "V1_V2_identical_RGB_events_crops_display": true,
+  "actual_learned_weights": true,
+  "GT_at_inference": false,
+  "Test_used": false,
+  "PNG_viewed": true,
+  "SVG_English": true,
+  "PDFinfo_passed": true,
+  "qualitative_observation": "V2 uses event evidence more than V1, but time-bin probabilities remain similar; this figure does not prove motion-adaptive horizons or accuracy improvement",
+  "artifact_sha256": {
+    "png": "e937a9e482d41623ba569522c5f2e078b9fb95fcffeabb8c9b40ec3b4b2bd9d8",
+    "svg": "d36324edc23bd434189acf4b2402096b6dde13b8e6444b3a3eee75688f016947",
+    "pdf": "1fde1c51164ad6a9743315c7b133b5389981052a09a241c100d768052dd887cb"
+  }
+}

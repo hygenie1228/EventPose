@@ -141,7 +141,7 @@ def main():
     assert len({row['gpu_identity'] for row in runtime.values()}) == 1
     previous = 0
     for row in sorted(runtime.values(), key=lambda item: item['process_started_unix']):
-        assert row['cuda_visible_devices'] in ('2', '3', '4', '5', '6')
+        assert row.get('physical_gpu',row['cuda_visible_devices']) in ('2', '3', '4', '5', '6')
         assert row['process_started_unix'] >= previous
         previous = row['process_finished_unix']
         assert previous > row['process_started_unix']

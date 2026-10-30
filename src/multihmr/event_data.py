@@ -13,8 +13,8 @@ from torch.utils.data import Dataset
 import torchvision.transforms as T
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT = ROOT / 'exp/261024/rgb_event_36h'
-RGB_CACHE = ROOT / '.experiment_storage/multihmr_finetune_14h'
+OUT = Path(os.environ.get('EVENTPOSE_EVENT_OUT', ROOT / 'exp/261024/rgb_event_36h'))
+RGB_CACHE = Path(os.environ.get('EVENTPOSE_RGB_CACHE', ROOT / '.experiment_storage/multihmr_finetune_14h'))
 
 
 def save(path, value):
@@ -129,7 +129,8 @@ class Frames(Dataset):
                                  [0, scale, (scale - 1) / 2], [0, 0, 1]], np.float32)
             K = upsample @ result['event_K']
         else:
-            with Image.open(RGB_CACHE / 'images' / name / ('{:06d}.jpg'.format(record['frame']))) as source:
+            suffix = '.png' if os.environ.get('EVENTPOSE_LOSSLESS_RGB_CACHE') == '1' else '.jpg'
+            with Image.open(RGB_CACHE / 'images' / name / ('{:06d}'.format(record['frame']) + suffix)) as source:
                 image = source.convert('RGB')
             width, height = image.size
             assert (height, width) == tuple(image_shape)

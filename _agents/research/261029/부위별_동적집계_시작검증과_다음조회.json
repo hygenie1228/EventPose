@@ -1,0 +1,13 @@
+{
+  "checked_unix": 1793250870.4916797,
+  "terminal_pilot_receipt_inspected": true,
+  "live_runtime_handles": [
+    {
+      "pid": 36627,
+      "role": "aggregation_scheduler",
+      "identity_verified": true
+    }
+  ],
+  "next_training_review_not_before_unix": 1793252670.49168,
+  "long_training_progress_polled": false
+}

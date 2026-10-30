@@ -1,0 +1,129 @@
+{
+  "report": "/home/namhj/EventPose/_agents/report/261026_RGB와_이벤트_현재_실험_시도와_시각화.md",
+  "metric_scope": "body22 internal holdout; Test metrics not invented",
+  "methods": [
+    {
+      "name": "rgb_original",
+      "validation": {
+        "mpjpe_mm": 275.97557942056375,
+        "root_mpjpe_mm": 99.56773666564307,
+        "pa_mpjpe_mm": 58.64196227230298,
+        "matched_instances": 2323,
+        "valid_instances": 2364,
+        "predicted_instances": 2401,
+        "coverage": 0.9826565143824028
+      },
+      "test_segments": 320,
+      "test_metrics_published": false
+    },
+    {
+      "name": "rgb_baseline",
+      "validation": {
+        "mpjpe_mm": 75.13677090284894,
+        "root_mpjpe_mm": 48.48970919052738,
+        "pa_mpjpe_mm": 33.58303995775159,
+        "matched_instances": 2337,
+        "valid_instances": 2364,
+        "predicted_instances": 2405,
+        "coverage": 0.9885786802030457,
+        "step": 6625,
+        "successful_steps": 6624,
+        "time": 1792898634.6153471
+      },
+      "test_segments": 0,
+      "test_metrics_published": false
+    },
+    {
+      "name": "event_count33",
+      "validation": {},
+      "test_segments": 0,
+      "test_metrics_published": false
+    },
+    {
+      "name": "event_bins100",
+      "validation": {},
+      "test_segments": 0,
+      "test_metrics_published": false
+    },
+    {
+      "name": "event_surface20",
+      "validation": {},
+      "test_segments": 0,
+      "test_metrics_published": false
+    },
+    {
+      "name": "event_visualize_gray",
+      "validation": {},
+      "test_segments": 0,
+      "test_metrics_published": false
+    },
+    {
+      "name": "fusion_count33",
+      "validation": {
+        "mpjpe_mm": 75.96616916965915,
+        "root_mpjpe_mm": 48.655066821541205,
+        "pa_mpjpe_mm": 33.49312918475779,
+        "matched_instances": 2335,
+        "valid_instances": 2364,
+        "predicted_instances": 2400,
+        "coverage": 0.9877326565143824,
+        "step": 7000,
+        "successful_steps": 6999,
+        "time": 1792901135.7875333
+      },
+      "test_segments": 0,
+      "test_metrics_published": false
+    },
+    {
+      "name": "fusion_bins100",
+      "validation": {
+        "mpjpe_mm": 75.17112087965727,
+        "root_mpjpe_mm": 48.569102871774476,
+        "pa_mpjpe_mm": 33.3685255010227,
+        "matched_instances": 2334,
+        "valid_instances": 2364,
+        "predicted_instances": 2400,
+        "coverage": 0.9873096446700508,
+        "step": 7956,
+        "successful_steps": 7954,
+        "time": 1792900686.0727546
+      },
+      "test_segments": 0,
+      "test_metrics_published": false
+    },
+    {
+      "name": "fusion_surface20",
+      "validation": {
+        "mpjpe_mm": 75.62197247407224,
+        "root_mpjpe_mm": 48.791159362665105,
+        "pa_mpjpe_mm": 33.49979828342826,
+        "matched_instances": 2334,
+        "valid_instances": 2364,
+        "predicted_instances": 2400,
+        "coverage": 0.9873096446700508,
+        "step": 7004,
+        "successful_steps": 7003,
+        "time": 1792897867.8234477
+      },
+      "test_segments": 0,
+      "test_metrics_published": false
+    },
+    {
+      "name": "fusion_visualize_gray",
+      "validation": {
+        "mpjpe_mm": 76.7916695925088,
+        "root_mpjpe_mm": 49.30769397014758,
+        "pa_mpjpe_mm": 33.83987368131357,
+        "matched_instances": 2335,
+        "valid_instances": 2364,
+        "predicted_instances": 2405,
+        "coverage": 0.9877326565143824,
+        "step": 4985,
+        "successful_steps": 4984,
+        "time": 1792900641.191715
+      },
+      "test_segments": 0,
+      "test_metrics_published": false
+    }
+  ]
+}

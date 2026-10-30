@@ -1,0 +1,22 @@
+{
+  "rgb_only": {
+    "rgb_preserving_initialization": true,
+    "weights_normalized": true,
+    "missing_event_identity": true
+  },
+  "fixed_all": {
+    "rgb_preserving_initialization": true,
+    "weights_normalized": true,
+    "missing_event_identity": true
+  },
+  "part_agnostic": {
+    "rgb_preserving_initialization": true,
+    "weights_normalized": true,
+    "missing_event_identity": true
+  },
+  "part_aware": {
+    "rgb_preserving_initialization": true,
+    "weights_normalized": true,
+    "missing_event_identity": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "objective": "Same-device RGB+event part-aware dynamic aggregation: design, implement, train, evaluate and iterate for 20 hours",
+  "start_unix": 1793249712,
+  "deadline_unix": 1793321712,
+  "start_kst": "2026-10-29T13:55:12+09:00",
+  "deadline_kst": "2026-10-30T09:55:12+09:00",
+  "duration_hours": 20,
+  "output_dir": "exp/261029/part_aware_dynamic_aggregation",
+  "report": "_agents/report/261029_부위별_동적_이벤트_집계_설계와_실험.md",
+  "gpu_candidates_physical": [
+    1,
+    2,
+    4,
+    5
+  ],
+  "preserve_gpu_physical": [
+    0,
+    3,
+    6
+  ],
+  "monitor_interval_seconds": 1800,
+  "dataset_readonly": true,
+  "data_readonly": true,
+  "same_device_rgb_event_required": true,
+  "required_baselines": [
+    "rgb_only",
+    "fixed_temporal_aggregation",
+    "part_agnostic_dynamic_aggregation",
+    "part_aware_dynamic_aggregation"
+  ],
+  "checkpoint_selection": "train_holdout_only_not_test",
+  "success_requires_actual_measurement": true,
+  "managed_jobs_file": "exp/261029/part_aware_dynamic_aggregation/managed_jobs.json",
+  "deadline_policy": "stop_only_owned_jobs_with_checkpoint_and_report_unfinished_work_at_deadline",
+  "parent_goal_control": {
+    "api_base": "http://127.0.0.1:18080",
+    "session_id": "7286d3b2-b160-4baf-80f9-013bc86888a6",
+    "pane": "agents",
+    "thread_id": "01a186d0-36f7-71b3-be07-479d06337b31",
+    "objective_sha256": "2e62950c0cba6f440928748fe1f866b3081fc41d79ee5984ce611a30fdcdee57",
+    "key_file": "/home/namhj/EventPose/.experiment_storage/research_workbench/access-key"
+  },
+  "original_parent_goal_control": {
+    "api_base": "http://127.0.0.1:18080",
+    "session_id": "8123e004-1926-454b-ac84-85df4ec88f4f",
+    "pane": "agents",
+    "thread_id": "01a177a3-b535-7012-ba0f-ac98723613cf",
+    "objective_sha256": "2f17d0ff5d98c303de813422af3c3de07f31b1c164a5be661635d9c701d0c632",
+    "key_file": "/home/namhj/EventPose/.experiment_storage/research_workbench/access-key"
+  },
+  "control_watch_transfer_unix": 1793263428.2346911
+}

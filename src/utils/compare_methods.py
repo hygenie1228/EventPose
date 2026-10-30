@@ -78,9 +78,9 @@ def write_report(result):
         f"Test 64세션·device0, 10초 × 5개 고정 구간으로 총 320구간·{result['rgb_frames']:,} RGB 프레임을 평가했다. "
         f"아래 신체 22관절 지표는 모든 모델에 공통 매칭된 {result['common_matched_instances']:,} 사람-프레임을 사용한다. "
         '오차 단위는 mm이며 낮을수록 좋다. 미검출은 0 오차로 처리하지 않고 검출률로 따로 보고한다.','',
-        '| 모델 | 첫 프레임 정렬 MPJPE | 첫 프레임 정렬 PA-MPJPE | 프레임별 정렬 MPJPE | 프레임별 정렬 PA-MPJPE |',
-        '|---|---:|---:|---:|---:|']
-    for name,m in methods.items():lines.append('| '+labels.get(name,name)+' | '+' | '.join(f'{m[k]:.2f}' for k in METRICS)+' |')
+        '| 모델 | first frame-aligned MPJPE (mm) | first frame-aligned PA-MPJPE (mm) | frame-aligned MPJPE (mm) | frame-aligned PA-MPJPE (mm) | Root absolute depth error (RPE-Z, mm) |',
+        '|---|---:|---:|---:|---:|---:|']
+    for name,m in methods.items():lines.append('| '+labels.get(name,name)+' | '+' | '.join(f'{m[k]:.2f}' if m.get(k) is not None else 'NA' for k in METRICS+['root_depth_error_mm'])+' |')
     lines+=['','각 구간의 정확한 첫 프레임에서 모든 모델에 공통 검출된 사람만 포함했다. 첫 프레임 정렬은 '
         '그 변환을 10초 전체에 고정하고, 프레임별 정렬은 매 프레임 다시 계산한다. MPJPE 정렬은 pelvis 평행이동만 사용하며, '
         'PA는 반사를 허용하지 않는 회전·양의 등방 스케일·평행이동을 사용한다. PA는 스케일 오차를 제거하므로 '
@@ -174,6 +174,7 @@ def main():
              if all((path/t['session']/'complete.json').exists() for t in tasks)}
     assert 'NLF pretrained' in methods,'Wait until every NLF baseline segment finishes'
     sums={name:np.zeros(4,np.float64) for name in methods}
+    depth_sums={name:np.zeros(2,np.float64) for name in methods}
     alignment_sums={name:np.zeros(4,np.float64) for name in methods}
     full_body_sums={name:np.zeros(3,np.float64) for name in methods}
     coverage={name:0 for name in methods};elapsed={name:0. for name in methods}
@@ -216,6 +217,8 @@ def main():
             assert np.isfinite(errors).all()
             sums[name][:3]+=errors.sum(0)
             sums[name][3]+=np.linalg.norm(p[:,0]-t[:,0],axis=-1).sum()
+            dz=p[:,0,2]-t[:,0,2]
+            depth_sums[name]+=np.array([np.abs(dz).sum(),dz.sum()])
     assert paired_total>0
     frames=sum(t['video_frames'] for t in tasks)
     result=dict(updated_unix=time.time(),test_sessions=64,segments=320,rgb_frames=frames,
@@ -228,6 +231,9 @@ def main():
             (1000*sums[name]/paired_total).tolist()))
         assert np.allclose(alignment_sums[name][2:],sums[name][1:3],rtol=1e-8,atol=1e-8)
         result['methods'][name].update(dict(zip(METRICS,(1000*alignment_sums[name]/paired_total).tolist())))
+        result['methods'][name].update(root_depth_error_mm=float(1000*depth_sums[name][0]/paired_total),
+                                      root_depth_bias_mm=float(1000*depth_sums[name][1]/paired_total),
+                                      root_position_error_mm=result['methods'][name]['pelvis_error_mm'])
         result['methods'][name].update(matched_instances=coverage[name],coverage=coverage[name]/valid_total,
             sum_segment_seconds=elapsed[name],observed_segment_fps=frames/elapsed[name])
         vs,vc,acs,ac=temporal[name]

@@ -1,0 +1,25 @@
+{
+  "session_id": "21a5cce6-e593-4c07-8930-6575193dbbaf",
+  "thread_id": "01a17738-6081-7b60-8992-a31687c5acc0",
+  "objective": "12시간 새 독립 Goal: body(_b) 새split에서 Multi-HMR 원본 device3 RGB, device3 RGB 미세조정, device3 RGB+device4 event, device3 event+device4 event, device3 RGB+device3 event를 비교한다. event 세 조합 각각 count33(극성2ch), bins100(3시간구간×2극성6ch), surface20(20ms감쇠 극성2ch) 세 인코딩으로 학습·전체Test하여 원본1+RGB기준선1+event9=11행 표를 작성한다. 시작부터12시간 고정마감에 검증·캐시·학습·전체Test·통계·동일GPU속도·보고서검증 포함. 기존 사용자 선호대로 RGB90분, event조건 각3시간(최대4시간), 동일 원본 초기화·Train subset·batch·증강·Train holdout선택을 고정하며 학습예산 차이를 공개한다. 저장희소event를 원시개별event로 주장하지 않고 실제 인코딩구현/인과timestamp/채널/보정/누수 검증; 구현 불가능한 인코딩이나 미평가는 만들지 않는다. Test로 방법·checkpoint선택금지. 기존결과는 검증된 참고일뿐 새실험결과로 재표시금지. 주표를 한국어 새보고서 제목 바로 다음에 배치하고 first frame-aligned MPJPE, first frame-aligned PA-MPJPE, frame-aligned MPJPE, frame-aligned PA-MPJPE, full3D Root position error(mm)를 공통GT로 제시;RPE-Z 별도. split SHA/body피험자분리·원본체크포인트출처·실제학습coverage·미검출률·원시지표·통계·속도·실제시각화 검증. dataset/orig_dataset/etri_processed/data 읽기전용. .venv-humanpose/bin/python; 물리GPU1,2,4,5 중UUID/버스/유휴/정상확인만사용. 본인PID/PGID/시작tick/명령등록,30분주기점검. 새출력 exp/261028/device3_encoding_12h, 설정 _agents/research/261028/device3_encoding_goal_12h.json. 고정마감에 본인작업만 checkpoint보존중지하고 pause; 전조건학습·전체Test·최종검증실제완료시만 complete. 시각 KST.",
+  "started_unix": 1793170589,
+  "deadline_unix": 1793213789,
+  "allowed_gpus": [
+    1,
+    2,
+    4,
+    5
+  ],
+  "managed_jobs_file": "/home/namhj/EventPose/exp/261028/device3_encoding_12h/managed_jobs.json",
+  "output_root": "/home/namhj/EventPose/exp/261028/device3_encoding_12h",
+  "prior_experiment": "/home/namhj/EventPose/exp/261027/device34_fusion_repair_15h",
+  "report": "/home/namhj/EventPose/_agents/report/261028_이벤트_인코딩_세가지_센서융합_비교.md",
+  "encodings": [
+    "count33",
+    "bins100",
+    "surface20"
+  ],
+  "trial_hours": 3,
+  "rgb_trial_hours": 1.5,
+  "objective_sha256": "cdf36244302733390252fd7a0b99ced013303d63569227dae6348fe1fb78ba0b"
+}

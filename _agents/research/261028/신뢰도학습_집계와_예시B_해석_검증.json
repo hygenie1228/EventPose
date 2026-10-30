@@ -1,0 +1,19 @@
+{
+  "검증시각_한국시간": "2026-10-28T22:45:28.030715+09:00",
+  "보고서_sha256": "26bb689c03e6f34ad250319eed5e17c8369c537cd32932cb30646758952b3bf4",
+  "본문그림수": 6,
+  "로컬링크수": 11,
+  "예시B_해석_제한명시": true,
+  "신뢰도학습_주안반영": true,
+  "count기준선_유지": true,
+  "nulltoken_도입설명": true,
+  "새성능실험실행": false,
+  "images": {
+    "/home/namhj/EventPose/exp/261028/dynamic_aggregation_diagram/신뢰도학습_이벤트집계_트랜스포머_제안.png": "f229caa39e2324406701fe2a4f6afd907b1e72cd0f4f828d6569b86f3debeaff",
+    "/home/namhj/EventPose/exp/261028/dynamic_aggregation_real_examples/전신_넓은영역_실제누적_비교.png": "8066c8e398bc2aefe1d151b9a70e3d6abbc78a3fc2be8b4d4d1e51f1cbc11681",
+    "/home/namhj/EventPose/exp/261028/dynamic_aggregation_real_examples/양쪽다리_전체영역_실제비교.png": "a689bad5a3f530cbc89bc22a8d56c3dc45781758b10b62899a867a422325cda1",
+    "/home/namhj/EventPose/exp/261028/dynamic_aggregation_real_examples/양팔_전체영역_실제비교.png": "9a712996865fd9cb33ed38c0ba391499c6954ea338b10dab45e8754e71f0a90a",
+    "/home/namhj/EventPose/exp/261028/dynamic_aggregation_real_examples/상체_실제누적_비교.png": "62aec457b8e91b267a5b8fa39afa64ef00487db59ff7af6a6812191533f90f22",
+    "/home/namhj/EventPose/exp/261028/dynamic_aggregation_diagram/운동량조건부_트랜스포머_네트워크_제안.png": "00272c4f50d4fae62992d396e825c624fbcf779f3b02e5f45bce37e358173204"
+  }
+}

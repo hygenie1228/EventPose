@@ -1,0 +1,18 @@
+{
+  "status": "passed_real_Train_event_encoder_CPU_probe",
+  "checked_kst": "2026-10-29T23:59:56.592696+09:00",
+  "session": "20260720_131207_863008_200_b",
+  "frame": 22,
+  "event_feature_shape": [
+    3,
+    128,
+    32,
+    32
+  ],
+  "event_forward_seconds": 8.015482187271118,
+  "RGB_wrapper_hook_calls_during_event_encoding": 0,
+  "frozen_RGB_parameter_tensors_exact": 115,
+  "Test_used": false,
+  "CPU_attention": "PyTorch SDPA fallback for CPU only; GPU/source files unchanged",
+  "scope": "One actual Train event query, three causal bins; feature structure only, no pose accuracy measurement"
+}

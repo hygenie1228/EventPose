@@ -1,0 +1,51 @@
+{
+  "checked_unix": 1793059612.8061898,
+  "next_long_job_inspection_after_unix": 1793061412.8061898,
+  "reason": "00:06 정기점검: 반복 앞4 전체Test 완료 및 Train 평가 원본/보고서 일치; event3_rgb4 실제 학습 성공1072회·유한 loss/gradient·진행기록 19초 전; GPU3 NVML 오류 지속",
+  "live_registered_jobs": [
+    {
+      "pid": 12090,
+      "role": "device34_body_deadline_watchdog"
+    },
+    {
+      "pid": 27099,
+      "role": "device34_body_pipeline"
+    },
+    {
+      "pid": 50366,
+      "role": "device34_body_final_speed_and_audit_waiter"
+    },
+    {
+      "pid": 76324,
+      "role": "device34_progress_table_30min"
+    },
+    {
+      "pid": 35155,
+      "role": "train:event3_rgb4_seed261027"
+    },
+    {
+      "pid": 35159,
+      "role": "train:event3_event4_seed261027"
+    }
+  ],
+  "actual_split_access": true,
+  "scope": "Train body60 / Test body18 / Test80 segments",
+  "main_training_started": true,
+  "real_Train_probe_started": true,
+  "probe_weights_will_be_discarded": true,
+  "real_Train_probe_status": "passed",
+  "real_Train_probe_successful_updates_per_condition": 8,
+  "main_training_conditions_observed": [
+    "rgb3",
+    "rgb4",
+    "rgb3_rgb4",
+    "rgb3_event4"
+  ],
+  "periodic_table_pid": 76324,
+  "periodic_table_interval_seconds": 1800,
+  "canonical_report": "_agents/report/261026_신체동작_두장치_여섯조건_비교.md",
+  "gpu_failure_active": true,
+  "remaining_live_training_pid": 35155,
+  "remaining_live_training_successful_updates": 1072,
+  "target_bounds_cpu_audit": "passed: training6501+holdout288, 5 permutations, 2125 batches"
+}

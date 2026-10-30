@@ -1,0 +1,68 @@
+{
+  "status": "passed",
+  "checked_kst": "2026-10-30T02:13:32.107461+09:00",
+  "scope": "CPU configuration/source consistency only; reuses prior V6 architecture and real checkpoint reconstruction evidence; no new forward or CUDA accuracy claim",
+  "conditions": [
+    {
+      "name": "v6_long_fixed",
+      "exact_changed_keys": [
+        "comparison_names",
+        "max_successful_steps",
+        "name",
+        "training_budget_parent",
+        "training_budget_restart_from_common_initialization"
+      ],
+      "same_frozen_RGB_and_fusion_initialization": true,
+      "same_model_loss_optimizer_data_and_3h_cap": true
+    },
+    {
+      "name": "v6_long_global_dynamic",
+      "exact_changed_keys": [
+        "comparison_names",
+        "max_successful_steps",
+        "name",
+        "training_budget_parent",
+        "training_budget_restart_from_common_initialization"
+      ],
+      "same_frozen_RGB_and_fusion_initialization": true,
+      "same_model_loss_optimizer_data_and_3h_cap": true
+    },
+    {
+      "name": "v6_long_part_dynamic",
+      "exact_changed_keys": [
+        "comparison_names",
+        "max_successful_steps",
+        "name",
+        "training_budget_parent",
+        "training_budget_restart_from_common_initialization"
+      ],
+      "same_frozen_RGB_and_fusion_initialization": true,
+      "same_model_loss_optimizer_data_and_3h_cap": true
+    },
+    {
+      "name": "v6_long_part_static",
+      "exact_changed_keys": [
+        "comparison_names",
+        "max_successful_steps",
+        "name",
+        "training_budget_parent",
+        "training_budget_restart_from_common_initialization"
+      ],
+      "same_frozen_RGB_and_fusion_initialization": true,
+      "same_model_loss_optimizer_data_and_3h_cap": true
+    }
+  ],
+  "model_source_sha256": "b171ff05ecf13ed30a724f0858b93ca5a651c1295a04262ab9b7fa0afbb55603",
+  "config_sha256": {
+    "v6_long_fixed": "d88624ace198a7618a6d4fa94571c41b315cdafa41b58bbc0416fd90e91d946e",
+    "pilot_v6_long_fixed": "2fb61c0e668a063891c0ea6a707280f230837d8b486d61a3f9892300e8838b29",
+    "v6_long_global_dynamic": "3b18673a30e1a966ac7913270f96233315697c1ae208d4af03abe47d104bea16",
+    "pilot_v6_long_global_dynamic": "719fe0dc6a5fc83c964ee9dc9a2466a5ad14769a4132d9817e861463dd9169e0",
+    "v6_long_part_dynamic": "2d42366453a412c64ada0334a79b55d1f4ed278b740853d6d719157591c434fc",
+    "pilot_v6_long_part_dynamic": "db985f4afccb1d617613114d41732e0814320f78619c6c98c14ce835b950c821",
+    "v6_long_part_static": "5a187db25071057397f95f0225b783782f9142577ac3cd08b5e2fe0bfe1c44f9",
+    "pilot_v6_long_part_static": "5a37e3910103cbe18004ef28b515af7f13423d44c703d197071d4be9422b7283"
+  },
+  "Test_files_read": false,
+  "new_CUDA_pilots_still_required": true
+}

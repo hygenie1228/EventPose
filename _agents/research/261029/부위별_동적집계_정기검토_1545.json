@@ -1,0 +1,1159 @@
+{
+  "checked_unix": 1793256362.618635,
+  "checked_kst": "2026-10-29T15:46:02.618646+09:00",
+  "stage": "primary",
+  "failures": [],
+  "jobs": [
+    {
+      "pid": 67003,
+      "role": "test:part_dynamic"
+    },
+    {
+      "pid": 68086,
+      "role": "test:rgb_only"
+    },
+    {
+      "pid": 68906,
+      "role": "aggregation_scheduler"
+    },
+    {
+      "pid": 69779,
+      "role": "test:fixed"
+    },
+    {
+      "pid": 70626,
+      "role": "test:global_dynamic"
+    }
+  ],
+  "runs": {
+    "rgb_only": {
+      "progress": {
+        "step": 3000,
+        "successful_steps": 2999,
+        "elapsed_seconds": 4519.783004522324,
+        "unique_frames_seen": 6501,
+        "grad_norm": 56.44021224975586,
+        "amp_scale": 512.0,
+        "peak_memory_gib": 3.965970993041992,
+        "part_time_weight_std": 0.0,
+        "time_weights_mean": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "updated_unix": 1793255411.900658,
+        "loss": 5.212371349334717,
+        "pa_mm": 39.135826110839844,
+        "root_mm": 48.006473541259766,
+        "detection": 0.07781678438186646,
+        "offset": 0.006199170835316181,
+        "rotation": 0.015423964709043503,
+        "shape": 0.3288857042789459,
+        "absolute": 0.004948146175593138,
+        "part_map_loss": 3.7107112407684326,
+        "event_encoder_gradient_l2": 0.0,
+        "spatial_transformer_gradient_l2": 0.0,
+        "time_score_gradient_l2": 0.0,
+        "output_gradient_l2": 0.0
+      },
+      "best": {
+        "mpjpe_mm": 63.12561663391006,
+        "root_mpjpe_mm": 33.749470843742436,
+        "pa_mpjpe_mm": 24.753124896450736,
+        "coverage": 1.0,
+        "matched_instances": 288,
+        "valid_instances": 288,
+        "predicted_instances": 288,
+        "part_names": [
+          "torso",
+          "left_arm",
+          "right_arm",
+          "left_leg",
+          "right_leg",
+          "head"
+        ],
+        "mean_time_weights": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "mean_null_weights": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "step": 3001,
+        "successful_steps": 3000,
+        "time": 1793255446.7177098
+      },
+      "complete": {
+        "status": "complete",
+        "step": 3001,
+        "successful_steps": 3000,
+        "target_successful_steps": 3000,
+        "matched_update_target_reached": true,
+        "elapsed_seconds": 4559.314574480057,
+        "best_metrics": {
+          "mpjpe_mm": 63.12561663391006,
+          "root_mpjpe_mm": 33.749470843742436,
+          "pa_mpjpe_mm": 24.753124896450736,
+          "coverage": 1.0,
+          "matched_instances": 288,
+          "valid_instances": 288,
+          "predicted_instances": 288,
+          "part_names": [
+            "torso",
+            "left_arm",
+            "right_arm",
+            "left_leg",
+            "right_leg",
+            "head"
+          ],
+          "mean_time_weights": [
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "mean_null_weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "unique_frames_seen": 6501,
+        "subset_frames": 6501,
+        "checkpoint": "/home/namhj/EventPose/exp/261029/part_aware_dynamic_aggregation/checkpoints/rgb_only/best.pt",
+        "completed_unix": 1793255451.4317238,
+        "test_used_for_selection": false
+      },
+      "test_segments_complete": 24
+    },
+    "fixed": {
+      "progress": {
+        "step": 3000,
+        "successful_steps": 3000,
+        "elapsed_seconds": 4837.9792058467865,
+        "unique_frames_seen": 6501,
+        "grad_norm": 56.961605072021484,
+        "amp_scale": 1024.0,
+        "peak_memory_gib": 3.982264518737793,
+        "part_time_weight_std": 0.0,
+        "time_weights_mean": [
+          [
+            0.3541666865348816,
+            0.3541666865348816,
+            0.2916666567325592
+          ],
+          [
+            0.3541666865348816,
+            0.3541666865348816,
+            0.2916666567325592
+          ],
+          [
+            0.3541666865348816,
+            0.3541666865348816,
+            0.2916666567325592
+          ],
+          [
+            0.3541666865348816,
+            0.3541666865348816,
+            0.2916666567325592
+          ],
+          [
+            0.3541666865348816,
+            0.3541666865348816,
+            0.2916666567325592
+          ],
+          [
+            0.3541666865348816,
+            0.3541666865348816,
+            0.2916666567325592
+          ]
+        ],
+        "updated_unix": 1793255730.208488,
+        "loss": 5.174551963806152,
+        "pa_mm": 38.81218338012695,
+        "root_mm": 47.634525299072266,
+        "detection": 0.08168962597846985,
+        "offset": 0.006026958115398884,
+        "rotation": 0.015292719006538391,
+        "shape": 0.3295806050300598,
+        "absolute": 0.005103687290102243,
+        "part_map_loss": 3.736102819442749,
+        "event_encoder_gradient_l2": 0.02255958877503872,
+        "spatial_transformer_gradient_l2": 0.01492113433778286,
+        "time_score_gradient_l2": 0.0,
+        "output_gradient_l2": 0.03644033893942833
+      },
+      "best": {
+        "mpjpe_mm": 63.3909389637746,
+        "root_mpjpe_mm": 33.77153497765775,
+        "pa_mpjpe_mm": 24.7877441869876,
+        "coverage": 1.0,
+        "matched_instances": 288,
+        "valid_instances": 288,
+        "predicted_instances": 288,
+        "part_names": [
+          "torso",
+          "left_arm",
+          "right_arm",
+          "left_leg",
+          "right_leg",
+          "head"
+        ],
+        "mean_time_weights": [
+          [
+            0.3333338499069214,
+            0.3333338499069214,
+            0.3333338499069214
+          ],
+          [
+            0.3333338499069214,
+            0.3333338499069214,
+            0.3333338499069214
+          ],
+          [
+            0.3333338499069214,
+            0.3333338499069214,
+            0.3333338499069214
+          ],
+          [
+            0.3333338499069214,
+            0.3333338499069214,
+            0.3333338499069214
+          ],
+          [
+            0.3333338499069214,
+            0.3333338499069214,
+            0.3333338499069214
+          ],
+          [
+            0.3333338499069214,
+            0.3333338499069214,
+            0.3333338499069214
+          ]
+        ],
+        "mean_null_weights": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "step": 3000,
+        "successful_steps": 3000,
+        "time": 1793255765.6582272
+      },
+      "complete": {
+        "status": "complete",
+        "step": 3000,
+        "successful_steps": 3000,
+        "target_successful_steps": 3000,
+        "matched_update_target_reached": true,
+        "elapsed_seconds": 4877.930068969727,
+        "best_metrics": {
+          "mpjpe_mm": 63.3909389637746,
+          "root_mpjpe_mm": 33.77153497765775,
+          "pa_mpjpe_mm": 24.7877441869876,
+          "coverage": 1.0,
+          "matched_instances": 288,
+          "valid_instances": 288,
+          "predicted_instances": 288,
+          "part_names": [
+            "torso",
+            "left_arm",
+            "right_arm",
+            "left_leg",
+            "right_leg",
+            "head"
+          ],
+          "mean_time_weights": [
+            [
+              0.3333338499069214,
+              0.3333338499069214,
+              0.3333338499069214
+            ],
+            [
+              0.3333338499069214,
+              0.3333338499069214,
+              0.3333338499069214
+            ],
+            [
+              0.3333338499069214,
+              0.3333338499069214,
+              0.3333338499069214
+            ],
+            [
+              0.3333338499069214,
+              0.3333338499069214,
+              0.3333338499069214
+            ],
+            [
+              0.3333338499069214,
+              0.3333338499069214,
+              0.3333338499069214
+            ],
+            [
+              0.3333338499069214,
+              0.3333338499069214,
+              0.3333338499069214
+            ]
+          ],
+          "mean_null_weights": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "unique_frames_seen": 6501,
+        "subset_frames": 6501,
+        "checkpoint": "/home/namhj/EventPose/exp/261029/part_aware_dynamic_aggregation/checkpoints/fixed/best.pt",
+        "completed_unix": 1793255770.1589282,
+        "test_used_for_selection": false
+      },
+      "test_segments_complete": 14
+    },
+    "global_dynamic": {
+      "progress": {
+        "step": 3000,
+        "successful_steps": 2999,
+        "elapsed_seconds": 4775.749371290207,
+        "unique_frames_seen": 6501,
+        "grad_norm": 55.99090576171875,
+        "amp_scale": 512.0,
+        "peak_memory_gib": 3.984011650085449,
+        "part_time_weight_std": 0.0,
+        "time_weights_mean": [
+          [
+            4.50612060376443e-06,
+            5.37244841325446e-06,
+            3.1178640256257495e-06
+          ],
+          [
+            4.50612060376443e-06,
+            5.37244841325446e-06,
+            3.1178640256257495e-06
+          ],
+          [
+            4.50612060376443e-06,
+            5.37244841325446e-06,
+            3.1178640256257495e-06
+          ],
+          [
+            4.50612060376443e-06,
+            5.37244841325446e-06,
+            3.1178640256257495e-06
+          ],
+          [
+            4.50612060376443e-06,
+            5.37244841325446e-06,
+            3.1178640256257495e-06
+          ],
+          [
+            4.50612060376443e-06,
+            5.37244841325446e-06,
+            3.1178640256257495e-06
+          ]
+        ],
+        "updated_unix": 1793255668.2152052,
+        "loss": 5.210076332092285,
+        "pa_mm": 39.11870193481445,
+        "root_mm": 47.98938751220703,
+        "detection": 0.07764185965061188,
+        "offset": 0.006181985139846802,
+        "rotation": 0.015416200272738934,
+        "shape": 0.3291229009628296,
+        "absolute": 0.004981860984116793,
+        "part_map_loss": 3.730588436126709,
+        "event_encoder_gradient_l2": 1.051290200848598e-05,
+        "spatial_transformer_gradient_l2": 1.303924000239931e-05,
+        "time_score_gradient_l2": 4.284900569473393e-05,
+        "output_gradient_l2": 0.01294048223644495
+      },
+      "best": {
+        "mpjpe_mm": 63.140424369680986,
+        "root_mpjpe_mm": 33.74554479503766,
+        "pa_mpjpe_mm": 24.75504654884388,
+        "coverage": 1.0,
+        "matched_instances": 288,
+        "valid_instances": 288,
+        "predicted_instances": 288,
+        "part_names": [
+          "torso",
+          "left_arm",
+          "right_arm",
+          "left_leg",
+          "right_leg",
+          "head"
+        ],
+        "mean_time_weights": [
+          [
+            3.4270733522134833e-06,
+            2.7461360332381446e-06,
+            2.601454070827458e-06
+          ],
+          [
+            3.4270733522134833e-06,
+            2.7461360332381446e-06,
+            2.601454070827458e-06
+          ],
+          [
+            3.4270733522134833e-06,
+            2.7461360332381446e-06,
+            2.601454070827458e-06
+          ],
+          [
+            3.4270733522134833e-06,
+            2.7461360332381446e-06,
+            2.601454070827458e-06
+          ],
+          [
+            3.4270733522134833e-06,
+            2.7461360332381446e-06,
+            2.601454070827458e-06
+          ],
+          [
+            3.4270733522134833e-06,
+            2.7461360332381446e-06,
+            2.601454070827458e-06
+          ]
+        ],
+        "mean_null_weights": [
+          0.9999915361404419,
+          0.9999915361404419,
+          0.9999915361404419,
+          0.9999915361404419,
+          0.9999915361404419,
+          0.9999915361404419
+        ],
+        "step": 3001,
+        "successful_steps": 3000,
+        "time": 1793255705.593541
+      },
+      "complete": {
+        "status": "complete",
+        "step": 3001,
+        "successful_steps": 3000,
+        "target_successful_steps": 3000,
+        "matched_update_target_reached": true,
+        "elapsed_seconds": 4818.750611543655,
+        "best_metrics": {
+          "mpjpe_mm": 63.140424369680986,
+          "root_mpjpe_mm": 33.74554479503766,
+          "pa_mpjpe_mm": 24.75504654884388,
+          "coverage": 1.0,
+          "matched_instances": 288,
+          "valid_instances": 288,
+          "predicted_instances": 288,
+          "part_names": [
+            "torso",
+            "left_arm",
+            "right_arm",
+            "left_leg",
+            "right_leg",
+            "head"
+          ],
+          "mean_time_weights": [
+            [
+              3.4270733522134833e-06,
+              2.7461360332381446e-06,
+              2.601454070827458e-06
+            ],
+            [
+              3.4270733522134833e-06,
+              2.7461360332381446e-06,
+              2.601454070827458e-06
+            ],
+            [
+              3.4270733522134833e-06,
+              2.7461360332381446e-06,
+              2.601454070827458e-06
+            ],
+            [
+              3.4270733522134833e-06,
+              2.7461360332381446e-06,
+              2.601454070827458e-06
+            ],
+            [
+              3.4270733522134833e-06,
+              2.7461360332381446e-06,
+              2.601454070827458e-06
+            ],
+            [
+              3.4270733522134833e-06,
+              2.7461360332381446e-06,
+              2.601454070827458e-06
+            ]
+          ],
+          "mean_null_weights": [
+            0.9999915361404419,
+            0.9999915361404419,
+            0.9999915361404419,
+            0.9999915361404419,
+            0.9999915361404419,
+            0.9999915361404419
+          ]
+        },
+        "unique_frames_seen": 6501,
+        "subset_frames": 6501,
+        "checkpoint": "/home/namhj/EventPose/exp/261029/part_aware_dynamic_aggregation/checkpoints/global_dynamic/best.pt",
+        "completed_unix": 1793255711.216026,
+        "test_used_for_selection": false
+      },
+      "test_segments_complete": 10
+    },
+    "part_dynamic": {
+      "progress": {
+        "step": 3000,
+        "successful_steps": 2999,
+        "elapsed_seconds": 4195.4544978141785,
+        "unique_frames_seen": 6501,
+        "grad_norm": 56.12995529174805,
+        "amp_scale": 512.0,
+        "peak_memory_gib": 3.9840126037597656,
+        "part_time_weight_std": 1.341805727861356e-06,
+        "time_weights_mean": [
+          [
+            3.322532393212896e-06,
+            4.533192623057403e-06,
+            2.2819174319010926e-06
+          ],
+          [
+            2.8657962047873298e-06,
+            3.944870059058303e-06,
+            2.0371219306980493e-06
+          ],
+          [
+            3.4188403787993593e-06,
+            4.563588390738005e-06,
+            2.502613597243908e-06
+          ],
+          [
+            5.335233254299965e-06,
+            4.920122592011467e-06,
+            3.4702047742030118e-06
+          ],
+          [
+            5.923438948229887e-06,
+            5.437964318844024e-06,
+            3.902130629285239e-06
+          ],
+          [
+            3.3653514037723653e-06,
+            4.697642907558475e-06,
+            2.521026317481301e-06
+          ]
+        ],
+        "updated_unix": 1793255087.91973,
+        "loss": 5.210916042327881,
+        "pa_mm": 39.1260986328125,
+        "root_mm": 47.99483871459961,
+        "detection": 0.07760675996541977,
+        "offset": 0.006178500596433878,
+        "rotation": 0.01538383960723877,
+        "shape": 0.32904884219169617,
+        "absolute": 0.004992960020899773,
+        "part_map_loss": 3.728036880493164,
+        "event_encoder_gradient_l2": 8.183272257156204e-06,
+        "spatial_transformer_gradient_l2": 1.0114101314684376e-05,
+        "time_score_gradient_l2": 3.368756006238982e-05,
+        "output_gradient_l2": 0.012926401570439339
+      },
+      "best": {
+        "mpjpe_mm": 63.06062460318422,
+        "root_mpjpe_mm": 33.732401377964734,
+        "pa_mpjpe_mm": 24.760671792911626,
+        "coverage": 1.0,
+        "matched_instances": 288,
+        "valid_instances": 288,
+        "predicted_instances": 289,
+        "part_names": [
+          "torso",
+          "left_arm",
+          "right_arm",
+          "left_leg",
+          "right_leg",
+          "head"
+        ],
+        "mean_time_weights": [
+          [
+            2.3869306460255757e-06,
+            1.904694158838538e-06,
+            1.7959298475034302e-06
+          ],
+          [
+            2.2734873255103594e-06,
+            1.8168971109844279e-06,
+            1.7046144193955115e-06
+          ],
+          [
+            2.650100896062213e-06,
+            2.1205059965723194e-06,
+            2.0015486370539293e-06
+          ],
+          [
+            3.8241037145780865e-06,
+            3.057973117392976e-06,
+            2.8905903945997125e-06
+          ],
+          [
+            4.189309493085602e-06,
+            3.3389817417628365e-06,
+            3.164089321217034e-06
+          ],
+          [
+            2.667815579115995e-06,
+            2.1685239062207984e-06,
+            2.0464342469495023e-06
+          ]
+        ],
+        "mean_null_weights": [
+          0.999995768070221,
+          0.9999960660934448,
+          0.9999951124191284,
+          0.9999908804893494,
+          0.99998939037323,
+          0.999994695186615
+        ],
+        "step": 3001,
+        "successful_steps": 3000,
+        "time": 1793255119.5251684
+      },
+      "complete": {
+        "status": "complete",
+        "step": 3001,
+        "successful_steps": 3000,
+        "target_successful_steps": 3000,
+        "matched_update_target_reached": true,
+        "elapsed_seconds": 4232.309707403183,
+        "best_metrics": {
+          "mpjpe_mm": 63.06062460318422,
+          "root_mpjpe_mm": 33.732401377964734,
+          "pa_mpjpe_mm": 24.760671792911626,
+          "coverage": 1.0,
+          "matched_instances": 288,
+          "valid_instances": 288,
+          "predicted_instances": 289,
+          "part_names": [
+            "torso",
+            "left_arm",
+            "right_arm",
+            "left_leg",
+            "right_leg",
+            "head"
+          ],
+          "mean_time_weights": [
+            [
+              2.3869306460255757e-06,
+              1.904694158838538e-06,
+              1.7959298475034302e-06
+            ],
+            [
+              2.2734873255103594e-06,
+              1.8168971109844279e-06,
+              1.7046144193955115e-06
+            ],
+            [
+              2.650100896062213e-06,
+              2.1205059965723194e-06,
+              2.0015486370539293e-06
+            ],
+            [
+              3.8241037145780865e-06,
+              3.057973117392976e-06,
+              2.8905903945997125e-06
+            ],
+            [
+              4.189309493085602e-06,
+              3.3389817417628365e-06,
+              3.164089321217034e-06
+            ],
+            [
+              2.667815579115995e-06,
+              2.1685239062207984e-06,
+              2.0464342469495023e-06
+            ]
+          ],
+          "mean_null_weights": [
+            0.999995768070221,
+            0.9999960660934448,
+            0.9999951124191284,
+            0.9999908804893494,
+            0.99998939037323,
+            0.999994695186615
+          ]
+        },
+        "unique_frames_seen": 6501,
+        "subset_frames": 6501,
+        "checkpoint": "/home/namhj/EventPose/exp/261029/part_aware_dynamic_aggregation/checkpoints/part_dynamic/best.pt",
+        "completed_unix": 1793255124.774525,
+        "test_used_for_selection": false
+      },
+      "test_segments_complete": 30
+    },
+    "v2_rgb_only": {
+      "progress": null,
+      "best": null,
+      "complete": null,
+      "test_segments_complete": 0
+    },
+    "v2_fixed": {
+      "progress": null,
+      "best": null,
+      "complete": null,
+      "test_segments_complete": 0
+    },
+    "v2_global_dynamic": {
+      "progress": null,
+      "best": null,
+      "complete": null,
+      "test_segments_complete": 0
+    },
+    "v2_part_dynamic": {
+      "progress": null,
+      "best": null,
+      "complete": null,
+      "test_segments_complete": 0
+    }
+  },
+  "comparison": {
+    "updated_unix": 1793255639.0152009,
+    "conditions": [
+      "rgb_only",
+      "fixed",
+      "global_dynamic",
+      "part_dynamic"
+    ],
+    "completed": [],
+    "pending": [
+      "rgb_only",
+      "fixed",
+      "global_dynamic",
+      "part_dynamic"
+    ],
+    "all_complete": false,
+    "segments": 80,
+    "frames": 24080,
+    "GT_instances": 24080,
+    "metrics": {},
+    "populations": {
+      "all_completed": {}
+    },
+    "coverage": {},
+    "tests": {},
+    "Test_used_for_selection": false,
+    "metrics_keys": [
+      "first_frame_aligned_mpjpe_mm",
+      "first_frame_aligned_pa_mpjpe_mm",
+      "frame_aligned_mpjpe_mm",
+      "frame_aligned_pa_mpjpe_mm",
+      "root_depth_error_mm"
+    ],
+    "root_depth_definition": "mean(abs(pred pelvis Z - GT pelvis Z))*1000 before alignment",
+    "population": "same matched GT instances; exact frame0 required in each person/chunk"
+  },
+  "v2_trigger": {
+    "approved": true,
+    "validated_unix": 1793255719.2245135,
+    "evidence": "Completed Train-holdout event interventions plus independently proven v1 null-projection-bias invariant violation",
+    "Test_used": false,
+    "mean_event_probability": 6.3478946685791016e-06,
+    "control_PA_deltas_mm": {
+      "zero_event": -0.000698401688403294,
+      "missing_event": 0.008965579344710761,
+      "shuffle_event": -0.0018209556253765413
+    },
+    "content_ignored_by_predeclared_threshold": true,
+    "cpu_audit_passed": true,
+    "source_diagnostic_sha256": "39fe7a250e0ef24da60c87af47694eb24aa1712f3efb3de5c7a0f14f8bac5c12",
+    "design_frozen_unix": 1793255396.893092
+  },
+  "diagnostic": {
+    "name": "part_dynamic",
+    "checkpoint": "/home/namhj/EventPose/exp/261029/part_aware_dynamic_aggregation/checkpoints/part_dynamic/best.pt",
+    "split": "Train internal holdout; NOT Test",
+    "frames": 288,
+    "controls": {
+      "intact": {
+        "mpjpe_mm": 63.06062460318422,
+        "root_mpjpe_mm": 33.732401377964734,
+        "pa_mpjpe_mm": 24.760671792911626,
+        "coverage": 1.0,
+        "matched_instances": 288,
+        "valid_instances": 288,
+        "predicted_instances": 289,
+        "part_names": [
+          "torso",
+          "left_arm",
+          "right_arm",
+          "left_leg",
+          "right_leg",
+          "head"
+        ],
+        "mean_time_weights": [
+          [
+            2.3869306460255757e-06,
+            1.904694158838538e-06,
+            1.7959298475034302e-06
+          ],
+          [
+            2.2734873255103594e-06,
+            1.8168971109844279e-06,
+            1.7046144193955115e-06
+          ],
+          [
+            2.650100896062213e-06,
+            2.1205059965723194e-06,
+            2.0015486370539293e-06
+          ],
+          [
+            3.8241037145780865e-06,
+            3.057973117392976e-06,
+            2.8905903945997125e-06
+          ],
+          [
+            4.189309493085602e-06,
+            3.3389817417628365e-06,
+            3.164089321217034e-06
+          ],
+          [
+            2.667815579115995e-06,
+            2.1685239062207984e-06,
+            2.0464342469495023e-06
+          ]
+        ],
+        "mean_null_weights": [
+          0.999995768070221,
+          0.9999960660934448,
+          0.9999951124191284,
+          0.9999908804893494,
+          0.99998939037323,
+          0.999994695186615
+        ]
+      },
+      "zero_event": {
+        "mpjpe_mm": 63.04489597767282,
+        "root_mpjpe_mm": 33.73355065736813,
+        "pa_mpjpe_mm": 24.759973391223223,
+        "coverage": 1.0,
+        "matched_instances": 288,
+        "valid_instances": 288,
+        "predicted_instances": 289,
+        "part_names": [
+          "torso",
+          "left_arm",
+          "right_arm",
+          "left_leg",
+          "right_leg",
+          "head"
+        ],
+        "mean_time_weights": [
+          [
+            3.843762169708498e-05,
+            3.7853667890885845e-05,
+            3.7739322579000145e-05
+          ],
+          [
+            3.11269068333786e-05,
+            3.065247801714577e-05,
+            3.0566294299205765e-05
+          ],
+          [
+            3.522151382640004e-05,
+            3.468378781690262e-05,
+            3.4592532756505534e-05
+          ],
+          [
+            4.042625369038433e-05,
+            3.9801569073460996e-05,
+            3.9705450035398826e-05
+          ],
+          [
+            4.433616777532734e-05,
+            4.364338383311406e-05,
+            4.353182157501578e-05
+          ],
+          [
+            3.147929965052754e-05,
+            3.101080801570788e-05,
+            3.0935170798329636e-05
+          ]
+        ],
+        "mean_null_weights": [
+          0.9998855590820312,
+          0.9999081492424011,
+          0.9998955130577087,
+          0.9998798370361328,
+          0.9998681545257568,
+          0.9999063014984131
+        ]
+      },
+      "missing_event": {
+        "mpjpe_mm": 63.26726796423111,
+        "root_mpjpe_mm": 33.775346360605816,
+        "pa_mpjpe_mm": 24.769637372256337,
+        "coverage": 1.0,
+        "matched_instances": 288,
+        "valid_instances": 288,
+        "predicted_instances": 288,
+        "part_names": [
+          "torso",
+          "left_arm",
+          "right_arm",
+          "left_leg",
+          "right_leg",
+          "head"
+        ],
+        "mean_time_weights": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "mean_null_weights": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "shuffle_event": {
+        "mpjpe_mm": 63.051257518838575,
+        "root_mpjpe_mm": 33.731305227920345,
+        "pa_mpjpe_mm": 24.75885083728625,
+        "coverage": 1.0,
+        "matched_instances": 288,
+        "valid_instances": 288,
+        "predicted_instances": 289,
+        "part_names": [
+          "torso",
+          "left_arm",
+          "right_arm",
+          "left_leg",
+          "right_leg",
+          "head"
+        ],
+        "mean_time_weights": [
+          [
+            3.265837904109503e-06,
+            2.5623889996495564e-06,
+            2.3537108972959686e-06
+          ],
+          [
+            2.930442860815674e-06,
+            2.3114398572943173e-06,
+            2.1176108475629007e-06
+          ],
+          [
+            3.4512768252170645e-06,
+            2.716747076192405e-06,
+            2.491563918738393e-06
+          ],
+          [
+            4.384221028885804e-06,
+            3.4838387819036143e-06,
+            3.2605071282887366e-06
+          ],
+          [
+            4.7995108616305515e-06,
+            3.8006796785339247e-06,
+            3.554632257873891e-06
+          ],
+          [
+            3.499018930597231e-06,
+            2.800682523229625e-06,
+            2.5699634988995967e-06
+          ]
+        ],
+        "mean_null_weights": [
+          0.999993085861206,
+          0.9999939799308777,
+          0.9999922513961792,
+          0.9999889731407166,
+          0.9999877214431763,
+          0.9999922513961792
+        ]
+      },
+      "reverse_time": {
+        "mpjpe_mm": 63.06227191020366,
+        "root_mpjpe_mm": 33.7326525271972,
+        "pa_mpjpe_mm": 24.75987369819076,
+        "coverage": 1.0,
+        "matched_instances": 288,
+        "valid_instances": 288,
+        "predicted_instances": 289,
+        "part_names": [
+          "torso",
+          "left_arm",
+          "right_arm",
+          "left_leg",
+          "right_leg",
+          "head"
+        ],
+        "mean_time_weights": [
+          [
+            1.828939844017441e-06,
+            1.904694158838538e-06,
+            2.3425984636560315e-06
+          ],
+          [
+            1.735213004394609e-06,
+            1.8168971109844279e-06,
+            2.232371571153635e-06
+          ],
+          [
+            2.038319053099258e-06,
+            2.1205059965723194e-06,
+            2.602040467536426e-06
+          ],
+          [
+            2.9432585506583564e-06,
+            3.057973117392976e-06,
+            3.755792704396299e-06
+          ],
+          [
+            3.221424094590475e-06,
+            3.338981969136512e-06,
+            4.113361683266703e-06
+          ],
+          [
+            2.083993649648619e-06,
+            2.1685243609681493e-06,
+            2.6199779767921427e-06
+          ]
+        ],
+        "mean_null_weights": [
+          0.999995768070221,
+          0.9999960660934448,
+          0.999995231628418,
+          0.9999908804893494,
+          0.99998939037323,
+          0.9999948143959045
+        ]
+      }
+    },
+    "predicted_density_residual_diagnostics": [],
+    "Test_used": false,
+    "completed_unix": 1793255310.379688
+  },
+  "next_training_review_not_before_unix": 1793258162.6716855
+}

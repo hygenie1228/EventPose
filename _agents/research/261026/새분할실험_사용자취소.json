@@ -1,0 +1,24 @@
+{
+  "reason": "사용자가 device3/device4 여섯 조건의 새 28시간 Goal로 교체 요청",
+  "stopped": [
+    {
+      "pid": 25307,
+      "status": "stopped_at_user_deadline"
+    },
+    {
+      "pid": 33498,
+      "status": "stopped_at_user_deadline"
+    },
+    {
+      "pid": 40594,
+      "status": "stopped_at_user_deadline"
+    },
+    {
+      "pid": 40616,
+      "status": "stopped_at_user_deadline"
+    }
+  ],
+  "remaining_owned_jobs": [],
+  "cancelled_unix": 1793002422.5565827,
+  "artifacts_preserved": true
+}

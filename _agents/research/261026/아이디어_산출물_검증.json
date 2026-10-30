@@ -1,0 +1,210 @@
+{
+  "검증시각_UTC": "2026-10-26T10:22:31.023395+00:00",
+  "보고서수": 4,
+  "로컬링크수": 34,
+  "누락링크": [],
+  "관측분석_session_view수": 10,
+  "원해상도분석_session_view수": 6,
+  "선형진단표본수": 1188,
+  "분할스냅샷_일치": true,
+  "선택세션_Train포함_Test키제외": true,
+  "선택6명_서로다름": true,
+  "원본이벤트_크기수정시각_보존": true,
+  "GT관절계산_교차검증": true,
+  "배열유효성": true,
+  "보조코드_문법검사": true,
+  "원본데이터_쓰기호출": false,
+  "신경망학습실행": false,
+  "links": [
+    {
+      "report": "261026_이벤트_인체동작추정_연구아이디어_개요.md",
+      "target": "_agents/report/261026_관측신뢰도_기반_이벤트_동작보정_제안.md",
+      "exists": true
+    },
+    {
+      "report": "261026_이벤트_인체동작추정_연구아이디어_개요.md",
+      "target": "_agents/report/261026_관절별_시간창_선택_이벤트_동작추정_제안.md",
+      "exists": true
+    },
+    {
+      "report": "261026_이벤트_인체동작추정_연구아이디어_개요.md",
+      "target": "_agents/report/261026_운동관측성_기반_다중시점_이벤트융합_제안.md",
+      "exists": true
+    },
+    {
+      "report": "261026_이벤트_인체동작추정_연구아이디어_개요.md",
+      "target": "/home/namhj/EventPose/exp/261026/idea_motion_probe/synthetic_blur_controls.jpg",
+      "exists": true
+    },
+    {
+      "report": "261026_이벤트_인체동작추정_연구아이디어_개요.md",
+      "target": "_agents/report/261026_관측신뢰도_기반_이벤트_동작보정_제안.md",
+      "exists": true
+    },
+    {
+      "report": "261026_이벤트_인체동작추정_연구아이디어_개요.md",
+      "target": "_agents/report/261026_관절별_시간창_선택_이벤트_동작추정_제안.md",
+      "exists": true
+    },
+    {
+      "report": "261026_이벤트_인체동작추정_연구아이디어_개요.md",
+      "target": "_agents/report/261026_운동관측성_기반_다중시점_이벤트융합_제안.md",
+      "exists": true
+    },
+    {
+      "report": "261026_이벤트_인체동작추정_연구아이디어_개요.md",
+      "target": "/home/namhj/EventPose/exp/261026/idea_motion_probe/manifest.json",
+      "exists": true
+    },
+    {
+      "report": "261026_이벤트_인체동작추정_연구아이디어_개요.md",
+      "target": "/home/namhj/EventPose/exp/261026/idea_motion_probe/motion_linear_probe.json",
+      "exists": true
+    },
+    {
+      "report": "261026_이벤트_인체동작추정_연구아이디어_개요.md",
+      "target": "/home/namhj/EventPose/exp/261026/idea_motion_native_probe/support_summary.json",
+      "exists": true
+    },
+    {
+      "report": "261026_이벤트_인체동작추정_연구아이디어_개요.md",
+      "target": "/home/namhj/EventPose/exp/261026/idea_motion_probe/preprocessing_latency.json",
+      "exists": true
+    },
+    {
+      "report": "261026_이벤트_인체동작추정_연구아이디어_개요.md",
+      "target": "/home/namhj/EventPose/_agents/research/261026/아이디어_검토_기록.md",
+      "exists": true
+    },
+    {
+      "report": "261026_이벤트_인체동작추정_연구아이디어_개요.md",
+      "target": "/home/namhj/EventPose/_agents/research/261026/아이디어_관련연구_조사.md",
+      "exists": true
+    },
+    {
+      "report": "261026_관측신뢰도_기반_이벤트_동작보정_제안.md",
+      "target": "_agents/report/261026_이벤트_인체동작추정_연구아이디어_개요.md",
+      "exists": true
+    },
+    {
+      "report": "261026_관측신뢰도_기반_이벤트_동작보정_제안.md",
+      "target": "/home/namhj/EventPose/exp/261026/idea_motion_probe/선형_모션_진단.png",
+      "exists": true
+    },
+    {
+      "report": "261026_관측신뢰도_기반_이벤트_동작보정_제안.md",
+      "target": "/home/namhj/EventPose/exp/261026/idea_motion_probe/paired_diagnostic_uncertainty.json",
+      "exists": true
+    },
+    {
+      "report": "261026_관측신뢰도_기반_이벤트_동작보정_제안.md",
+      "target": "/home/namhj/EventPose/exp/261026/idea_motion_probe/synthetic_blur_controls.jpg",
+      "exists": true
+    },
+    {
+      "report": "261026_관측신뢰도_기반_이벤트_동작보정_제안.md",
+      "target": "/home/namhj/EventPose/exp/261026/idea_motion_probe/manifest.json",
+      "exists": true
+    },
+    {
+      "report": "261026_관측신뢰도_기반_이벤트_동작보정_제안.md",
+      "target": "/home/namhj/EventPose/exp/261026/idea_motion_probe/motion_linear_probe.json",
+      "exists": true
+    },
+    {
+      "report": "261026_관측신뢰도_기반_이벤트_동작보정_제안.md",
+      "target": "/home/namhj/EventPose/exp/261026/idea_motion_native_probe/support_summary.json",
+      "exists": true
+    },
+    {
+      "report": "261026_관측신뢰도_기반_이벤트_동작보정_제안.md",
+      "target": "/home/namhj/EventPose/exp/261026/idea_motion_probe/preprocessing_latency.json",
+      "exists": true
+    },
+    {
+      "report": "261026_관측신뢰도_기반_이벤트_동작보정_제안.md",
+      "target": "/home/namhj/EventPose/exp/261026/idea_motion_probe/synthetic_blur_controls.json",
+      "exists": true
+    },
+    {
+      "report": "261026_관절별_시간창_선택_이벤트_동작추정_제안.md",
+      "target": "_agents/report/261026_이벤트_인체동작추정_연구아이디어_개요.md",
+      "exists": true
+    },
+    {
+      "report": "261026_관절별_시간창_선택_이벤트_동작추정_제안.md",
+      "target": "_agents/report/261026_관측신뢰도_기반_이벤트_동작보정_제안.md",
+      "exists": true
+    },
+    {
+      "report": "261026_관절별_시간창_선택_이벤트_동작추정_제안.md",
+      "target": "/home/namhj/EventPose/exp/261026/idea_motion_probe/관측량과_최신성.png",
+      "exists": true
+    },
+    {
+      "report": "261026_관절별_시간창_선택_이벤트_동작추정_제안.md",
+      "target": "_agents/report/261026_관측신뢰도_기반_이벤트_동작보정_제안.md",
+      "exists": true
+    },
+    {
+      "report": "261026_관절별_시간창_선택_이벤트_동작추정_제안.md",
+      "target": "/home/namhj/EventPose/exp/261026/idea_motion_native_probe/support_summary.json",
+      "exists": true
+    },
+    {
+      "report": "261026_관절별_시간창_선택_이벤트_동작추정_제안.md",
+      "target": "/home/namhj/EventPose/exp/261026/idea_motion_native_probe/source_audit.json",
+      "exists": true
+    },
+    {
+      "report": "261026_관절별_시간창_선택_이벤트_동작추정_제안.md",
+      "target": "/home/namhj/EventPose/tools/idea_event_native_support.py",
+      "exists": true
+    },
+    {
+      "report": "261026_운동관측성_기반_다중시점_이벤트융합_제안.md",
+      "target": "_agents/report/261026_이벤트_인체동작추정_연구아이디어_개요.md",
+      "exists": true
+    },
+    {
+      "report": "261026_운동관측성_기반_다중시점_이벤트융합_제안.md",
+      "target": "_agents/report/261026_관측신뢰도_기반_이벤트_동작보정_제안.md",
+      "exists": true
+    },
+    {
+      "report": "261026_운동관측성_기반_다중시점_이벤트융합_제안.md",
+      "target": "/home/namhj/EventPose/exp/261026/idea_motion_native_probe/support_summary.json",
+      "exists": true
+    },
+    {
+      "report": "261026_운동관측성_기반_다중시점_이벤트융합_제안.md",
+      "target": "/home/namhj/EventPose/exp/261026/idea_motion_native_probe/source_audit.json",
+      "exists": true
+    },
+    {
+      "report": "261026_운동관측성_기반_다중시점_이벤트융합_제안.md",
+      "target": "/home/namhj/EventPose/tools/idea_event_native_support.py",
+      "exists": true
+    }
+  ],
+  "report_sha256": {
+    "261026_이벤트_인체동작추정_연구아이디어_개요.md": "4f6f853317a26cb24a11dc699ee4077496d1327ac9aeed17ac34823b0c31003d",
+    "261026_관측신뢰도_기반_이벤트_동작보정_제안.md": "624482b0b6857d4add90d7f8d624ee6db6b8065e5f08c0e6830784f228ed427a",
+    "261026_관절별_시간창_선택_이벤트_동작추정_제안.md": "885114c3786090a9e4decf8ad59b39187af824bd00838775d8ac2cfc4eee5c39",
+    "261026_운동관측성_기반_다중시점_이벤트융합_제안.md": "5604d71cad09229664a6dc7c373dc66858b387c1c6ef7e7e77214297f4cf7e66"
+  },
+  "시각화_한글폰트_명시등록": true,
+  "그림_sha256": {
+    "관측량과_최신성.png": "8ad201f3825c0bcc528067ce908c1d631f6e0583acb66f397fc897df00730472",
+    "선형_모션_진단.png": "e69a7367801e96527ac6d6e51b3e29620c54bfac9ccd3ef61855c8017ae00696",
+    "synthetic_blur_controls.jpg": "b2bc8c9745b36b3a53ab5fa3ba69181822f346e7289cc2093d75cb5001c210dd"
+  },
+  "최종_내용검증시각_UTC": "2026-10-26T10:24:30.450873+00:00",
+  "재표집_결과_보고서일치": true,
+  "작업시작_UTC": "2026-10-26T09:56:28+00:00",
+  "전달직전_UTC": "2026-10-26T10:26:27.006851+00:00",
+  "전달직전_경과초": 1799.006851,
+  "산출물_검증완료": true,
+  "사용자_데이터특성_정정반영": true,
+  "정정검증시각_UTC": "2026-10-26T12:10:39.153518+00:00"
+}

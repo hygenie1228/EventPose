@@ -1,0 +1,69 @@
+{
+  "status": "passed",
+  "CPU_only": true,
+  "CUDA_or_running_jobs_inspected": false,
+  "synthetic_network_inputs": true,
+  "actual_dataset_check": "One read-only cached RGB-only holdout sample, no raw source writes",
+  "checks": {
+    "real_forward_shapes_MLP_concatenation_dimensions": true,
+    "bounded_soft_causal_horizon_and_separate_null_mass": true,
+    "eval_step0_reload_uses_motion_gate_not_uniform_warmup": true,
+    "all_null_missing_empty_off_camera_exact_RGB_identity": true,
+    "output_projection_bias_absent": true,
+    "part_local_occupancy_uses_calibrated_support_not_global_activity": true,
+    "dynamic_horizon_changes_with_query_motion_static_prior_does_not": true,
+    "static_control_keeps_same_motion_head_auxiliary_capacity": true,
+    "signed_uv_head_preserves_direction": true,
+    "event_use_quality_and_conditional_time_distribution_separate": true,
+    "invalid_GT_path_UV_masked_before_auxiliary_loss": true,
+    "motion_aux_executes_during_uniform_warmup": true,
+    "motion_aux_reaches_event_encoder_after_first_head_update_during_warmup": true,
+    "RGB_only_motion_auxiliary_fallback_without_event_tensor": true,
+    "actual_RGB_only_dataset_reads_no_event_pixels": true,
+    "motion_GT_labels_outside_model_inputs_whitelist": true,
+    "versioned_factory_and_conditional_training_auxiliary_dispatch": true,
+    "frozen_V1_V2_sources_preserved": true
+  },
+  "details": {
+    "controlled_dynamic_horizons_ms": [
+      78.43159484863281,
+      33.0
+    ],
+    "controlled_static_horizons_ms": [
+      85.10638427734375,
+      85.10638427734375
+    ],
+    "first_step_event_encoder_gradient_l2": 0.0,
+    "first_step_motion_head_gradient_l2": 1.21300001157932,
+    "second_step_event_encoder_gradient_l2": 0.14080975144643323,
+    "second_step_spatial_transformer_gradient_l2": 0.034377289450465705,
+    "verified_motion_target_counts": [
+      {
+        "role": "training",
+        "queries": 6501,
+        "valid_queries": 6491,
+        "subject_clusters": 51,
+        "official_forward_max_m": 4.76837158203125e-07,
+        "elapsed_seconds": 38.78034949302673,
+        "sha256": "51fe7e46eb31deef33744facfb34c41c176f6cf9452da657255532b0ba07f8ea"
+      },
+      {
+        "role": "validation",
+        "queries": 288,
+        "valid_queries": 288,
+        "subject_clusters": 9,
+        "official_forward_max_m": 2.384185791015625e-07,
+        "elapsed_seconds": 9.060555458068848,
+        "sha256": "b3fc67d638405ff8240ca8b4117270e4b7d2410aa772792a540d20309d154866"
+      }
+    ]
+  },
+  "sources": {
+    "src/multihmr/part_aggregation_model.py": "c94863d9ee21fbefb90ff1be2e82ca1d2f919123d7a268793b494a2efb2f677c",
+    "src/multihmr/part_aggregation_v2.py": "4b72e1a6c5f9dd8c02c2a4b6423ffd538dc5375f4f33afe4c298baeca890aba0",
+    "src/multihmr/part_aggregation_v3.py": "a16be11eed1bc20c95d67c0091e7e0d4750134872019ad79dc73d962d6897689",
+    "src/multihmr/part_aggregation_data_v3.py": "c8d7e2aee91a17bc1f61e40a81ecaed7b77bd466ebf6022d0070995814706b4a",
+    "src/multihmr/part_aggregation_factory.py": "21fb6ddce4b46f5af836f1f820855d716d9d847f57cf27f80a25cc1c371a292f",
+    "src/multihmr/part_aggregation_training.py": "e758dff714856c5122e0ffc1729e21ac7d5d496592a0815713d65408c2abd5c9"
+  }
+}

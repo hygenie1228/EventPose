@@ -1,5 +1,6 @@
 """Frozen Test aggregation with explicit populations and paired cluster tests."""
 import json
+import os
 from pathlib import Path
 import time
 import numpy as np
@@ -10,10 +11,10 @@ from .temporal_metrics import temporal_errors
 from .paired_statistics import paired_cluster, holm_adjust, motion_strata
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT = ROOT / 'exp/261024/rgb_event_36h'
+OUT = Path(os.environ.get('EVENTPOSE_EVENT_OUT', ROOT / 'exp/261024/rgb_event_36h'))
 
 
-def segment_metrics(prediction, gt, common, positions, fps):
+def segment_metrics(prediction, gt, common, positions, fps, timestamps_ns=None):
     """Sufficient sums for one population; all errors internally metres.
 
     Exact frame0 eligibility applies to every reported pose/temporal quantity.
@@ -33,11 +34,14 @@ def segment_metrics(prediction, gt, common, positions, fps):
     full = np.array([joint_errors(a, b) for a, b in zip(p, target)]).reshape(-1, 3)
     absolute = np.linalg.norm(p[:, :22] - target[:, :22], axis=-1).mean(-1)
     pelvis = np.linalg.norm(p[:, 0] - target[:, 0], axis=-1)
-    temporal = temporal_errors(prediction, gt, common, positions, fps)
+    depth_difference = p[:, 0, 2] - target[:, 0, 2]
+    temporal = temporal_errors(prediction, gt, common, positions, fps, timestamps_ns=timestamps_ns)
     assert np.isfinite(errors[common]).all() and np.isfinite(full).all()
     return dict(count=count, anchors=int(eligible.sum()),
                 alignment_sums_m=np.nansum(errors, axis=(0, 1)).tolist(),
                 absolute_sum_m=float(absolute.sum()), pelvis_sum_m=float(pelvis.sum()),
+                root_depth_sum_m=float(np.abs(depth_difference).sum()),
+                root_depth_signed_sum_m=float(depth_difference.sum()),
                 body55_sums_m=full.sum(0).tolist(), temporal_sums= list(temporal)), errors, common
 
 
@@ -51,6 +55,7 @@ def summarize(rows):
     return dict(samples=count, anchor_people=sum(row['anchors'] for row in rows),
                 **{key: float(1000 * alignment[i] / count) if count else None for i, key in enumerate(METRICS)},
                 absolute_mpjpe_mm=mean('absolute_sum_m'), pelvis_error_mm=mean('pelvis_sum_m'),
+                root_depth_error_mm=mean('root_depth_sum_m'),root_depth_bias_mm=mean('root_depth_signed_sum_m'),
                 body55={key: float(1000 * body55[i] / count) if count else None
                         for i, key in enumerate(('absolute_mpjpe_mm', 'root_mpjpe_mm', 'pa_mpjpe_mm'))},
                 pelvis_velocity_error_mmps=float(1000 * temporal[0] / temporal[1]) if temporal[1] else None,
@@ -61,11 +66,16 @@ def summarize(rows):
 def main():
     from multihmr.event_data import save
     read = lambda path: json.loads(path.read_text())
-    tasks = read(ROOT / '.experiment_storage/humanpose_gt_segments/tasks.json')
+    new_split = (OUT/'split_snapshot.json').exists() and (OUT/'test/tasks.json').exists()
+    tasks = read(OUT/'test/tasks.json' if new_split else ROOT / '.experiment_storage/humanpose_gt_segments/tasks.json')
     conditions = read(OUT / 'experiment_manifest.json')['conditions']
     plan = read(OUT / 'statistical_analysis_plan.json')
     names = [config['name'] for config in conditions]
-    assert len(names) == 10 and len(tasks) == 320 and sum(t['video_frames'] for t in tasks) == 96124
+    assert len(names) == 10 and len(tasks) == 320
+    if new_split:
+        import hashlib
+        assert hashlib.sha256((ROOT/'dataset/split.json').read_bytes()).hexdigest()==read(OUT/'manifest.json')['test_split_sha256']
+    else:assert sum(t['video_frames'] for t in tasks) == 96124
     groups = {'all10': names, **{'own_' + name: [name] for name in names},
               **{name: ['rgb_baseline', name] for name in plan['variants']}}
     rows = {group: {name: [] for name in members} for group, members in groups.items()}
@@ -76,7 +86,9 @@ def main():
     for task in tasks:
         with np.load(task['gt_file']) as data:
             gt = data['joints_cam_m']; valid = data['valid']; positions = data['source_rgb_positions']
-            assert np.array_equal(data['original_source_rgb_positions'], positions + task['start_frame'])
+            timestamps_ns=data['timestamps_ns'] if new_split else None
+            mapping_key='original_source_rgb_positions' if 'original_source_rgb_positions' in data else 'absolute_source_rgb_positions'
+            assert np.array_equal(data[mapping_key], positions + task['start_frame'])
         gt_total += int(valid.sum())
         predictions = {}; masks = {}
         for name in names:
@@ -92,11 +104,11 @@ def main():
                 assert np.array_equal(mask, valid & (data['matched_pred_indices'] >= 0))
                 predictions[name] = prediction; masks[name] = mask
                 coverage[name] += int(mask.sum())
-        motion = motion_strata(gt, valid, positions, task['fps'])
+        motion = motion_strata(gt, valid, positions, task['fps'],timestamps_ns=timestamps_ns)
         for group, members in groups.items():
             common = np.logical_and.reduce([masks[name] for name in members])
             for name in members:
-                row, errors, eligible_common = segment_metrics(predictions[name], gt, common, positions, task['fps'])
+                row, errors, eligible_common = segment_metrics(predictions[name], gt, common, positions, task['fps'],timestamps_ns=timestamps_ns)
                 row.update(session=task['session'], parent_session=task['parent_session'],
                            cluster=plan['session_to_cluster'][task['parent_session']])
                 rows[group][name].append(row)
@@ -132,7 +144,7 @@ def main():
         for key, value in family.items():
             value['holm_p_value'] = adjusted[key]
     result = dict(updated_unix=time.time(), conditions=names, gt_instances=gt_total,
-        rgb_frames=96124, segments=320, coverage={name: dict(matched=coverage[name],
+        rgb_frames=sum(t['video_frames'] for t in tasks), segments=len(tasks), coverage={name: dict(matched=coverage[name],
             total=gt_total, fraction=coverage[name] / gt_total) for name in names},
         populations={group: {name: summarize(values) for name, values in members.items()}
                      for group, members in rows.items()}, primary_tests=primary, secondary_tests=secondary,

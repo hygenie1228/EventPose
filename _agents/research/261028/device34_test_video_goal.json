@@ -1,0 +1,190 @@
+{
+  "experiment": "device34_test_video_gallery",
+  "created_unix": 1793161684.5364437,
+  "source_root": "/home/namhj/EventPose/exp/261027/device34_fusion_repair_15h",
+  "output_root": "/home/namhj/EventPose/exp/261028/device34_test_video_gallery",
+  "work_root": "/mnt/disk5/EventPose/261028/device34_test_video_gallery",
+  "managed_jobs_file": "/home/namhj/EventPose/exp/261028/device34_test_video_gallery/managed_jobs.json",
+  "allowed_gpus": [
+    1,
+    2,
+    4,
+    5
+  ],
+  "models": {
+    "pre_rgb3": {
+      "label": "원본 device3 RGB",
+      "config": "/home/namhj/EventPose/exp/261027/device34_fusion_repair_15h/configs/pre_rgb3.json",
+      "checkpoint": "/home/namhj/EventPose/exp/261027/device34_fusion_repair_15h/checkpoints/pre_rgb3/best.pt",
+      "sha256": "bc859533827e206ec3a66b93b26d42e2e5aa58bdaf4d03f01b4b641d0a83e527"
+    },
+    "pre_rgb4": {
+      "label": "원본 device4 RGB",
+      "config": "/home/namhj/EventPose/exp/261027/device34_fusion_repair_15h/configs/pre_rgb4.json",
+      "checkpoint": "/home/namhj/EventPose/exp/261027/device34_fusion_repair_15h/checkpoints/pre_rgb4/best.pt",
+      "sha256": "0339c65bff6c9d2d280e840ab350b61b562edd01b92974ce0b3f4e203c187ea3"
+    },
+    "rgb3_short90": {
+      "label": "device3 RGB",
+      "config": "/home/namhj/EventPose/exp/261027/device34_fusion_repair_15h/configs/rgb3_short90.json",
+      "checkpoint": "/home/namhj/EventPose/exp/261027/device34_fusion_repair_15h/checkpoints/rgb3_short90/best.pt",
+      "sha256": "c8b873da6c328f2531b859d5f669e9ac0a6d078ba80fe61d3a953cebd29ad34d"
+    },
+    "rgb4": {
+      "label": "device4 RGB",
+      "config": "/home/namhj/EventPose/exp/261027/device34_fusion_repair_15h/configs/rgb4.json",
+      "checkpoint": "/home/namhj/EventPose/exp/261027/device34_fusion_repair_15h/checkpoints/rgb4/best.pt",
+      "sha256": "087ce287bf6619604a5a3369ddd579fbc5e4e27854f5cdd20523a0b25ab91d12"
+    },
+    "rgb3_event4": {
+      "label": "device3 RGB + device4 event",
+      "config": "/home/namhj/EventPose/exp/261027/device34_fusion_repair_15h/configs/rgb3_event4.json",
+      "checkpoint": "/home/namhj/EventPose/exp/261027/device34_fusion_repair_15h/checkpoints/rgb3_event4/best.pt",
+      "sha256": "c46c2effb5d449726eb05bdc6b2c015dbd988da00ad2690af29aac0f6e2ce289"
+    },
+    "event3_rgb4": {
+      "label": "device3 event + device4 RGB",
+      "config": "/home/namhj/EventPose/exp/261027/device34_fusion_repair_15h/configs/event3_rgb4.json",
+      "checkpoint": "/home/namhj/EventPose/exp/261027/device34_fusion_repair_15h/checkpoints/event3_rgb4/best.pt",
+      "sha256": "426b1e0f5b5e318b8c7c3f14df8f33ccfe9514ac01d29126acc884c9b7245624"
+    },
+    "event3_event4": {
+      "label": "device3 event + device4 event",
+      "config": "/home/namhj/EventPose/exp/261027/device34_fusion_repair_15h/configs/event3_event4.json",
+      "checkpoint": "/home/namhj/EventPose/exp/261027/device34_fusion_repair_15h/checkpoints/event3_event4/best.pt",
+      "sha256": "e855d5079bf7f279b02dad22cdf24694156815b55225d6331fef66c766c660e2"
+    },
+    "rgb3_event3": {
+      "label": "device3 RGB + device3 event",
+      "config": "/home/namhj/EventPose/exp/261027/device34_fusion_repair_15h/configs/rgb3_event3.json",
+      "checkpoint": "/home/namhj/EventPose/exp/261027/device34_fusion_repair_15h/checkpoints/rgb3_event3/best.pt",
+      "sha256": "b7deb95b15268e7c3c179ce648e8285a770345348b5df023d00e816e61ad0ca4"
+    },
+    "rgb4_event4": {
+      "label": "device4 RGB + device4 event",
+      "config": "/home/namhj/EventPose/exp/261027/device34_fusion_repair_15h/configs/rgb4_event4.json",
+      "checkpoint": "/home/namhj/EventPose/exp/261027/device34_fusion_repair_15h/checkpoints/rgb4_event4/best.pt",
+      "sha256": "1d2fedb3e90f13be9206042844bc67635f1a78176d82a5fffc8be8f980f16b6a"
+    }
+  },
+  "clips": [
+    {
+      "task": {
+        "session": "20260721_144549_442053_110_b__segment1",
+        "parent_session": "20260721_144549_442053_110_b",
+        "segment": 1,
+        "start_frame": 2673,
+        "end_frame": 2974,
+        "video_frames": 301,
+        "gt_file": "/home/namhj/EventPose/exp/261026/device34_body_28h/test/gt/20260721_144549_442053_110_b__segment1.npz",
+        "gt_frames": 301,
+        "valid_gt_instances": 301,
+        "fps": 30.027324865627723,
+        "width": 1280,
+        "height": 720
+      },
+      "motion_median_mps": 0.20118520261394868,
+      "participant": 110,
+      "clip": "clip01",
+      "motion_quantile_target": 0.1
+    },
+    {
+      "task": {
+        "session": "20260724_134245_730480_234_b__segment1",
+        "parent_session": "20260724_134245_730480_234_b",
+        "segment": 1,
+        "start_frame": 3669,
+        "end_frame": 3970,
+        "video_frames": 301,
+        "gt_file": "/home/namhj/EventPose/exp/261026/device34_body_28h/test/gt/20260724_134245_730480_234_b__segment1.npz",
+        "gt_frames": 301,
+        "valid_gt_instances": 301,
+        "fps": 30.039050765995796,
+        "width": 1280,
+        "height": 720
+      },
+      "motion_median_mps": 0.2817680534497836,
+      "participant": 234,
+      "clip": "clip02",
+      "motion_quantile_target": 0.3
+    },
+    {
+      "task": {
+        "session": "20260729_111132_421090_255_b__segment1",
+        "parent_session": "20260729_111132_421090_255_b",
+        "segment": 1,
+        "start_frame": 3533,
+        "end_frame": 3834,
+        "video_frames": 301,
+        "gt_file": "/home/namhj/EventPose/exp/261026/device34_body_28h/test/gt/20260729_111132_421090_255_b__segment1.npz",
+        "gt_frames": 301,
+        "valid_gt_instances": 301,
+        "fps": 30.027324865627723,
+        "width": 1280,
+        "height": 720
+      },
+      "motion_median_mps": 0.3819402591479885,
+      "participant": 255,
+      "clip": "clip03",
+      "motion_quantile_target": 0.5
+    },
+    {
+      "task": {
+        "session": "20260729_114904_565147_256_b__segment3",
+        "parent_session": "20260729_114904_565147_256_b",
+        "segment": 3,
+        "start_frame": 10547,
+        "end_frame": 10848,
+        "video_frames": 301,
+        "gt_file": "/home/namhj/EventPose/exp/261026/device34_body_28h/test/gt/20260729_114904_565147_256_b__segment3.npz",
+        "gt_frames": 301,
+        "valid_gt_instances": 301,
+        "fps": 30.039050765995796,
+        "width": 1280,
+        "height": 720
+      },
+      "motion_median_mps": 0.46770703494056143,
+      "participant": 256,
+      "clip": "clip04",
+      "motion_quantile_target": 0.7
+    },
+    {
+      "task": {
+        "session": "20260721_113813_896850_106_b__segment3",
+        "parent_session": "20260721_113813_896850_106_b",
+        "segment": 3,
+        "start_frame": 8035,
+        "end_frame": 8336,
+        "video_frames": 301,
+        "gt_file": "/home/namhj/EventPose/exp/261026/device34_body_28h/test/gt/20260721_113813_896850_106_b__segment3.npz",
+        "gt_frames": 301,
+        "valid_gt_instances": 301,
+        "fps": 30.039050765995796,
+        "width": 1280,
+        "height": 720
+      },
+      "motion_median_mps": 0.670700108331425,
+      "participant": 106,
+      "clip": "clip05",
+      "motion_quantile_target": 0.9
+    }
+  ],
+  "split_sha256": "e282fcb751efa4b88525c8c1a2a8a08bcc05dda12df81faa8d403ec0b011c6c2",
+  "selection": "GT body22 motion-speed quantiles .1/.3/.5/.7/.9, five distinct participants; never prediction error",
+  "inference_read_only_source": true,
+  "original_report": "/home/namhj/EventPose/_agents/report/261027_센서융합_열화원인_분석과_재실험.md",
+  "source_report_snapshot": "/home/namhj/EventPose/exp/261028/device34_test_video_gallery/정량보고서_영상목록추가전_검증본.md",
+  "source_report_snapshot_sha256": "4c58cbc570b820a5824889c7a0c0228428737e8d266bfe39fecdebe07a609791",
+  "gallery_report": "/home/namhj/EventPose/_agents/report/261028_대표_테스트_구간별_센서융합_영상목록.md",
+  "expected_videos": 45,
+  "original_pretrained_manifest": "/home/namhj/EventPose/exp/261027/device34_fusion_repair_15h/original_pretrained_manifest.json",
+  "pointcloud_depth_scale_m_per_unit": 0.001,
+  "depth_scale_provenance": "Delivered example exp/_code_backup/warp_rgbd_h5_to_event.py default .001; archive tag says source_raw_unit. This is an explicitly disclosed scale assumption, not independent sensor-unit certification.",
+  "render_version": 2,
+  "completion": {
+    "status": "complete",
+    "completed_kst": "2026-10-28 14:11:18 KST",
+    "video_count": 45,
+    "verification": "exp/261028/device34_test_video_gallery/final_verification.json"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "probe": "Only camera-X/Y translation; root Z unchanged",
+  "pelvis_error_mm": 500.0,
+  "root_depth_error_mm": 0.0,
+  "conclusion": "Use root_depth_error_mm for RPE-Z; pelvis_error_mm is full3D RPE",
+  "source": "src/utils/compare_event_methods.py"
+}

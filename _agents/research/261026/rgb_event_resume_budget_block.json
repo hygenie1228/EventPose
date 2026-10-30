@@ -1,0 +1,15 @@
+{
+  "recorded_unix": 1792996050.0214438,
+  "reason": "원래 고정 마감2026-10-26 05:17:17UTC가 지났으며 추가 실행 시간에 대한 사용자 답변이 아직 없음",
+  "consecutive_goal_turns_with_same_condition_at_least": 3,
+  "requested_options": [
+    "추가 최대24시간",
+    "추가 최대18시간",
+    "저장모델만평가"
+  ],
+  "gpu_work_started": false,
+  "cpu_checkpoint_verification_session": 77632,
+  "cpu_checkpoint_verification_status": "last observed running; observation delay is not treated as failure",
+  "preserved": "원본RGB320구간 Test,283세션 이벤트캐시와 검증,RGB/fusion5개 best/last checkpoint",
+  "goal_complete": false
+}

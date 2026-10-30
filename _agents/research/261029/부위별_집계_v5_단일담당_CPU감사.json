@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "checked_kst": "2026-10-29T22:11:55.419192+09:00",
+  "CPU_only": true,
+  "synthetic_inputs_only": true,
+  "Test_used": false,
+  "checks": {
+    "coarse_initialization_kernel_sum_and_position_interpolation": true,
+    "calibrated_stride7_centres_match_RGB_query_grid": true,
+    "dense_actual_module_shapes_and_dynamic_horizons": true,
+    "eval_step0_reload_exact_learned_gate": true,
+    "missing_empty_off_camera_all_null_identity": true,
+    "local_occupancy_uses_exact_stride7_patch": true,
+    "matched_fixed_global_static_and_RGB_controls": true,
+    "post_warmup_pose_and_motion_gradient_paths": true,
+    "actual_dense_builder_frozen_RGB_and_zero_projection": true,
+    "actual_Train_selected_RGB_parameter_equality": true
+  },
+  "model_source_sha256": "a88a93eda27ca8175ebedb82c407dd1fcc3f66eb068cbc6f9e4ed548ddc6f1a9",
+  "actual_RGB_parameter_tensors": 115,
+  "sources": {
+    "src/multihmr/part_aggregation_model.py": "c94863d9ee21fbefb90ff1be2e82ca1d2f919123d7a268793b494a2efb2f677c",
+    "src/multihmr/part_aggregation_data.py": "76b84a15471ceeeffaa5fb92b5a1059ecdcb0563d46324c7e95b59d3f86fa8ce",
+    "src/multihmr/part_aggregation_training.py": "478e507eb1ba2a2397345d6781dd832b590367eefde8875e0f66a0c66ad021b4",
+    "src/multihmr/part_aggregation_evaluation.py": "b7dacf0a42b78ef21cadb009defb27514f2b364ed6fdce4440b9596dd4f206da",
+    "src/utils/part_aggregation_metrics.py": "5817d5a0f6d1f64d5f36d951ac585e08e44e8c46f5b87e7c4f38518d61063d60",
+    "scripts/train_multihmr.py": "d7f7b68771c02ff788d06a8df502bc8e335d3b4ffd2368251a7d481b8af8892d",
+    "scripts/evaluate_multihmr.py": "e7b65ed91ae97aec03d5e39f01bd74b8cb9ad5d9b95d26ca5a133d89a15cda84",
+    "tools/run_part_aggregation.py": "60eb89a435a6f8aa73441fd9ee5a5c8df8594edf4624d6abcf91da47d4d55e79",
+    "src/multihmr/part_aggregation_v2.py": "4b72e1a6c5f9dd8c02c2a4b6423ffd538dc5375f4f33afe4c298baeca890aba0",
+    "src/multihmr/part_aggregation_factory.py": "76dc7efc58cefb9319dfa8d0ba56ffb96581f6c3b4a35f550b4039251fa96213",
+    "src/multihmr/part_aggregation_v3.py": "a16be11eed1bc20c95d67c0091e7e0d4750134872019ad79dc73d962d6897689",
+    "src/multihmr/part_aggregation_data_v3.py": "c8d7e2aee91a17bc1f61e40a81ecaed7b77bd466ebf6022d0070995814706b4a",
+    "src/multihmr/part_aggregation_v4.py": "5488dc0454db12764b841fe62c9f0db81a895e590d703981860f025f86d7ced7",
+    "src/multihmr/part_aggregation_v5.py": "a88a93eda27ca8175ebedb82c407dd1fcc3f66eb068cbc6f9e4ed548ddc6f1a9"
+  },
+  "limitation": "CPU synthetic module tests and optional actual builder/parameter verification; no actual-image prediction, CUDA pilot or accuracy verification"
+}

@@ -94,7 +94,7 @@ def participant_components(metadata, sessions):
     return mapping, {canonical[root]: sorted(values) for root, values in members.items()}
 
 
-def motion_strata(gt, valid, positions, fps, still_mps=.05, fast_mps=.5):
+def motion_strata(gt, valid, positions, fps, still_mps=.05, fast_mps=.5, timestamps_ns=None):
     """GT body22 central-difference speed bins, fixed before seeing predictions.
 
     -1 unknown, 0 still, 1 slow, 2 fast. No segment/gap is bridged. These are
@@ -108,7 +108,9 @@ def motion_strata(gt, valid, positions, fps, still_mps=.05, fast_mps=.5):
         return result
     consecutive = (np.diff(positions)[:-1] == 1) & (np.diff(positions)[1:] == 1)
     keep = valid[:-2] & valid[1:-1] & valid[2:] & consecutive[:, None]
-    speed = np.linalg.norm((gt[2:] - gt[:-2]) * (fps / 2), axis=-1).mean(-1)
+    dt=(np.asarray(timestamps_ns,dtype=np.int64)[2:]-np.asarray(timestamps_ns,dtype=np.int64)[:-2])/1e9 if timestamps_ns is not None else np.full(len(gt)-2,2/fps)
+    assert np.all(dt>0)
+    speed = np.linalg.norm((gt[2:] - gt[:-2]) / dt[:,None,None,None], axis=-1).mean(-1)
     labels = np.where(speed <= still_mps, 0, np.where(speed >= fast_mps, 2, 1)).astype(np.int8)
     result[1:-1][keep] = labels[keep]
     return result

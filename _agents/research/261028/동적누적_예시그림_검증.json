@@ -1,0 +1,28 @@
+{
+  "검증시각_한국시간": "2026-10-28T22:03:27.895997+09:00",
+  "보고서": "/home/namhj/EventPose/_agents/report/261028_자세정보이득_기반_관절별_이벤트_동적누적_제안.md",
+  "보고서_sha256": "6219e4439f9d268dbeef4dd5f7b78f64339b3c6471770b3db46067b6f623a04d",
+  "장면예시와_가상수치예시_두그림": [
+    {
+      "파일": "/home/namhj/EventPose/exp/261028/dynamic_aggregation_diagram/부위별_동적누적_장면예시.png",
+      "크기": [
+        2880,
+        1152
+      ],
+      "sha256": "2c827bb8e71a1947b2ef449b93c4a43f67ee1b6bb7a9cc3c142c9b9e39b369c0"
+    },
+    {
+      "파일": "/home/namhj/EventPose/exp/261028/dynamic_aggregation_diagram/부위별_선택이유_가상수치예시.png",
+      "크기": [
+        2720,
+        896
+      ],
+      "sha256": "409d813c2a9bbcf1992ea03b67e38d1fac5fdc6bf829ff08aa34f9a4b56d2adf"
+    }
+  ],
+  "본문_pipeline그림_제거": true,
+  "가상예시_표시": true,
+  "폰트경고_없음": true,
+  "직접_시각검수": true,
+  "학습실행": false
+}

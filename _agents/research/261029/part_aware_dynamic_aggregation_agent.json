@@ -1,0 +1,81 @@
+{
+  "agent": "/root/part_aware_aggregation",
+  "goal_status": "parent_native_goal_blocked_by_model_capacity",
+  "config": "_agents/research/261029/part_aware_dynamic_aggregation_goal_20h.json",
+  "start_kst": "2026-10-29T13:55:12+09:00",
+  "deadline_kst": "2026-10-30T09:55:12+09:00",
+  "phase": "v2_main_training",
+  "training_launched": true,
+  "pilot_launches": [
+    {
+      "pid": 32489,
+      "role": "pilot:rgb_only",
+      "start_ticks": "8054383",
+      "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261029/part_aware_dynamic_aggregation/configs/pilot_rgb_only.json",
+      "pgid": 32489,
+      "physical_gpu": 1,
+      "gpu_uuid": "GPU-d98bf2b1-073b-0738-bc33-0fc86356d368",
+      "launched_unix": 1793250163.8667934
+    },
+    {
+      "pid": 32491,
+      "role": "pilot:fixed",
+      "start_ticks": "8054402",
+      "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261029/part_aware_dynamic_aggregation/configs/pilot_fixed.json",
+      "pgid": 32491,
+      "physical_gpu": 2,
+      "gpu_uuid": "GPU-ba69cb68-67b5-09a9-24cd-205c450821d5",
+      "launched_unix": 1793250164.0173633
+    },
+    {
+      "pid": 32493,
+      "role": "pilot:global_dynamic",
+      "start_ticks": "8054416",
+      "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261029/part_aware_dynamic_aggregation/configs/pilot_global_dynamic.json",
+      "pgid": 32493,
+      "physical_gpu": 4,
+      "gpu_uuid": "GPU-fee21915-f6ec-b600-ed15-787fd4c98a03",
+      "launched_unix": 1793250164.1164546
+    },
+    {
+      "pid": 32495,
+      "role": "pilot:part_dynamic",
+      "start_ticks": "8054427",
+      "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u scripts/train_multihmr.py --config /home/namhj/EventPose/exp/261029/part_aware_dynamic_aggregation/configs/pilot_part_dynamic.json",
+      "pgid": 32495,
+      "physical_gpu": 5,
+      "gpu_uuid": "GPU-88cf24af-0bc7-ad30-f05a-9c02ccdb936b",
+      "launched_unix": 1793250164.2107604
+    }
+  ],
+  "updated_unix": 1793260588.1841276,
+  "scheduler": {
+    "pid": 84777,
+    "role": "aggregation_scheduler",
+    "start_ticks": "8869121",
+    "command": "/home/namhj/EventPose/.venv-humanpose/bin/python -u tools/run_part_aggregation.py",
+    "pgid": 84777,
+    "started_unix": 1793258311.0878763,
+    "deadline_unix": 1793321712,
+    "replaces_scheduler_pid": 68906,
+    "existing_workers_preserved": true
+  },
+  "pilots_passed": true,
+  "main_training_launched": true,
+  "memory_sessions_verified": 78,
+  "main_train_pids": [
+    37475,
+    37476,
+    37477,
+    37478
+  ],
+  "last_main_verification_source": "_agents/research/261029/부위별_동적집계_정기검토_1444.json",
+  "report_recovery_verified": true,
+  "v2_cuda_pilots_passed": true,
+  "v2_preflight_evidence": "exp/261029/part_aware_dynamic_aggregation/v2_verified_cuda_pilots.json",
+  "current_job_state": "exp/261029/part_aware_dynamic_aggregation/pipeline_state.json",
+  "native_goal_status": "blocked",
+  "experiment_status": "running",
+  "monitor_owner": "/root/part_aware_aggregation",
+  "next_direct_review_unix": 1793262071.0398614
+}

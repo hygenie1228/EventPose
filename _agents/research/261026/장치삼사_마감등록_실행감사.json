@@ -1,0 +1,44 @@
+{
+  "checked_unix": 1793016632.8563902,
+  "deadline_utc": "2026-10-27 12:33:29 UTC",
+  "trial_hours": 3,
+  "live_registered_identity_matches": [
+    {
+      "pid": 12090,
+      "role": "device34_body_deadline_watchdog",
+      "identity_verified": true
+    },
+    {
+      "pid": 27099,
+      "role": "device34_body_pipeline",
+      "identity_verified": true
+    },
+    {
+      "pid": 50366,
+      "role": "device34_body_final_speed_and_audit_waiter",
+      "identity_verified": true
+    },
+    {
+      "pid": 14022,
+      "role": "train:rgb3",
+      "identity_verified": true
+    },
+    {
+      "pid": 14025,
+      "role": "train:rgb4",
+      "identity_verified": true
+    },
+    {
+      "pid": 14028,
+      "role": "train:rgb3_rgb4",
+      "identity_verified": true
+    },
+    {
+      "pid": 18546,
+      "role": "train:rgb3_event4",
+      "identity_verified": true
+    }
+  ],
+  "six_primary_configs_deadline_consistent": true,
+  "scope": "현재 PID/PGID/start tick/명령 및 마감 설정 검사. 종료 신호는 실제 전송하지 않음. Test 완료 증거가 아님."
+}
